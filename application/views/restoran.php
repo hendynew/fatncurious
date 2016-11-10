@@ -37,18 +37,23 @@
               <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
             </div>
               <h1><span> <?php echo $resto->NAMA_RESTORAN ;?> </span>  </h1>
-                  <h2 style="margin-top:-30px;color:#fff"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                  <h2 style="margin-top:-30px;color:#fff">
+                    <?php
+                    $temp_rating = $rating;
+                    for($i=0;$i<5;$i++){
+                      if($temp_rating > 0){
+                        echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
+                      }else echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+                      $temp_rating--;
+                    }
+                    ?>
                   </h2>
 
               </h1>
               <p><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
-              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '.$resto->STATUS ;?></p>
+              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
           </div>
         </div>
       </div>
@@ -106,14 +111,19 @@
 
     <div class = "container navbarSpace" style="background-color:#fafafa">
         <div>
+          <?php
+            if($kodeuser != ''){
+              ?>
     			<center>
     				<h4> Give Rating </h4>
-    				<h2 class="rating"> <span class="glyphicon <?php echo $glyphicon1;?> bintang" data-val="1" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon2;?> bintang" data-val="2" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon3;?> bintang" data-val="3" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon4;?> bintang" data-val="4" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon5;?> bintang" aria-hidden="true" data-val="5"></span>
-    				  </h2>
+    				<h2 class="rating">
+                      <span class="glyphicon <?php echo $glyphicon1;?> bintang" data-val="1" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon2;?> bintang" data-val="2" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon3;?> bintang" data-val="3" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon4;?> bintang" data-val="4" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon5;?> bintang" data-val="5" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
+    				  </h2><?php
+            }?>
     			</center>
               <h2>Sorted By :</h2>
               <ul class="nav nav-tabs">
@@ -173,17 +183,20 @@
                 }
               }
 
-              echo form_open('fatncurious/sortByMenuRestoran');
-							echo "<div class='input-group customInputGroup img-rounded'>";
-              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-              echo "<span class='input-group-btn'>";
-              echo form_hidden('menu',$m->KODE_MENU);
-              echo form_hidden('resto',$m->KODE_RESTORAN);
-              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-              echo form_submit($arr);
-              echo "</span>";
-							echo "</div>";
-              echo form_close();
+              if($kodeuser != ''){
+                echo form_open('fatncurious/sortByMenuRestoran');
+                echo "<div class='input-group customInputGroup img-rounded'>";
+                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+                echo "<span class='input-group-btn'>";
+                echo form_hidden('menu',$m->KODE_MENU);
+                echo form_hidden('resto',$m->KODE_RESTORAN);
+                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+                echo form_submit($arr);
+                echo "</span>";
+                echo "</div>";
+                echo form_close();
+              }
+
               echo "</div>";
               echo "</div>";
             }
@@ -252,17 +265,19 @@
                   echo "<br/>";
                 }
               }
-              echo form_open('fatncurious/sortByMenuRestoran');
-							echo "<div class='input-group customInputGroup img-rounded'>";
-              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-              echo "<span class='input-group-btn'>";
-              echo form_hidden('menu',$m->KODE_MENU);
-              echo form_hidden('resto',$m->KODE_RESTORAN);
-              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-              echo form_submit($arr);
-              echo "</span>";
-							echo "</div>";
-              echo form_close();
+              if($kodeuser != ''){
+                echo form_open('fatncurious/sortByMenuRestoran');
+                echo "<div class='input-group customInputGroup img-rounded'>";
+                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+                echo "<span class='input-group-btn'>";
+                echo form_hidden('menu',$m->KODE_MENU);
+                echo form_hidden('resto',$m->KODE_RESTORAN);
+                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+                echo form_submit($arr);
+                echo "</span>";
+                echo "</div>";
+                echo form_close();
+              }
               echo "</div>";
               echo "</div>";
             }
@@ -332,17 +347,19 @@
                   echo "<br/>";
                 }
               }
-              echo form_open('fatncurious/sortByMenuRestoran');
-							echo "<div class='input-group customInputGroup img-rounded'>";
-              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-              echo "<span class='input-group-btn'>";
-              echo form_hidden('menu',$m->KODE_MENU);
-              echo form_hidden('resto',$m->KODE_RESTORAN);
-              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-              echo form_submit($arr);
-              echo "</span>";
-							echo "</div>";
-              echo form_close();
+              if($kodeuser != ''){
+                echo form_open('fatncurious/sortByMenuRestoran');
+                echo "<div class='input-group customInputGroup img-rounded'>";
+                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+                echo "<span class='input-group-btn'>";
+                echo form_hidden('menu',$m->KODE_MENU);
+                echo form_hidden('resto',$m->KODE_RESTORAN);
+                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+                echo form_submit($arr);
+                echo "</span>";
+                echo "</div>";
+                echo form_close();
+              }
               echo "</div>";
               echo "</div>";
             }

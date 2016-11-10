@@ -211,6 +211,12 @@ $(".displayPictureMenu").on('click',function()
 $(".bintang").on('click',function()
 {
 	$total = parseInt($(this).attr('data-val'));
+	$user = $(this).attr('data-val2');
+	$resto = $(this).attr('data-val3');
+	$total_sebelumnya = parseInt($(this).attr('data-val4'));
+	if($total != $total_sebelumnya){
+		window.location = '/fatncurious/index.php/fatncurious/rate_restoran/' + $total + '/' + $user + '/' + $resto;
+	}
 	//bersihkan Bintang
 	$('.bintang').each(function(index,value)
 	{
