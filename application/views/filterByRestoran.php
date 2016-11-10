@@ -145,6 +145,10 @@
           //var destinationA = 'TEGALSARI 88 SURABAYA Indonesia';
           /*var destinationB = 'JALAN TAMBAK ADI 100 SURABAYA';*/
           var destination = [];
+          for (var i = 0; i<=5 ;i++)
+          {
+            destination[i]='';
+          }
           <?php
             $counter = 0;
             foreach($resto as $row)
