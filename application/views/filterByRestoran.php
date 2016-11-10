@@ -22,7 +22,6 @@
 
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="<?php echo base_url('/vendors/images/favicon.ico');?>">
-
     <style>
         body
         {
@@ -31,7 +30,6 @@
             background-repeat: no-repeat;
         }
     </style>
-
 </head><!--/head-->
 
 <body>

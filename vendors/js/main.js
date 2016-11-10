@@ -62,7 +62,7 @@ jQuery(function($) {
 	});
 
 	// User define function
-	/*function Scroll() {
+	function Scroll() {
 		var contentTop      =   [];
 		var contentBottom   =   [];
 		var winTop      =   $(window).scrollTop();
@@ -79,7 +79,7 @@ jQuery(function($) {
 				.eq(i).addClass('active');
 			}
 		})
-	};*/
+	};
 
 	$('#tohash').on('click', function(){
 		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
