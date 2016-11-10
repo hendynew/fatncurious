@@ -244,6 +244,7 @@ class Fatncurious extends CI_Controller {
 				$data['active4'] = '';
 
 				$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				if($rating==null){
 					for($i=1;$i<=5;$i++){
 						$data['glyphicon'.$i] = 'glyphicon-star-empty';
@@ -268,6 +269,10 @@ class Fatncurious extends CI_Controller {
 				else if($data['resto']->STATUS == 1){
 					$data['resto']->STATUS = 'Buka';
 				}
+				$this->load->model('Model_restaurant');
+				$data['kodeuser'] = $kodeUser;
+				$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 				//echo 'masuk 2';
 				$this->load->view('restoran',$data);
 			}
@@ -632,7 +637,6 @@ class Fatncurious extends CI_Controller {
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
-
 		$this->load->model('Model_restaurant');
 		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
