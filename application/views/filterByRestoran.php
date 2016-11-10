@@ -103,11 +103,26 @@
 					echo "<h3 class='media-heading jarakMedia'>".$r->NAMA_RESTORAN.', '.$r->ALAMAT_RESTORAN."</h3>";
           echo "</a>";
 					echo "<h4 class='jarakMedia'>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+          $ada = false;
+            foreach($rating as $key=>$value){
+              if($key == $r->KODE_RESTORAN){
+                $ada = true;
+                $jumlah_rating = $value;
+                for($i = 0; $i < 5; $i++){
+                  if($jumlah_rating > 0){
+                    echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+                  }else
+                    echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+                  $jumlah_rating--;
+                }
+                break;
+              }
+            }
+            if(!$ada){
+              for($i = 0; $i < 5; $i++){
+                echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+              }
+            }
 					echo "</h4>";
 					echo "<h5 class='jarakMedia'>"."No Telp : ".$r->NO_TELEPON_RESTORAN."</h5>";
 					echo "<h5 class='jarakMedia'>"."Jam Buka : ".$r->JAM_BUKA_RESTORAN."</h5>";

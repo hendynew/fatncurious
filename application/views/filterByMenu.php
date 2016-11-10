@@ -100,7 +100,18 @@
 				echo "</a>";
 			echo "</div>";
 			echo "<div class='media-body jarakMedia'>";
-				echo "<h4 class='media-heading jarakMedia'>".$r->NAMA_MENU." - ".'<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>'.$r->NAMA_RESTORAN."</a>"."<br/><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> 30</h4>";
+
+				echo "<h4 class='media-heading jarakMedia'>".$r->NAMA_MENU." - ".'<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>'.$r->NAMA_RESTORAN."</a>"."<br/>";
+        $ada = false;
+        foreach($rating as $key=>$val){
+          if($key == $r->KODE_MENU)
+          {
+            $ada = true;
+            echo "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> ". $val ."</h4>";
+          }
+        }
+        if(!$ada)
+          echo "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> 0 </h4>";
 				echo "<p class='jarakMedia'>".$r->DESKRIPSI_MENU.'.'."</p>";
 				echo "<div class='media m-t-2'>";
 					echo "<div class='media-left' href='#'>";
