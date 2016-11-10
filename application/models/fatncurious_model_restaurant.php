@@ -33,7 +33,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 		$this->db->select('JUMLAH_RATING');
 		$this->db->where($where);
 		$this->db->from('rating_restoran');
-		return $this->db->get()->result();
+		return $this->db->get()->row();
 		//return $this->db->query("select JUMLAH_RATING from rating_restoran")->result();
 	}
 

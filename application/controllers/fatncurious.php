@@ -244,12 +244,14 @@ class Fatncurious extends CI_Controller {
 				$data['active4'] = '';
 
 				$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+				$data['userRating'] = 0;
 				if($rating==null){
 					for($i=1;$i<=5;$i++){
 						$data['glyphicon'.$i] = 'glyphicon-star-empty';
 					}
 				}
 				else{
+					$data['userRating'] = $rating->JUMLAH_RATING;
 					for($i=1;$i<=5;$i++){
 						if(($rating->JUMLAH_RATING) - $i >= 0){
 							$data['glyphicon'.$i] = 'glyphicon-star';
@@ -268,6 +270,10 @@ class Fatncurious extends CI_Controller {
 				else if($data['resto']->STATUS == 1){
 					$data['resto']->STATUS = 'Buka';
 				}
+				$this->load->model('Model_restaurant');
+				$data['kodeuser'] = $kodeUser;
+				$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 				//echo 'masuk 2';
 				$this->load->view('restoran',$data);
 			}
@@ -457,6 +463,10 @@ class Fatncurious extends CI_Controller {
 	//================Sorted BY================
 	public function sortByPromoProfilRestoran($kode)
 	{
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['active1'] = '';
@@ -487,6 +497,9 @@ class Fatncurious extends CI_Controller {
 		else if($data['resto']->STATUS == 1){
 			$data['resto']->STATUS = 'Buka';
 		}
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$this->load->model('Model_menu');
 		foreach($data['menu'] as $d){
@@ -503,12 +516,14 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
 				}
 			}
 			else{
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
@@ -545,6 +560,9 @@ class Fatncurious extends CI_Controller {
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['active1'] = '';
 		$data['active2'] = '';
 		$data['active3'] = 'active';
@@ -560,14 +578,20 @@ class Fatncurious extends CI_Controller {
 		$data['active2'] = '';
 		$data['active3'] = '';
 		$data['active4'] = '';
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+		$data['userRating'] = 0;
 		if($rating==null){
 			for($i=1;$i<=5;$i++){
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
 		else{
+			$data['userRating'] = $rating->JUMLAH_RATING;
 			for($i=1;$i<=5;$i++){
 				if(($rating->JUMLAH_RATING) - $i >= 0){
 					$data['glyphicon'.$i] = 'glyphicon-star';
@@ -594,12 +618,14 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
 				}
 			}
 			else{
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
@@ -615,8 +641,17 @@ class Fatncurious extends CI_Controller {
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$this->load->view('restoran',$data);
+	}
+	public function rate_restoran($rate,$user,$resto){
+		$this->load->model('Model_restaurant');
+		$this->Model_restaurant->rate($rate,$user,$resto);
+		redirect("fatncurious/sortByMenuRestoran/".$resto);
 	}
 	//================Sorted BY================
 
