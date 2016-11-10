@@ -163,10 +163,10 @@
     					FilterBy <span class="caret"></span>
     				  </a>
     				  <ul class="dropdown-menu">
-    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
-    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
-    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
-    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
+    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
+    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
+    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
+    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
     				  </ul>
     			</li>
             <li class="scroll"><a href="#contact">Contact Us</a></li>
