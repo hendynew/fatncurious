@@ -22,7 +22,6 @@
 
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="<?php echo base_url('/vendors/images/favicon.ico');?>">
-
     <style>
         body
         {
@@ -31,7 +30,6 @@
             background-repeat: no-repeat;
         }
     </style>
-
 </head><!--/head-->
 
 <body>
@@ -147,6 +145,10 @@
           //var destinationA = 'TEGALSARI 88 SURABAYA Indonesia';
           /*var destinationB = 'JALAN TAMBAK ADI 100 SURABAYA';*/
           var destination = [];
+          for (var i = 0; i<=5 ;i++)
+          {
+            destination[i]='';
+          }
           <?php
             $counter = 0;
             foreach($resto as $row)
