@@ -401,6 +401,8 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,0);
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
 		$config["per_page"] = 5;
