@@ -163,32 +163,30 @@ jQuery(function($) {
 	});
 
 	//Google Map
-	if($('#asd').html()==" Index ")
-	{
-		var latitude = $('#google-map').data('latitude')
-		var longitude = $('#google-map').data('longitude')
-		function initialize_map() {
-			var myLatlng = new google.maps.LatLng(latitude,longitude);
-			var mapOptions = {
-				zoom: 14,
-				scrollwheel: false,
-				center: myLatlng
-			};
-			var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-			var contentString = '';
-			var infowindow = new google.maps.InfoWindow({
-				content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
-			});
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map
-			});
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.open(map,marker);
-			});
-		}
-		google.maps.event.addDomListener(window, 'load', initialize_map);
+	var latitude = $('#google-map').data('latitude')
+	var longitude = $('#google-map').data('longitude')
+	function initialize_map() {
+		var myLatlng = new google.maps.LatLng(latitude,longitude);
+		var mapOptions = {
+			zoom: 14,
+			scrollwheel: false,
+			center: myLatlng
+		};
+		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+		var contentString = '';
+		var infowindow = new google.maps.InfoWindow({
+			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
+		});
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map,marker);
+		});
 	}
+	google.maps.event.addDomListener(window, 'load', initialize_map);
+
 });
 
 /*EDITANKU*/
@@ -213,12 +211,6 @@ $(".displayPictureMenu").on('click',function()
 $(".bintang").on('click',function()
 {
 	$total = parseInt($(this).attr('data-val'));
-	$user = $(this).attr('data-val2');
-	$resto = $(this).attr('data-val3');
-	$total_sebelumnya = parseInt($(this).attr('data-val4'));
-	if($total != $total_sebelumnya){
-		window.location = '/fatncurious/index.php/fatncurious/rate_restoran/' + $total + '/' + $user + '/' + $resto;
-	}
 	//bersihkan Bintang
 	$('.bintang').each(function(index,value)
 	{
