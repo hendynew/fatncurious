@@ -207,6 +207,9 @@ class Fatncurious extends CI_Controller {
 	{
 		//echo $this->session->userdata('userYangLogin')->KODE_USER;
 		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
+		if($this->session->userdata('userYangLogin')){
 			$pemilik = false;
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$data['kodeResto'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
@@ -279,6 +282,11 @@ class Fatncurious extends CI_Controller {
 			}
 		}
 		else{
+			$this->load->model('Model_restaurant');
+			$data['kodeuser'] = '';
+			$data['userRating'] = 0;
+			$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+			$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 			$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 			//$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 			$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
@@ -303,6 +311,9 @@ class Fatncurious extends CI_Controller {
 
 	public function profilUser()
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
@@ -378,11 +389,17 @@ class Fatncurious extends CI_Controller {
 	//================Filter BY================
 	public function filterByPromo()
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['promo'] = $this->fatncurious_model_promo->selectBiggestPromo();
 		$this->load->view('filterByPromo',$data);
 	}
 	public function filterByRestoran()
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,0);
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
@@ -409,6 +426,9 @@ class Fatncurious extends CI_Controller {
 	}
 	public function filterByKartu()
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKredit(5,0);
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByKartu');
@@ -434,6 +454,9 @@ class Fatncurious extends CI_Controller {
 	}
 	public function filterByMenu()
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,0);
 
 		$config = array();
@@ -463,6 +486,9 @@ class Fatncurious extends CI_Controller {
 	//================Sorted BY================
 	public function sortByPromoProfilRestoran($kode)
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$this->load->model('Model_restaurant');
 		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
@@ -484,6 +510,9 @@ class Fatncurious extends CI_Controller {
 	}
 	public function sortByMenuProfilRestoran($kode)
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['active1'] = '';
@@ -512,6 +541,9 @@ class Fatncurious extends CI_Controller {
 	}
 	public function sortByMenuRestoran($kode)
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$kodeUser = '';
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
@@ -571,6 +603,9 @@ class Fatncurious extends CI_Controller {
 	}
 	public function sortByPromoRestoran($kode)
 	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
@@ -606,7 +641,9 @@ class Fatncurious extends CI_Controller {
 
 	public function sortByKreditRestoran($kode)
 	{
-
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKreditResto($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['active1'] = '';
@@ -649,6 +686,9 @@ class Fatncurious extends CI_Controller {
 		$this->load->view('restoran',$data);
 	}
 	public function rate_restoran($rate,$user,$resto){
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$this->load->model('Model_restaurant');
 		$this->Model_restaurant->rate($rate,$user,$resto);
 		redirect("fatncurious/sortByMenuRestoran/".$resto);
@@ -658,7 +698,9 @@ class Fatncurious extends CI_Controller {
 	//================Pagination===============
 	public function PaginationFilterByRestoran()
 	{
-
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
 		$config["per_page"] = 5;
@@ -685,7 +727,9 @@ class Fatncurious extends CI_Controller {
 
 	public function PaginationFilterByMenu()
 	{
-
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByMenu');
 		$config["per_page"] = 5;
@@ -712,7 +756,9 @@ class Fatncurious extends CI_Controller {
 
 	public function PaginationFilterByKartu()
 	{
-
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByKartu');
 		$config["per_page"] = 5;
