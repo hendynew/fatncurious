@@ -48,7 +48,7 @@
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
-          </a>                   
+          </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -89,10 +89,12 @@
   </header><!--/#home-->
     <br/>
     <div class='container navbarSpace'>
+    <div id="output">asdasd</div>
 	<?php
 	$ctr=0;
 		foreach($resto as $r){
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
+        echo '<p id="jarak'.$ctr++.'">Jarak = Undefined</p>';
 				echo "<div class='media-left'>";
 					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>';
 						?>
@@ -127,12 +129,92 @@
 	?>
        <!-- <div class="shadow">asdasdsadsd</div>-->
     </div>
+    <script>
+    function initMap() {
+      var bounds = new google.maps.LatLngBounds;
+      var markersArray = [];
+      if (navigator.geolocation)
+      {
+      navigator.geolocation.getCurrentPosition(function(position) {
 
+          var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+          };
+          //var origin1 = {lat: 55.93, lng: -3.118};
+
+          var origin2 = {lat: pos.lat, lng : pos.lng};
+          //var destinationA = 'TEGALSARI 88 SURABAYA Indonesia';
+          /*var destinationB = 'JALAN TAMBAK ADI 100 SURABAYA';*/
+          var destination = [];
+          <?php
+            $counter = 0;
+            foreach($resto as $row)
+            {
+                echo 'destination['.$counter++.'] = "'.$row->ALAMAT_RESTORAN.'";';
+            }
+          ?>
+          //alert(destinationA);
+          //alert(destination[0]);
+          var geocoder = new google.maps.Geocoder;
+          var service = new google.maps.DistanceMatrixService;
+          service.getDistanceMatrix({
+          origins: [origin2],
+          destinations: [destination[0],destination[1],destination[2],destination[3],destination[4]],
+          travelMode: google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+          }, function(response, status) {
+          if (status !== google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+          } else {
+            console.log(response);
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            deleteMarkers(markersArray);
+
+            for (var i = 0; i < originList.length; i++) {
+            var results = response.rows[i].elements;
+            geocoder.geocode({'address': originList[i]});
+            for (var j = 0; j < results.length; j++) {
+              geocoder.geocode({'address': destinationList[j]}
+                );
+              /*outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                ': ' + results[j].distance.text + ' in ' +
+                results[j].duration.text + '<br>';*/
+                if(results[j].status!='ZERO_RESULTS')
+                {
+
+                  $('#jarak'+j).text(originList[i] + ' to ' + destinationList[j] +
+                    ': ' + results[j].distance.text + ' in ' +
+                    results[j].duration.text);
+                }
+            }
+            }
+          }
+          });
+
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      }
+    }
+
+    function deleteMarkers(markersArray) {
+      for (var i = 0; i < markersArray.length; i++) {
+      markersArray[i].setMap(null);
+      }
+      markersArray = [];
+    }
+    </script>
 
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.inview.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/wow.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/mousescroll.js');?>"></script>
@@ -140,5 +222,7 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&signed_in=true&callback=initMap"
+      async defer></script>
 </body>
 </html>
