@@ -284,7 +284,7 @@
 
             //gallery
             echo "<div class='imageGallery R".$ctrRow."'>";
-              echo "<div id='links'>";
+              echo "<div class='links'>";
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
                   $ctr=1;
@@ -366,7 +366,7 @@
 
             //gallery
             echo "<div class='imageGallery R".$ctrRow."'>";
-              echo "<div id='links'>";
+              echo "<div class='links'>";
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
                   $ctr=1;
@@ -396,6 +396,17 @@
 			}
 			//===========SNACK=========
 		?>
+
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+    </div>
+
 
 		<?php
 		$adaMenu=false;
@@ -439,17 +450,6 @@
 		?>
     </div>
     <br/>
-
-    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-        <div class="slides"></div>
-        <h3 class="title"></h3>
-        <a class="prev">‹</a>
-        <a class="next">›</a>
-        <a class="close">×</a>
-        <a class="play-pause"></a>
-        <ol class="indicator"></ol>
-    </div>
-
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
