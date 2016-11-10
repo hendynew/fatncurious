@@ -244,13 +244,14 @@ class Fatncurious extends CI_Controller {
 				$data['active4'] = '';
 
 				$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
-				$data['userRating'] = $rating->JUMLAH_RATING;
+				$data['userRating'] = 0;
 				if($rating==null){
 					for($i=1;$i<=5;$i++){
 						$data['glyphicon'.$i] = 'glyphicon-star-empty';
 					}
 				}
 				else{
+					$data['userRating'] = $rating->JUMLAH_RATING;
 					for($i=1;$i<=5;$i++){
 						if(($rating->JUMLAH_RATING) - $i >= 0){
 							$data['glyphicon'.$i] = 'glyphicon-star';
@@ -515,13 +516,14 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
-			$data['userRating'] = $rating->JUMLAH_RATING;
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
 				}
 			}
 			else{
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
@@ -582,13 +584,14 @@ class Fatncurious extends CI_Controller {
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
-		$data['userRating'] = $rating->JUMLAH_RATING;
+		$data['userRating'] = 0;
 		if($rating==null){
 			for($i=1;$i<=5;$i++){
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
 		else{
+			$data['userRating'] = $rating->JUMLAH_RATING;
 			for($i=1;$i<=5;$i++){
 				if(($rating->JUMLAH_RATING) - $i >= 0){
 					$data['glyphicon'.$i] = 'glyphicon-star';
@@ -615,13 +618,14 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
-			$data['userRating'] = $rating->JUMLAH_RATING;
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
 				}
 			}
 			else{
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
