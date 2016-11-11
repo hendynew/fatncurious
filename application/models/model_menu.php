@@ -166,4 +166,58 @@ class Model_menu extends CI_Model {
 		$this->db->insert('review_menu',$arr);
 	}
 
+	public function SELECT_LIKE($kode){
+		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_menu as rating,user where rating.KODE_MENU='$kode' AND rating.STATUS='1' GROUP BY KODE_MENU")->result();
+		return $hasil;
+	}
+	/*
+	public function COUNT_LIKE($kode){
+		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1'")->result();
+		$total = 0;
+		$jumlah = 0;
+		foreach($hasil as $h){
+			$total += $h->RATING;
+			$jumlah++;
+		}
+		$total_rating = $total/$jumlah;
+
+		return floor($total_rating);
+	}
+*/
+	public function COUNT_ALL_LIKE(){
+		$hasil = $this->db->query("SELECT rating.KODE_MENU as KODE,rating.JUMLAH_RATING as 'RATING' from rating_menu as rating where rating.STATUS='1' GROUP BY KODE_MENU")->result();
+		$data = [];
+		foreach($hasil as $h){
+			$data[$h->KODE] = $h->RATING;
+		}
+		return $data;
+	}
+/*
+
+	public function LIKE($rate,$user,$menu){
+		$where = [
+			"KODE_USER"=>$user,
+			"KODE_RESTORAN"=>$resto,
+			"STATUS"=>'1'
+		];
+		$this->db->where($where);
+		if($this->db->get('rating_restoran')->result()){
+			$arr = [
+				"KODE_USER"=>$user,
+				"KODE_RESTORAN"=>$resto,
+				"STATUS"=>'1'
+			];
+			$this->db->where($arr);
+			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate]);
+		}else{
+			$arr = [
+				"KODE_USER"=>$user,
+				"KODE_RESTORAN"=>$resto,
+				"JUMLAH_RATING"=>$rate,
+				"STATUS"=>'1'
+			];
+			$this->db->insert('rating_restoran',$arr);
+		}
+	}
+*/
 }

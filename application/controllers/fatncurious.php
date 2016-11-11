@@ -401,6 +401,8 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,0);
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
 		$config["per_page"] = 5;
@@ -458,7 +460,8 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,0);
-
+		$this->load->model('Model_menu');
+		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByMenu');
 		$config["per_page"] = 5;
@@ -722,6 +725,8 @@ class Fatncurious extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,$page);
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
 		$this->load->view('filterByRestoran',$data);
 	}
 
@@ -751,6 +756,8 @@ class Fatncurious extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,$page);
+		$this->load->model('Model_menu');
+		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$this->load->view('filterByMenu',$data);
 	}
 
