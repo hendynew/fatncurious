@@ -14,6 +14,7 @@
   <link id="css-preset" href="<?php echo base_url('/vendors/css/presets/preset1.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/main.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('/vendors/css/bootstrap-combobox.css'); ?>" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -89,8 +90,20 @@
     </div>
   </header><!--/#home-->
     <br>
-    <div class='container navbarSpace diperkecil'>
-	<?php
+    <div class='container navbarSpace'>
+      <div class='form-group'>
+        <label> Kartu Kredit </label>
+        <div class="combobox-container">
+          <input type="hidden" name="normal"/>
+          <div class="input-group">
+            <input type="text" autocomplete="off" placeholder="Select A State" class="combobox input-large form-control"/>
+            <ul class="typeahead typeahead-long dropdown-menu" style="top:34px;left:0px;display:none">
+              <li data-value="Alabama"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  <?php
 		foreach($promo as $r){
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
 				echo "<div class='media-left'>";
@@ -130,5 +143,7 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>">
+
 </body>
 </html>
