@@ -262,3 +262,23 @@ $(".links").on('click',function(event)
         links = this.getElementsByTagName('a');
     blueimp.Gallery(links, options);
 };*/
+
+$(".likeButton").on('click',function()
+{
+	alert('likeButton');
+});
+
+$(".dislikeButton").on('click',function()
+{
+	alert('dislikeButton');
+});
+
+$(".reportButton").on('click',function()
+{
+	alert('reportButton');
+});
+
+$(".shareButton").on('click',function()
+{
+	alert('shareButton');
+});
