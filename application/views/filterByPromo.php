@@ -91,18 +91,138 @@
   </header><!--/#home-->
     <br>
     <div class='container navbarSpace'>
-      <div class='form-group'>
-        <label> Kartu Kredit </label>
-        <div class="combobox-container">
-          <input type="hidden" name="normal"/>
-          <div class="input-group">
-            <input type="text" autocomplete="off" placeholder="Select A State" class="combobox input-large form-control"/>
-            <ul class="typeahead typeahead-long dropdown-menu" style="top:34px;left:0px;display:none">
-              <li data-value="Alabama"></li>
-            </ul>
+      <div class="row">
+        <h1>Inline Form</h1>
+          <div class="form-group">
+            <div class="combobox-container" style="display:none;">
+			<input type="hidden" name="inline" value="">
+				<div class="input-group">
+					<input type="text" autocomplete="off" placeholder="Select a State" class="combobox form-control">
+						<ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px;">
+							<li data-value="Mandiri" class="active">
+								<a href="#">
+									<strong></strong>M
+									<strong></strong>a
+									<strong></strong>n
+									<strong></strong>d
+									<strong></strong>i
+									<strong></strong>r
+									<strong></strong>i
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BII">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>I
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BNI">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>N
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Danamon">
+								<a href="#">
+									<strong></strong>D
+									<strong></strong>a
+									<strong></strong>n
+									<strong></strong>a
+									<strong></strong>m
+									<strong></strong>o
+									<strong></strong>n
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BRI">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>R
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BCA">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>C
+									<strong></strong>A
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Mega">
+								<a href="#">
+									<strong></strong>M
+									<strong></strong>e
+									<strong></strong>g
+									<strong></strong>a
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="CIMB">
+								<a href="#">
+									<strong></strong>C
+									<strong></strong>I
+									<strong></strong>M
+									<strong></strong>B
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Sinarmas">
+								<a href="#">
+									<strong></strong>S
+									<strong></strong>i
+									<strong></strong>n
+									<strong></strong>a
+									<strong></strong>r
+									<strong></strong>m
+									<strong></strong>a
+									<strong></strong>s
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Bukopin">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>u
+									<strong></strong>k
+									<strong></strong>o
+									<strong></strong>p
+									<strong></strong>i
+									<strong></strong>n
+									<strong></strong>
+								</a>
+							</li>
+							</ul>
+							<span class="input-group-addon dropdown-toggle" data-dropdown="dropdown">
+								<span class="caret"></span>
+							<span class="glyphicon glyphicon-remove"></span>
+							</span>
+						</div>
+					</div>
+				<select class="combobox form-control" style="display: none;">
+				  <option value="" selected="selected">Select a State</option>
+				  <option value="Mandiri">Mandiri</option>
+				  <option value="BII">BII</option>
+				  <option value="BCA">BCA</option>
+				  <option value="BNI">BNI</option>
+				  <option value="Danamon">Danamon</option>
+				  <option value="BRI">BRI</option>
+				  <option value="Mega">Mega</option>
+				  <option value="Bersama">Bersama</option>
+				  <option value="CIMB">CIMB</option>
+				  <option value="Sinarmas">Sinarmas</option>
+				  <option value="Bukopin">Bukopin</option>
+            </select>
           </div>
-        </div>
       </div>
+
+
   <?php
 		foreach($promo as $r){
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
@@ -143,7 +263,9 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>">
-
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>"></script>
+  <script>
+    $('.combobox').combobox();
+  </script>
 </body>
 </html>
