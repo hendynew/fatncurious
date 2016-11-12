@@ -249,6 +249,7 @@
 				echo "</div>";
 			echo "</div>";
 		}
+		echo $links;
 	?>
     </div>
 

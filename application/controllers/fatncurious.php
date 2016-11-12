@@ -71,8 +71,7 @@ class Fatncurious extends CI_Controller {
 	//==========REGISTER============
 
 	//===========VALIDASI REGISTER============
-	public function cekRegisterKosong()
-	{
+	public function cekRegisterKosong(){
 		if($this->input->post('txtEmailRegister') == '' || $this->input->post('txtPasswordRegister') == '' || $this->input->post('txtNamaRegister') == '' || $this->input->post('txtTglRegister') == '' || $this->input->post('txtNoTelpRegister') == '')
 		{
 			$this->form_validation->set_message('cekRegisterKosong','Semua Field Wajib Diisi');
@@ -83,8 +82,7 @@ class Fatncurious extends CI_Controller {
 			return true;
 		}
 	}
-	public function cekEmailAdaRegister($email)
-	{
+	public function cekEmailAdaRegister($email){
 		$passwordd = $this->input->post('txtEmailRegister');
 		$user = $this->fatncurious_model_registerLogin->search($email);
 		$nemu=false;
@@ -137,8 +135,7 @@ class Fatncurious extends CI_Controller {
 	//==========LOGIN============
 
 	//==========================VALIDASI  Login=========================
-	public function cekLoginKosong()
-	{
+	public function cekLoginKosong()	{
 		if($this->input->post('txtEmailLogin') == '' || $this->input->post('txtPasswordLogin') == '' )
 		{
 			$this->form_validation->set_message('cekLoginKosong','Semua Field Wajib Diisi');
@@ -150,8 +147,7 @@ class Fatncurious extends CI_Controller {
 		}
 	}
 
-	public function cekEmailAdaLogin($email)
-	{
+	public function cekEmailAdaLogin($email){
 		$passwordd = $this->input->post('txtPasswordLogin');
 		$emaill = $this->fatncurious_model_registerLogin->search($email);
 		$nemu=false;
@@ -182,8 +178,7 @@ class Fatncurious extends CI_Controller {
 	//==========================VALIDASI Login=========================
 
 	//==========================INDEX=========================
-	public function index($adaError = null)
-	{
+	public function index($adaError = null){
 		$data = [];
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
@@ -203,8 +198,7 @@ class Fatncurious extends CI_Controller {
 	//==========================INDEX=========================
 
 	//================Profil================
-	public function profilRestoran($kode)
-	{
+	public function profilRestoran($kode)	{
 		//echo $this->session->userdata('userYangLogin')->KODE_USER;
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
@@ -309,8 +303,7 @@ class Fatncurious extends CI_Controller {
 		}
 	}
 
-	public function profilUser()
-	{
+	public function profilUser()	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
@@ -323,8 +316,7 @@ class Fatncurious extends CI_Controller {
 
 	}
 
-	public function LogOut()
-	{
+	public function LogOut(){
 		if($this->session->userdata('userYangLogin')){
 			$this->session->set_userdata('userYangLogin','');
 			redirect('fatncurious');
@@ -387,31 +379,51 @@ class Fatncurious extends CI_Controller {
 	//================Profil================
 
 	//================Filter BY================
-	public function filterByPromo()
-	{
+	public function filterByPromo()	{
+		$this->load->model('fatncurious_model_promo');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
-		$data['promo'] = $this->fatncurious_model_promo->selectBiggestPromo();
-		$this->load->view('filterByPromo',$data);
-	}
-	public function filterByRestoran()
-	{
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
-		}
-		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,0);
-		$this->load->model('Model_restaurant');
-		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
+
 		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
+		$config['base_url'] = site_url('fatncurious/filterByPromo');
 		$config["per_page"] = 5;
 		$config["uri_segment"] = 3;
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link']=false;
 		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByRestoran" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/filterByPromo" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_close'] = '</strong></a></li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$config['total_rows'] = sizeof($this->fatncurious_model_promo->selectSemuaPromo(null,null));
+		$data['promo'] = $this->fatncurious_model_promo->selectSemuaPromo(5,$page);
+		$this->pagination->initialize($config);
+		$data['links'] = $this->pagination->create_links();
+
+		$this->load->view('filterByPromo',$data);
+	}
+	public function filterByRestoran(){
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
+		$config = array();
+		$config['base_url'] = site_url('fatncurious/filterByRestoran');
+		$config["per_page"] = 5;
+		$config["uri_segment"] = 3;
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link']=false;
+		$config['last_link']=false;
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/filterByRestoran" data-ci-pagination-page="2"><strong>';
 		$config['cur_tag_close'] = '</strong></a></li>';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -421,17 +433,17 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectSemuaResto(null,null));
+		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,$page);
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 
 		$this->load->view('filterByRestoran',$data);
 	}
-	public function filterByKartu()
-	{
+	public function filterByKartu(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
-		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKredit(5,0);
+
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByKartu');
 		$config["per_page"] = 5;
@@ -450,27 +462,27 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectBiggestKredit(null,null));
+		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKredit(5,$page);
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$this->load->view('filterByKredit',$data);
 	}
-	public function filterByMenu()
-	{
+	public function filterByMenu(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
-		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,0);
+
 		$this->load->model('Model_menu');
 		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByMenu');
+		$config['base_url'] = site_url('fatncurious/filterByMenu');
 		$config["per_page"] = 5;
 		$config["uri_segment"] = 3;
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link']=false;
 		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByMenu" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/filterByMenu" data-ci-pagination-page="2"><strong>';
 		$config['cur_tag_close'] = '</strong></a></li>';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -480,6 +492,7 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$config['total_rows'] = sizeof($this->fatncurious_model_menu->selectMenu(null,null));
+		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,$page);
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$this->load->view('filterByMenu',$data);
@@ -487,13 +500,11 @@ class Fatncurious extends CI_Controller {
 	//================Filter BY================
 
 	//================Sorted BY================
-	public function sortByPromoProfilRestoran($kode)
-	{
+	public function sortByPromoProfilRestoran($kode){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 		$this->load->model('Model_restaurant');
-		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
@@ -511,8 +522,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$this->load->view('profileRestoran',$data);
 	}
-	public function sortByMenuProfilRestoran($kode)
-	{
+	public function sortByMenuProfilRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
@@ -542,8 +552,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$this->load->view('profileRestoran',$data);
 	}
-	public function sortByMenuRestoran($kode)
-	{
+	public function sortByMenuRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
@@ -604,12 +613,12 @@ class Fatncurious extends CI_Controller {
 		$data['active4'] = '';
 		$this->load->view('restoran',$data);
 	}
-	public function sortByPromoRestoran($kode)
-	{
+	public function sortByPromoRestoran($kode)	{
+		$kodeUser = '';
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 		}
-		$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['active1'] = 'active';
@@ -641,9 +650,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$this->load->view('restoran',$data);
 	}
-
-	public function sortByKreditRestoran($kode)
-	{
+	public function sortByKreditRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
@@ -698,52 +705,80 @@ class Fatncurious extends CI_Controller {
 	}
 	//================Sorted BY================
 
-	//================Pagination===============
-	public function PaginationFilterByRestoran()
-	{
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
-		}
-		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByRestoran');
-		$config["per_page"] = 5;
-		$config["uri_segment"] = 3;
-		$config['full_tag_open'] = '<ul class="pagination">';
-		$config['full_tag_close'] = '</ul>';
-		$config['first_link']=false;
-		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByRestoran" data-ci-pagination-page="2"><strong>';
-		$config['cur_tag_close'] = '</strong></a></li>';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectSemuaResto(null,null));
-		$this->pagination->initialize($config);
-		$data['links'] = $this->pagination->create_links();
-		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,$page);
-		$this->load->model('Model_restaurant');
-		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
-		$this->load->view('filterByRestoran',$data);
-	}
 
-	public function PaginationFilterByMenu()
-	{
+	//================Search===================
+	public function searchFilterByMenu(){
+		if($this->input->post('btnSearch')){
+			$this->session->unset_userdata('simpantxtSearchMenu');
+			$this->session->unset_userdata('simpanJenisMakanan');
+			$this->session->unset_userdata('simpanJenisMinuman');
+			$this->session->unset_userdata('simpanJenisSnack');
+			$this->session->unset_userdata('simpanJenisDessert');
+		}
+
+		$this->load->model('fatncurious_model_menu');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
+
+		$makanan=null;
+		$minuman=null;
+		$snack=null;
+		$dessert=null;
+		$kataSearch=null;
+
+		//untuk simpan apa yang di search sebelumnya==========================================
+		if($this->session->userdata('simpantxtSearchMenu')){$kataSearch = $this->session->userdata('simpantxtSearchMenu');}
+		else{$kataSearch = $this->input->post('txtSearchMenu');	$this->session->set_userdata('simpantxtSearchMenu',$kataSearch);}
+
+		if($this->session->userdata('simpanJenisMakanan')){$makanan = $this->session->userdata('simpanJenisMakanan');}
+		else{
+			if($this->input->post('ckJenisMakanan')){
+				$makanan = $this->input->post('ckJenisMakanan');
+				$this->session->set_userdata('simpanJenisMakanan',$makanan);
+			}
+		}
+
+		if($this->session->userdata('simpanJenisMinuman')){$minuman = $this->session->userdata('simpanJenisMinuman');}
+		else{
+			if($this->input->post('ckJenisMinuman')){
+				$minuman = $this->input->post('ckJenisMinuman');
+				$this->session->set_userdata('simpanJenisMinuman',$minuman);;
+			}
+		}
+
+		if($this->session->userdata('simpanJenisSnack')){$snack = $this->session->userdata('simpanJenisSnack');}
+		else{
+			if($this->input->post('ckJenisSnack')){
+				$snack = $this->input->post('ckJenisSnack');
+				$this->session->set_userdata('simpanJenisSnack',$snack);;
+			}
+		}
+
+		if($this->session->userdata('simpanJenisDessert')){$dessert = $this->session->userdata('simpanJenisDessert');}
+		else{
+			if($this->input->post('ckJenisDessert')){
+				$dessert = $this->input->post('ckJenisDessert');
+				$this->session->set_userdata('simpanJenisDessert',$dessert);;
+			}
+		}
+		//untuk simpan apa yang di search sebelumnya==========================================
+
+		$data['kataSearch'] = $kataSearch;
+		$data['makanan'] = $makanan;
+		$data['minuman'] = $minuman;
+		$data['snack'] = $snack;
+		$data['dessert']=$dessert;
+
 		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByMenu');
+		$config['base_url'] = site_url('fatncurious/searchFilterByMenu');
 		$config["per_page"] = 5;
 		$config["uri_segment"] = 3;
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link']=false;
 		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByMenu" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/searchFilterByMenu" data-ci-pagination-page="2"><strong>';
 		$config['cur_tag_close'] = '</strong></a></li>';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -752,29 +787,66 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$config['total_rows'] = sizeof($this->fatncurious_model_menu->selectMenu(null,null));
+		$config['total_rows'] = sizeof($this->fatncurious_model_menu->searchMenu(null,null,$kataSearch,$makanan,$minuman,$snack,$dessert));
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,$page);
+		$data['menu'] = $this->fatncurious_model_menu->searchMenu(5,$page,$kataSearch,$makanan,$minuman,$snack,$dessert);
 		$this->load->model('Model_menu');
 		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$this->load->view('filterByMenu',$data);
 	}
 
-	public function PaginationFilterByKartu()
-	{
+	public function searchFilterByRestoran(){
+		if($this->input->post('btnSearch')){
+			$this->session->unset_userdata('simpantxtSearchRestoran');
+			$this->session->unset_userdata('simpanNamaRestoran');
+			$this->session->unset_userdata('simpanAlamatRestoran');
+		}
+
+		$this->load->model('fatncurious_model_restaurant');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
+
+		$namaResto=null;
+		$alamatResto=null;
+		$kataSearch=null;
+
+		//untuk simpan apa yang di search sebelumnya==========================================
+		if($this->session->userdata('simpantxtSearchRestoran')){$kataSearch = $this->session->userdata('simpantxtSearchRestoran');}
+		else{$kataSearch = $this->input->post('txtSearchRestoran');	$this->session->set_userdata('simpantxtSearchRestoran',$kataSearch);}
+
+		if($this->session->userdata('simpanNamaRestoran')){$namaResto = $this->session->userdata('simpanNamaRestoran');}
+		else{
+			if($this->input->post('ckNamaRestoran')){
+				$makanan = $this->input->post('ckNamaRestoran');
+				$this->session->set_userdata('simpanNamaRestoran',$namaResto);
+			}
+		}
+
+		if($this->session->userdata('simpanAlamatRestoran')){$alamatResto = $this->session->userdata('simpanAlamatRestoran');}
+		else{
+			if($this->input->post('ckAlamatRestoran')){
+				$minuman = $this->input->post('ckAlamatRestoran');
+				$this->session->set_userdata('simpanAlamatRestoran',$alamatResto);;
+			}
+		}
+
+		//untuk simpan apa yang di search sebelumnya==========================================
+
+		$data['kataSearch'] = $kataSearch;
+		$data['namaResto'] = $namaResto;
+		$data['alamatResto'] = $alamatResto;
+
 		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByKartu');
+		$config['base_url'] = site_url('fatncurious/filterByRestoran');
 		$config["per_page"] = 5;
 		$config["uri_segment"] = 3;
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link']=false;
 		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByKartu" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/filterByRestoran" data-ci-pagination-page="2"><strong>';
 		$config['cur_tag_close'] = '</strong></a></li>';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -783,12 +855,14 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectBiggestKredit(null,null));
+		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->searchRestoran(null,null,$kataSearch,$namaResto,$alamatResto));
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKredit(5,$page);
-		$this->load->view('filterByKredit',$data);
+		$data['resto'] = $this->fatncurious_model_restaurant->searchRestoran(5,$page,$kataSearch,$namaResto,$alamatResto);
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
+		$this->load->view('filterByRestoran',$data);
 	}
-	//================Pagination===============
+	//================Search===================
 
 }

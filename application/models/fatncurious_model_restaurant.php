@@ -18,6 +18,37 @@ class Fatncurious_model_restaurant extends CI_Model {
 		//return $data->result();
 	}
 
+	public function searchRestoran($limit,$start,$kataSearch,$namaResto,$alamatResto)
+	{
+		$na=false;
+		$al=false;
+
+		$this->db->limit($limit,$start);
+		$this->db->select('*');
+		$this->db->from('restoran');
+		if($alamatResto=='' && $namaResto==''){
+			$this->db->like('NAMA_RESTORAN',$kataSearch);
+			$this->db->or_like('ALAMAT_RESTORAN',$kataSearch);
+		}
+		else{
+			if($namaResto != ''){
+				$this->db->where('NAMA_RESTORAN',$namaResto);
+				$na=true;
+			}
+			else if($alamatResto != ''){
+				$this->db->where('ALAMAT_RESTORAN',$alamatResto);
+				$al=true;
+			}
+		}
+
+		if($namaResto != '' and $na==false){	$this->db->or_where('NAMA_RESTORAN',$namaResto);}
+		if($alamatResto != '' and $al==false){	$this->db->or_where('ALAMAT_RESTORAN',$alamatResto);}
+
+		$this->db->where('status',1);
+		$this->db->order_by('NAMA_RESTORAN','asc');
+		return $this->db->get()->result();
+	}
+
 	public function selectRestoByKlik($kode){
 		return $data = $this->db->query("SELECT * FROM restoran where KODE_RESTORAN='$kode'")->row();
 		//print_r ($data);
