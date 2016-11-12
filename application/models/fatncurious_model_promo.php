@@ -39,16 +39,21 @@ class Fatncurious_model_promo extends CI_Model {
 		return $data->result();
 		
 	}
+	
+	public function selectSemuaPromo($limit,$start){
+		$this->db->limit($limit,$start);
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
+		$this->db->from('promo');
+		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
+		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
+		$this->db->where('promo.status',1);
+		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
+		return $this->db->get()->result();
+	}
+	
 	public function selectBiggestPromo()
 	{
-		/*
-		select restoran.nama_restoran as 'RESTORAN', promo.*
-		from promo
-		join promo_restoran on promo.kode_promo = promo_restoran.kode_promo
-		join restoran on promo_restoran.kode_restoran = restoran.kode_restoran
-		order by promo.persentase_promo desc
-		*/
-		
+
 		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
@@ -56,16 +61,7 @@ class Fatncurious_model_promo extends CI_Model {
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
 		$data = $this->db->get();
 		return $data->result();
-		/*
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'",'promo.*'));
-		$this->db->from('promo');
-		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
-		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
-		$this->db->where('restoran.kode_restoran',$var);
-		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
-		$data = $this->db->get();
-		return $data->result();
-		*/
+
 	}
 
 	public function buatCombobox(){

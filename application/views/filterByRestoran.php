@@ -87,6 +87,32 @@
   </header><!--/#home-->
     <br/>
     <div class='container navbarSpace'>
+
+      <?php
+          echo form_open('fatncurious/searchFilterByRestoran');
+            if(isset($kataSearch)){
+                echo form_input('txtSearchRestoran',$kataSearch)."<br/>";
+            }
+            else{
+                echo form_input('txtSearchRestoran')."<br/>";
+            }
+            if(isset($namaResto)){
+                echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
+            }
+            if(isset($alamatResto)){
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
+            }
+            echo form_submit('btnSearch','Search');
+          echo form_close();
+      ?>
+
+
     <div id="output">asdasd</div>
 	<?php
 	$ctr=0;

@@ -14,6 +14,7 @@
   <link id="css-preset" href="<?php echo base_url('/vendors/css/presets/preset1.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/main.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('/vendors/css/bootstrap-combobox.css'); ?>" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -88,7 +89,46 @@
     </div>
   </header><!--/#home-->
   <br/>
-    <div class='container navbarSpace'>
+  <div class='container navbarSpace'>
+
+      <?php
+          echo form_open('fatncurious/searchFilterByMenu');
+            if(isset($kataSearch)){
+                echo form_input('txtSearchMenu',$kataSearch)."<br/>";
+            }
+            else{
+                echo form_input('txtSearchMenu')."<br/>";
+            }
+            if(isset($makanan)){
+                echo form_checkbox('ckJenisMakanan'," Makanan",true)."Makanan"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckJenisMakanan'," Makanan",false)."Makanan"."<br/>";
+            }
+            if(isset($minuman)){
+              echo form_checkbox('ckJenisMinuman'," Minuman",true)."Minuman"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckJenisMinuman'," Minuman",false)."Minuman"."<br/>";
+            }
+            if(isset($snack)){
+              echo form_checkbox('ckJenisSnack'," Snack",true)."Snack"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckJenisSnack'," Snack",false)."Snack"."<br/>";
+            }
+            if(isset($dessert)){
+              echo form_checkbox('ckJenisDessert'," Dessert",true)."Dessert"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckJenisDessert'," Dessert",false)."Dessert"."<br/>";
+            }
+            echo form_submit('btnSearch','Search');
+          echo form_close();
+      ?>
+
+
+
 	<?php
 	foreach($menu as $r){
 		echo "<div class='media warnaFilterByGanjil img-rounded'>";
@@ -143,7 +183,11 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&signed_in=true&callback=initMap"
       async defer></script>
+      <script>
+        $('.combobox').combobox();
+      </script>
 </body>
 </html>
