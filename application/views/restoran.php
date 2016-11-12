@@ -405,6 +405,15 @@
         <a class="close">×</a>
         <a class="play-pause"></a>
         <ol class="indicator"></ol>
+        <div class="menuGallery">
+          <span class="glyphicon glyphicon-heart-empty" aria-hidden="true">5</span>
+          <span class="glyphicon glyphicon-flag" aria-hidden="true">3</span>
+          <span class="dropup">
+          <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
+          </span>
+        </span>
+        </div>
+        <
     </div>
 
 
