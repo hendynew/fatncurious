@@ -119,10 +119,12 @@
 					<img class="media-object displayPictureComment img-circle jarakMedia" style="height:50px;width:50px;" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
 	<?php
 					echo "</div>";
-					echo "<div class='media-body'>";
-						echo "<h4 class='media-heading'>Michelle Withney</h4>";
-						echo "Mantab bener ni menu.. wkwkkwk";
-					echo "</div>";
+          foreach($review as $r){
+            echo "<div class='media-body'>";
+  						echo "<h4 class='media-heading'>Michelle Withney</h4>";
+  						echo $r->DESKRIPSI;
+  					echo "</div>";
+          }
 				echo "</div>";
 			echo "</div>";
 		echo "</div>";

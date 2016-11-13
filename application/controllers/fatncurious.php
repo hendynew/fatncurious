@@ -461,6 +461,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenu(5,0);
 		$this->load->model('Model_menu');
+		$data['review'] = $this->Model_menu->SELECT_ALL_REVIEW();
 		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/PaginationFilterByMenu');
