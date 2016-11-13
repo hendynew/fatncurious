@@ -116,13 +116,72 @@
               ?>
     			<center>
     				<h4> Give Rating </h4>
-    				<h2 class="rating">
-                      <span class="glyphicon <?php echo $glyphicon1;?> bintang" data-val="1" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon2;?> bintang" data-val="2" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon3;?> bintang" data-val="3" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon4;?> bintang" data-val="4" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
-                      <span class="glyphicon <?php echo $glyphicon5;?> bintang" data-val="5" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" aria-hidden="true"></span>
-    				  </h2><?php
+    				<h2 class="rating" >
+                      <span class="glyphicon <?php echo $glyphicon1;?>" data-val="1" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon2;?>" data-val="2" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon3;?>" data-val="3" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon4;?>" data-val="4" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon5;?>" data-val="5" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
+    				  </h2>
+              <center>
+                <h2> Rating Jika Sudah Pernah</h2>
+                <h2>
+                  <div class="row">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  </div>
+                  <div class="row">
+                    title
+                  </div>
+                  <div class= "row">
+                    <h3>Comment</h3>
+                  </div>
+                </h2>
+              <a href="<?php echo site_url('fatncurious/editRatingRestoran'); ?>" class="btn btn-primary btn-md">Edit</a>
+              </center>
+
+              <!--Modal -->
+              <div id="modalRating" class="modal fade">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                      </div>
+                      <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                        <h2 style="margin-top:0px;">
+                          <center>
+                            <span class="glyphicon glyphicon-star-empty bintang" data-val='1'></span>
+                            <span class="glyphicon glyphicon-star-empty bintang" data-val='2'></span>
+                            <span class="glyphicon glyphicon-star-empty bintang" data-val='3'></span>
+                            <span class="glyphicon glyphicon-star-empty bintang" data-val='4'></span>
+                            <span class="glyphicon glyphicon-star-empty bintang" data-val='5'></span>
+                          </center>
+                        </h2>
+                        <form>
+                        <div class="form-group">
+                          <label for="recipient-name" class="form-control-label">Title:</label>
+                          <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="form-control-label">Comment:</label>
+                          <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                      </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                      </div>
+                  </div>
+                  <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+          </div>
+              <?php
             }?>
     			</center>
               <h2>Sorted By :</h2>
@@ -130,12 +189,12 @@
                   <li role="presentation" class="<?php echo $active1.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByPromoRestoran/'.$resto->KODE_RESTORAN.'') ?>">Promo</a></li>
                   <li role="presentation" class="<?php echo $active2.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByKreditRestoran/'.$resto->KODE_RESTORAN.'') ?>">Kartu Kredit</a></li>
                   <li role="presentation" class="<?php echo $active3.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByMenuRestoran/'.$resto->KODE_RESTORAN.'') ?>">Jenis Menu</a></li>
-                  <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#myModal">Lihat Review Restoran</a></li>
+                  <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReview">Lihat Review Restoran</a></li>
               </ul>
         </div>
 
         <!-- Modal -->
-        <div id="myModal" class="modal fade">
+        <div id="modalReview" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
