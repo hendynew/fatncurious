@@ -49,6 +49,7 @@
           </div>
         </div>
       </div>
+      <?php if(!isset($kodeUser)){?>
       <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
       <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
         <div id="menuKiri">
@@ -137,7 +138,7 @@
 
 			  <?php echo form_close()?>
             </div>
-        </div>
+        </div><?php }?>
 
     </div><!--/#home-slider-->
 
