@@ -265,8 +265,6 @@ class Fatncurious extends CI_Controller {
 					}
 				}
 
-
-
 				if($data['resto']->STATUS == 0){
 					$data['resto']->STATUS = 'Tutup';
 				}
