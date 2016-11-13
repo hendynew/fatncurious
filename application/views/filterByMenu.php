@@ -153,19 +153,22 @@
         if(!$ada)
           echo "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> 0 </h4>";
 				echo "<p class='jarakMedia'>".$r->DESKRIPSI_MENU.'.'."</p>";
-				echo "<div class='media m-t-2'>";
-					echo "<div class='media-left' href='#'>";
-	?>
-					<img class="media-object displayPictureComment img-circle jarakMedia" style="height:50px;width:50px;" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
-	<?php
-					echo "</div>";
-          foreach($review as $r){
-            echo "<div class='media-body'>";
-  						echo "<h4 class='media-heading'>Michelle Withney</h4>";
-  						echo $r->DESKRIPSI;
-  					echo "</div>";
+
+          foreach($review as $key=>$val){
+            if($review[$key]['KODE_MENU'] == $r->KODE_MENU){
+              echo "<div class='media m-t-2'>";
+              echo "<div class='media-left' href='#'>";
+    	?>
+    					<img class="media-object displayPictureComment img-circle jarakMedia" style="height:50px;width:50px;" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
+    	<?php
+    					echo "</div>";
+              echo "<div class='media-body'>";
+    						echo "<h4 class='media-heading'>Michelle Withney</h4>";
+    						echo $review[$key]["DESKRIPSI"];
+    					echo "</div>";
+              echo "</div>";
+            }
           }
-				echo "</div>";
 			echo "</div>";
 		echo "</div>";
 		echo "<br>";

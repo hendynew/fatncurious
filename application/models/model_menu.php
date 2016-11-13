@@ -146,7 +146,7 @@ class Model_menu extends CI_Model {
 	}
 
 	public function SELECT_ALL_REVIEW(){
-		$hasil = $this->db->query('SELECT rm.KODE_MENU as KODE_MENU,u.KODE_USER as KODE_USER, u.KODE_USER as NAMA_USER, rm.DESKRIPSI_REVIEW as DESKRIPSI, rm.TANGGAL_REVIEW as TANGGAL, rm.JUMLAH_LIKE_REVIEW as LIKE, rm.KETERANGAN_REVIEW as KETERANGAN from review_menu as rm, user as u where u.KODE_USER=rm.KODE_USER and rm.STATUS="1"')->result();
+		$hasil = $this->db->query('SELECT rm.KODE_REVIEW as KODE_REVIEW, rm.KODE_MENU as KODE_MENU,u.KODE_USER as KODE_USER, u.KODE_USER as NAMA_USER, rm.DESKRIPSI_REVIEW as DESKRIPSI, rm.TANGGAL_REVIEW as TANGGAL, rm.JUMLAH_LIKE_REVIEW as "LIKE", rm.KETERANGAN_REVIEW as KETERANGAN from review_menu as rm, user as u where u.KODE_USER=rm.KODE_USER and rm.STATUS="1"')->result();
 		$hasil2 = [];
 		foreach($hasil as $h){
 			$hasil2[$h->KODE_REVIEW]['KODE_MENU'] = $h->KODE_MENU;
