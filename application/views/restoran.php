@@ -206,7 +206,9 @@
     						echo "<div class='container-fluid'>";
     							echo "<div class='row'>";
                   $ctr=1;
-    								foreach($fotoMenu as $f){
+                  $tidakAdaFoto=true;
+                  if(isset($fotoMenu)){
+                    foreach($fotoMenu as $f){
                       if($f->KODE_MENU == $m->KODE_MENU){
                         echo "<div class='col-sm-3 gambarImageGallery'>";
       									?>
@@ -216,8 +218,14 @@
       									<?php
       									echo "</div>";
       									$ctr++;
+                        $tidakAdaFoto=false;
                       }
     								}
+                  }
+                  if($tidakAdaFoto==true){
+                    echo "<h5>Tidak Ada Foto</h5>";
+                  }
+
     							echo "</div>";
     						echo "</div>";
     					echo "</div>";
@@ -288,6 +296,7 @@
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
                   $ctr=1;
+                  $tidakAdaFoto=true;
                     foreach($fotoMenu as $f){
                       if($f->KODE_MENU == $m->KODE_MENU){
                         echo "<div class='col-sm-3 gambarImageGallery'>";
@@ -298,7 +307,11 @@
                         <?php
                         echo "</div>";
                         $ctr++;
+                        $tidakAdaFoto=false;
                       }
+                    }
+                    if($tidakAdaFoto==true){
+                      echo "<h5>Tidak Ada Foto</h5>";
                     }
                   echo "</div>";
                 echo "</div>";
@@ -370,6 +383,7 @@
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
                   $ctr=1;
+                  $tidakAdaFoto=true;
                     foreach($fotoMenu as $f){
                       if($f->KODE_MENU == $m->KODE_MENU){
                         echo "<div class='col-sm-3 gambarImageGallery'>";
@@ -380,7 +394,11 @@
                         <?php
                         echo "</div>";
                         $ctr++;
+                        $tidakAdaFoto=false;
                       }
+                    }
+                    if($tidakAdaFoto==true){
+                      echo "<h5>Tidak Ada Foto</h5>";
                     }
                   echo "</div>";
                 echo "</div>";

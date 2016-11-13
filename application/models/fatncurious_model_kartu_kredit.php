@@ -18,6 +18,41 @@ class Fatncurious_model_kartu_kredit extends CI_Model {
 		return $data->result();
 	}
 
+	public function searchKredit($limit,$start,$kataSearch,$namaResto,$alamatResto,$namaKartu,$namaPromo)
+	{
+		$this->db->limit($limit,$start);
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.kode_restoran as 'KODE_RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'",'promo.*'));
+		$this->db->distinct();
+		$this->db->from('promo');
+		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');
+		$this->db->join('kartu_kredit','kartu_kredit.kode_kartu_kredit = sponsor_promo.kode_kartu_kredit');
+		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
+		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
+		if($namaResto=='' && $alamatResto=='' && $namaKartu=='' && $namaPromo==''){
+			$this->db->like('restoran.nama_restoran',$kataSearch);
+			$this->db->or_like('restoran.alamat_restoran',$kataSearch);
+			$this->db->or_like('kartu_kredit.nama_kartu_kredit',$kataSearch);
+			$this->db->or_like('promo.nama_promo',$kataSearch);
+		}
+		else{
+			if($namaResto!=''){
+					$this->db->like('restoran.nama_restoran',$kataSearch);
+			}
+			if($alamatResto!=''){
+				$this->db->like('restoran.alamat_restoran',$kataSearch);
+			}
+			if($namaKartu!=''){
+				$this->db->like('kartu_kredit.nama_kartu_kredit',$kataSearch);
+			}
+			if($namaPromo!=''){
+				$this->db->like('promo.nama_promo',$kataSearch);
+			}
+		}
+		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
+		$data = $this->db->get();
+		return $data->result();
+	}
+
 	public function buatCombobox(){
 		$data = $this->SELECT('kartu_kredit');
 		$arrItem = [];

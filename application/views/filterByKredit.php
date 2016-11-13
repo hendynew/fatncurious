@@ -90,6 +90,43 @@
   </header><!--/#home-->
     <br>
     <div class='container navbarSpace diperkecil'>
+
+      <?php
+          echo form_open('fatncurious/searchFilterByKredit');
+            if(isset($kataSearch)){
+                echo form_input('txtSearchKredit',$kataSearch)."<br/>";
+            }
+            else{
+                echo form_input('txtSearchKredit')."<br/>";
+            }
+            if(isset($namaResto)){
+                echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
+            }
+            if(isset($alamatResto)){
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
+            }
+            if(isset($namaKartu)){
+              echo form_checkbox('ckKartuKredit'," kartuKredit",true)."Kartu Kredit"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckKartuKredit'," kartuKredit",false)."Kartu Kredit"."<br/>";
+            }
+            if(isset($namaPromo)){
+              echo form_checkbox('ckNamaPromo'," namaPromo",true)."Nama Promo"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckNamaPromo'," namaPromo",false)."Nama Promo"."<br/>";
+            }
+            echo form_submit('btnSearch','Search');
+          echo form_close();
+      ?>
+
 	<?php
 		foreach($kartu as $r){
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
