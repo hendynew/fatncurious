@@ -259,8 +259,6 @@ class Fatncurious extends CI_Controller {
 					}
 				}
 
-
-
 				if($data['resto']->STATUS == 0){
 					$data['resto']->STATUS = 'Tutup';
 				}
@@ -473,6 +471,7 @@ class Fatncurious extends CI_Controller {
 		}
 
 		$this->load->model('Model_menu');
+		$data['review'] = $this->Model_menu->SELECT_ALL_REVIEW();
 		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/filterByMenu');

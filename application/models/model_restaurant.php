@@ -166,7 +166,12 @@ class Model_restaurant extends CI_Model {
 			$total += $h->RATING;
 			$jumlah++;
 		}
-		$total_rating = $total/$jumlah;
+		if($jumlah > 0){
+			$total_rating = $total/$jumlah;
+		}else{
+			$total_rating = $total;
+		}
+
 
 		return floor($total_rating);
 	}

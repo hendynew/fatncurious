@@ -210,40 +210,6 @@ $(".displayPictureMenu").on('click',function()
 
 });
 
-$(".bintang").on('click',function()
-{
-	$total = parseInt($(this).attr('data-val'));
-	$user = $(this).attr('data-val2');
-	$resto = $(this).attr('data-val3');
-	$total_sebelumnya = parseInt($(this).attr('data-val4'));
-	if($total != $total_sebelumnya){
-		window.location = '/fatncurious/index.php/fatncurious/rate_restoran/' + $total + '/' + $user + '/' + $resto;
-	}
-	//bersihkan Bintang
-	$('.bintang').each(function(index,value)
-	{
-		if($(this).hasClass('glyphicon-star'))
-		{
-			$(this).removeClass('glyphicon-star');
-			$(this).addClass('glyphicon-star-empty');
-		}
-	});
-	//tambah Bintang
-	$(".bintang").each(function(index,value)
-	{
-		if($(this).attr('data-val')<=$total)
-		{
-			$(this).removeClass('glyphicon-star-empty');
-			$(this).addClass('glyphicon-star');
-		}
-
-	});
-});
-
-$('.toogleNavBar').on('click',function()
-                      {
-});
-
 $(".links").on('click',function(event)
 {
 	event = event || window.event;
@@ -281,4 +247,34 @@ $(".reportButton").on('click',function()
 $(".shareButton").on('click',function()
 {
 	alert('shareButton');
+});
+
+$('#modalRating').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever'); // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	var valueBintang = button.data('val');
+	//bersihkan Bintang
+	$('.bintang').each(function(index,value)
+	{
+		if($(this).hasClass('glyphicon-star'))
+		{
+			$(this).removeClass('glyphicon-star');
+			$(this).addClass('glyphicon-star-empty');
+
+		}
+	});
+	//tambah Bintang
+	$(".bintang").each(function(index,value)
+	{
+		if($(this).attr('data-val')<=valueBintang)
+		{
+			$(this).removeClass('glyphicon-star-empty');
+			$(this).addClass('glyphicon-star');
+		}
+	});
+  /*var modal = $(this);
+  modal.find('.modal-title').text('New message to ' + recipient);
+  modal.find('.modal-body input').val(recipient);*/
 });
