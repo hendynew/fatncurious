@@ -129,20 +129,30 @@
               <center>
                 <h2>
                   <div class="row">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <?php
+                      $counter = 0;
+                      for($i = 0; $i < 5; $i++){
+                        if($counter < $userRating){
+                          echo '<span class="glyphicon glyphicon-star"></span>';
+                        }
+                        else{
+                          echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                        }
+                        $counter++;
+                      }
+                     ?>
                   </div>
                   <div class="row">
-                    title
+                    <?php echo $userRatingJudul?>
                   </div>
                   <div class= "row">
-                    <h3>Comment</h3>
+                    <h3><?php echo $userRatingDeskripsi?></h3>
                   </div>
                 </h2>
-              <a href="<?php echo site_url('fatncurious/editRatingRestoran'); ?>" class="btn btn-primary btn-md">Edit</a>
+                <?php
+                $arr = ['class'=>'btn btn-primary','name'=>'btnSubmit','value'=>'Edit Review'];
+                echo '<a href="#" data-toggle="modal" data-target="#modalRating">' . form_submit($arr) . '</a>';
+                ?>
               </center>
               <?php } ?>
               <!--Modal -->
@@ -156,27 +166,45 @@
                       <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
                         <h2 style="margin-top:0px;">
                           <center>
-                            <span class="glyphicon glyphicon-star-empty bintang" data-val='1'></span>
-                            <span class="glyphicon glyphicon-star-empty bintang" data-val='2'></span>
-                            <span class="glyphicon glyphicon-star-empty bintang" data-val='3'></span>
-                            <span class="glyphicon glyphicon-star-empty bintang" data-val='4'></span>
-                            <span class="glyphicon glyphicon-star-empty bintang" data-val='5'></span>
+                            <?php
+                              $counter = 0;
+                              for($i = 0; $i < 5; $i++){
+                                if($counter < $userRating){
+                                  echo '<span class="glyphicon glyphicon-star bintang" data-val='. ($i + 1) .'></span>';
+                                }
+                                else{
+                                  echo '<span class="glyphicon glyphicon-star-empty bintang" data-val='. ($i + 1) .'></span>';
+                                }
+                                $counter++;
+                              }
+                             ?>
                           </center>
                         </h2>
-                        <form>
+                        <?php echo form_open("fatncurious/rate_restoran/");?>
                         <div class="form-group">
                           <label for="recipient-name" class="form-control-label">Title:</label>
-                          <input type="text" class="form-control" id="recipient-name">
+                          <input type="text" class="form-control" id="recipient-name"name="txtTitle">
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="form-control-label">Comment:</label>
-                          <textarea class="form-control" id="message-text"></textarea>
+                          <textarea class="form-control" id="message-text" name="txtComment"></textarea>
                         </div>
-                      </form>
                       </div>
                       <div class="modal-footer">
+                          <?php
+
+                            $arr = ['name'=>'valueBintang','id'=>"hidBintang",'value'=>"",'type'=>'hidden'];
+                            echo form_input($arr);
+                            $kode = $resto->KODE_RESTORAN;
+                            $arr2 = ['name'=>'kodeRestoran','value'=>$kode,'type'=>'hidden'];
+                            echo form_input($arr2);
+                          ?>
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                          <?php
+                            $arr = ['class'=>'btn btn-primary','name'=>'btnSubmit','value'=>'Submit'];
+                            echo form_submit($arr);
+                            echo form_close();
+                          ?>
                       </div>
                   </div>
                   <!-- /.modal-content -->

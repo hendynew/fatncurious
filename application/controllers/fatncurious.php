@@ -591,6 +591,8 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 			else{
+				$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
+				$data['userRatingJudul'] = $rating->JUDUL;
 				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
@@ -717,17 +719,24 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('Model_restaurant');
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
+		$data['kodeRestoran'] = $kode;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$this->load->view('restoran',$data);
 	}
-	public function rate_restoran($rate,$user,$resto){
+	public function rate_restoran(){
 		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$data['kodeUser'] = $this->session->userdata('userYangLogin')->KODE_USER;
 		}
 		$this->load->model('Model_restaurant');
-		$this->Model_restaurant->rate($rate,$user,$resto);
+		$rate = $this->input->post("valueBintang");
+		$user = $data['kodeUser'];
+		$resto = $this->input->post('kodeRestoran');
+		$comment = $this->input->post('txtComment');
+		$judul = $this->input->post('txtTitle');
+		$this->Model_restaurant->rate($rate,$user,$resto,$comment,$judul);
+
 		redirect("fatncurious/sortByMenuRestoran/".$resto);
 	}
 	//================Sorted BY================
