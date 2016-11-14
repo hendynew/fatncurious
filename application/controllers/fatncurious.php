@@ -900,7 +900,6 @@ class Fatncurious extends CI_Controller {
 		if($this->input->post('btnSearch')){
 			$this->session->unset_userdata('simpantxtSearchKredit');
 			$this->session->unset_userdata('simpanNamaKartu');
-			$this->session->unset_userdata('simpanNamaPromo');
 		}
 
 		$this->load->model('fatncurious_model_kartu_kredit');
@@ -908,35 +907,20 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 
-		$kataSearch=null;
 		$namaKartu=null;
-		$namaPromo=null;
 
 		//untuk simpan apa yang di search sebelumnya==========================================
-		if($this->session->userdata('simpantxtSearchKredit')){$kataSearch = $this->session->userdata('simpantxtSearchKredit');}
-		else{$kataSearch = $this->input->post('txtSearchKredit');	$this->session->set_userdata('simpantxtSearchKredit',$kataSearch);}
-
 		if($this->session->userdata('simpanNamaKartu')){$namaKartu = $this->session->userdata('simpanNamaKartu');}
 		else{
-			if($this->input->post('ckKartuKredit')){
-				$namaKartu = $this->input->post('ckKartuKredit');
+			if($this->input->post('namaKartu')){
+				$namaKartu = $this->input->post('namaKartu');
 				$this->session->set_userdata('simpanNamaKartu',$namaKartu);;
 			}
 		}
 
-		if($this->session->userdata('simpanNamaPromo')){$namaPromo = $this->session->userdata('simpanNamaPromo');}
-		else{
-			if($this->input->post('ckNamaPromo')){
-				$namaPromo = $this->input->post('ckNamaPromo');
-				$this->session->set_userdata('simpanNamaPromo',$namaPromo);;
-			}
-		}
-
 		//untuk simpan apa yang di search sebelumnya==========================================
 
-		$data['kataSearch'] = $kataSearch;
 		$data['namaKartu'] =  $namaKartu;
-		$data['namaPromo'] = $namaPromo;
 		//echo $namaKartu.'-';
 
 		$config = array();
@@ -956,10 +940,10 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$config['total_rows'] = sizeof($this->fatncurious_model_kartu_kredit->searchKredit(null,null,$kataSearch,$namaKartu,$namaPromo));
+		$config['total_rows'] = sizeof($this->fatncurious_model_kartu_kredit->searchKredit(null,null,$namaKartu));
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-		$data['kartu'] = $this->fatncurious_model_kartu_kredit->searchKredit(5,$page,$kataSearch,$namaKartu,$namaPromo);
+		$data['kartu'] = $this->fatncurious_model_kartu_kredit->searchKredit(5,$page,$namaKartu);
 		$data['semuaKartu'] = $this->fatncurious_model_kartu_kredit->selectSemuaKredit();
 		$this->load->view('filterByKredit',$data);
 	}
