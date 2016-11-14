@@ -235,4 +235,21 @@ class Model_menu extends CI_Model {
 		}
 	}
 */
+
+public function generate_kode_upload(){
+	$count = $this->db->count_all('upload_foto_menu') + 1;
+	return 'UF' . str_pad($count, 3, "0", STR_PAD_LEFT);
+}
+
+public function count_foto_menu($menu){
+	$this->db->where('KODE_MENU',$menu);
+	return $this->db->count_all_results('upload_foto_menu') + 1;
+}
+
+public function upload($kodeMenu,$kodeUser,$url){
+	$kodeUpload = $this->generate_kode_upload();
+	$arr = ['KODE_UPLOAD'=>$kodeUpload, "KODE_USER"=>$kodeUser, "KODE_MENU"=>$kodeMenu,'URL_UPLOAD'=>$url,'STATUS'=>'1'];
+	$this->db->insert('upload_foto_menu',$arr);
+
+}
 }

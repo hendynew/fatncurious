@@ -739,6 +739,32 @@ class Fatncurious extends CI_Controller {
 
 		redirect("fatncurious/sortByMenuRestoran/".$resto);
 	}
+
+	public function uploadFoto(){
+		$this->load->model('Model_menu');
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin')->KODE_USER;
+		}
+		$kodeRestoran = $this->input->post('hidKodeRestoran');
+		$kodeMenu = $this->input->post('hidKodeMenu');
+		$this->load->library('upload');
+		$config = array(
+			'upload_path' => './vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',
+			'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+			'overwrite' => FALSE,
+			'max_size' => "1000KB",
+			'file_name' => $this->Model_menu->count_foto_menu($kodeMenu)
+		);
+		if(!is_dir('./vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu)){
+			mkdir('./vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',0777,true);
+		}
+		$this->upload->initialize($config);
+		if($this->upload->do_upload('foto')){
+			$this->Model_menu->upload($kodeMenu,$data['kodeUser'],$this->upload->data('file_name'));
+		}
+		redirect("fatncurious/sortByMenuRestoran/".$kodeRestoran);
+
+	}
 	//================Sorted BY================
 
 
