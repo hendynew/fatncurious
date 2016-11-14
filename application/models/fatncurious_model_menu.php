@@ -24,7 +24,7 @@ class Fatncurious_model_menu extends CI_Model {
 		$this->db->from('menu');
 		$this->db->join('restoran','menu.kode_restoran = restoran.kode_restoran');
 		$this->db->where('menu.status',1);
-		$this->db->order_by('1','asc');
+		$this->db->order_by('menu.nama_menu','asc');
 		return $this->db->get()->result();
 	}
 

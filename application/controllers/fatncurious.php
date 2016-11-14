@@ -485,6 +485,7 @@ class Fatncurious extends CI_Controller {
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectBiggestKredit(null,null));
 		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKredit(5,$page);
+		$data['semuaKartu'] = $this->fatncurious_model_kartu_kredit->selectSemuaKredit();
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$this->load->view('filterByKredit',$data);
@@ -907,8 +908,6 @@ class Fatncurious extends CI_Controller {
 	public function searchFilterByKredit(){
 		if($this->input->post('btnSearch')){
 			$this->session->unset_userdata('simpantxtSearchKredit');
-			$this->session->unset_userdata('simpanNamaRestoran');
-			$this->session->unset_userdata('simpanAlamatRestoran');
 			$this->session->unset_userdata('simpanNamaKartu');
 			$this->session->unset_userdata('simpanNamaPromo');
 		}
@@ -918,8 +917,6 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 
-		$namaResto=null;
-		$alamatResto=null;
 		$kataSearch=null;
 		$namaKartu=null;
 		$namaPromo=null;
@@ -927,22 +924,6 @@ class Fatncurious extends CI_Controller {
 		//untuk simpan apa yang di search sebelumnya==========================================
 		if($this->session->userdata('simpantxtSearchKredit')){$kataSearch = $this->session->userdata('simpantxtSearchKredit');}
 		else{$kataSearch = $this->input->post('txtSearchKredit');	$this->session->set_userdata('simpantxtSearchKredit',$kataSearch);}
-
-		if($this->session->userdata('simpanNamaRestoran')){$namaResto = $this->session->userdata('simpanNamaRestoran');}
-		else{
-			if($this->input->post('ckNamaRestoran')){
-				$namaResto = $this->input->post('ckNamaRestoran');
-				$this->session->set_userdata('simpanNamaRestoran',$namaResto);
-			}
-		}
-
-		if($this->session->userdata('simpanAlamatRestoran')){$alamatResto = $this->session->userdata('simpanAlamatRestoran');}
-		else{
-			if($this->input->post('ckAlamatRestoran')){
-				$alamatResto = $this->input->post('ckAlamatRestoran');
-				$this->session->set_userdata('simpanAlamatRestoran',$alamatResto);;
-			}
-		}
 
 		if($this->session->userdata('simpanNamaKartu')){$namaKartu = $this->session->userdata('simpanNamaKartu');}
 		else{
@@ -963,8 +944,6 @@ class Fatncurious extends CI_Controller {
 		//untuk simpan apa yang di search sebelumnya==========================================
 
 		$data['kataSearch'] = $kataSearch;
-		$data['namaResto'] = $namaResto;
-		$data['alamatResto'] = $alamatResto;
 		$data['namaKartu'] =  $namaKartu;
 		$data['namaPromo'] = $namaPromo;
 		//echo $namaKartu.'-';
@@ -986,10 +965,11 @@ class Fatncurious extends CI_Controller {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$config['total_rows'] = sizeof($this->fatncurious_model_kartu_kredit->searchKredit(null,null,$kataSearch,$namaResto,$alamatResto,$namaKartu,$namaPromo));
+		$config['total_rows'] = sizeof($this->fatncurious_model_kartu_kredit->searchKredit(null,null,$kataSearch,$namaKartu,$namaPromo));
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-		$data['kartu'] = $this->fatncurious_model_kartu_kredit->searchKredit(5,$page,$kataSearch,$namaResto,$alamatResto,$namaKartu,$namaPromo);
+		$data['kartu'] = $this->fatncurious_model_kartu_kredit->searchKredit(5,$page,$kataSearch,$namaKartu,$namaPromo);
+		$data['semuaKartu'] = $this->fatncurious_model_kartu_kredit->selectSemuaKredit();
 		$this->load->view('filterByKredit',$data);
 	}
 
