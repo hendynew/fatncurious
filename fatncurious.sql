@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2016 at 07:12 PM
+-- Generation Time: Nov 14, 2016 at 08:59 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -331,6 +331,10 @@ INSERT INTO `rating_menu` (`KODE_MENU`, `KODE_USER`, `JUMLAH_RATING`, `STATUS`) 
 CREATE TABLE IF NOT EXISTS `rating_restoran` (
   `KODE_USER` varchar(5) NOT NULL,
   `KODE_RESTORAN` varchar(5) NOT NULL,
+  `TANGGAL` date NOT NULL,
+  `JUDUL` varchar(255) NOT NULL,
+  `DESKRIPSI` varchar(150) NOT NULL,
+  `JUMLAH_LIKE` int(3) NOT NULL,
   `JUMLAH_RATING` int(3) NOT NULL,
   `STATUS` varchar(1) NOT NULL,
   PRIMARY KEY (`KODE_USER`,`KODE_RESTORAN`),
@@ -341,17 +345,17 @@ CREATE TABLE IF NOT EXISTS `rating_restoran` (
 -- Dumping data for table `rating_restoran`
 --
 
-INSERT INTO `rating_restoran` (`KODE_USER`, `KODE_RESTORAN`, `JUMLAH_RATING`, `STATUS`) VALUES
-('US003', 'RS001', 5, '1'),
-('US003', 'RS002', 5, '1'),
-('US003', 'RS003', 5, '1'),
-('US004', 'RS004', 5, '1'),
-('US005', 'RS005', 5, '1'),
-('US006', 'RS006', 5, '1'),
-('US007', 'RS007', 5, '1'),
-('US008', 'RS008', 5, '1'),
-('US009', 'RS009', 5, '1'),
-('US011', 'RS009', 5, '1');
+INSERT INTO `rating_restoran` (`KODE_USER`, `KODE_RESTORAN`, `TANGGAL`, `JUDUL`, `DESKRIPSI`, `JUMLAH_LIKE`, `JUMLAH_RATING`, `STATUS`) VALUES
+('US003', 'RS001', '2016-11-14', '', '', 0, 5, '1'),
+('US003', 'RS002', '2016-11-14', 'Mantap gan!', 'Mantap restorannya, dingin pula hehe', 0, 3, '1'),
+('US003', 'RS003', '2016-11-14', '', '', 0, 2, '1'),
+('US004', 'RS004', '2016-11-14', '', '', 0, 5, '1'),
+('US005', 'RS005', '2016-11-14', '', '', 0, 5, '1'),
+('US006', 'RS006', '2016-11-14', '', '', 0, 5, '1'),
+('US007', 'RS007', '2016-11-14', '', '', 0, 5, '1'),
+('US008', 'RS008', '2016-11-14', '', '', 0, 5, '1'),
+('US009', 'RS009', '2016-11-14', '', '', 0, 5, '1'),
+('US011', 'RS009', '2016-11-14', '', '', 0, 5, '1');
 
 -- --------------------------------------------------------
 
@@ -665,6 +669,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `EMAIL_USER` varchar(50) NOT NULL,
   `PASSWORD` varchar(255) NOT NULL,
   `JUMLAH_REPORT_USER` int(4) NOT NULL,
+  `URL_FOTO` varchar(255) NOT NULL,
   `KETERANGAN_USER` varchar(50) NOT NULL,
   `STATUS` varchar(1) NOT NULL,
   PRIMARY KEY (`KODE_USER`)
@@ -674,18 +679,20 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`KODE_USER`, `KODE_JENISUSER`, `NAMA_USER`, `ALAMAT_USER`, `NOR_TELEPON_USER`, `TANGGAL_LAHIR_USER`, `TANGGAL_REGISTER_USER`, `TANGGAL_LOGIN_USER`, `KODE_POS_USER`, `EMAIL_USER`, `PASSWORD`, `JUMLAH_REPORT_USER`, `KETERANGAN_USER`, `STATUS`) VALUES
-('US001', 'JU002', 'ARDI UNTUNG', 'JL. KEPALA GADING 20', '891113641', '1996-04-11', '2016-10-14', '2016-10-18', 60115, 'untungsayaardi@gmail', '0', 0, '', '1'),
-('US002', 'JU002', 'HENDY ZAG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-15', '2016-10-18', 78001, 'zipzap@gmail.com', '1', 0, '', '1'),
-('US003', 'JU003', 'Jason Elian', 'jl Kepanjen no 108', '1111', '2016-10-12', '2016-10-16', '2016-10-18', 874651, 'jason.alien@gmail.com', '0', 0, '', '1'),
-('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-10-16', '2016-10-20', 0, 'administrator', 'administrator', 0, '', '1'),
-('US005', 'JU002', 'HENDY ZAGG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-17', '0000-00-00', 78001, 'zipzapa@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 0, 'test', '1'),
-('US006', 'JU004', 'GREGORIAN', 'JL. KALIJUDAN 144', '08785300', '1996-01-30', '2016-10-25', '0000-00-00', 60113, 'gregorian@gmail.com', '123', 0, '', '1'),
-('US007', 'JU005', 'KELVIANTO', 'JL. DR SOETOMO IIIA', '08155049', '1996-11-11', '2016-10-17', '0000-00-00', 60112, 'kelvianto@yahoo.com', '321', 0, '', '1'),
-('US008', 'JU004', 'MICHAEL RUSADI', 'JL. DR ARIFRAHMAND 74C', '08149931', '1996-08-01', '2016-10-22', '0000-00-00', 60116, 'mican@yahoo.com', '333', 0, '', '1'),
-('US009', 'JU001', 'DAVID', 'JL. PLOSO TIMUR IVA/3', '3895301', '1995-12-10', '2016-10-19', '0000-00-00', 60115, 'david555@gmail.com', '222', 0, '', '1'),
-('US010', 'JU003', 'KING JULIAN', 'JL. MADAGASCAR 96', '7783540', '1996-07-09', '2016-05-16', '0000-00-00', 60119, 'iliketomoveit@gmail.com', '111', 0, '', '1'),
-('US011', 'JU002', 'cobacoba', ' ', '0123123123', '2016-11-22', '0000-00-00', '0000-00-00', 0, 'a@a.com', '1', 0, '', '1');
+INSERT INTO `user` (`KODE_USER`, `KODE_JENISUSER`, `NAMA_USER`, `ALAMAT_USER`, `NOR_TELEPON_USER`, `TANGGAL_LAHIR_USER`, `TANGGAL_REGISTER_USER`, `TANGGAL_LOGIN_USER`, `KODE_POS_USER`, `EMAIL_USER`, `PASSWORD`, `JUMLAH_REPORT_USER`, `URL_FOTO`, `KETERANGAN_USER`, `STATUS`) VALUES
+('US001', 'JU002', 'ARDI UNTUNG', 'JL. KEPALA GADING 20', '891113641', '1996-04-11', '2016-10-14', '2016-10-18', 60115, 'untungsayaardi@gmail', '0', 0, '', '', '1'),
+('US002', 'JU002', 'HENDY ZAG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-15', '2016-10-18', 78001, 'zipzap@gmail.com', '1', 0, '', '', '1'),
+('US003', 'JU003', 'Jason Elian', 'jl Kepanjen no 108', '1111', '2016-10-12', '2016-10-16', '2016-10-18', 874651, 'jason.alien@gmail.com', '0', 0, '', '', '1'),
+('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-10-16', '2016-10-20', 0, 'administrator', 'administrator', 0, '', '', '1'),
+('US005', 'JU002', 'HENDY ZAGG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-17', '0000-00-00', 78001, 'zipzapa@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 0, '', 'test', '1'),
+('US006', 'JU004', 'GREGORIAN', 'JL. KALIJUDAN 144', '08785300', '1996-01-30', '2016-10-25', '0000-00-00', 60113, 'gregorian@gmail.com', '123', 0, '', '', '1'),
+('US007', 'JU005', 'KELVIANTO', 'JL. DR SOETOMO IIIA', '08155049', '1996-11-11', '2016-10-17', '0000-00-00', 60112, 'kelvianto@yahoo.com', '321', 0, '', '', '1'),
+('US008', 'JU004', 'MICHAEL RUSADI', 'JL. DR ARIFRAHMAND 74C', '08149931', '1996-08-01', '2016-10-22', '0000-00-00', 60116, 'mican@yahoo.com', '333', 0, '', '', '1'),
+('US009', 'JU001', 'DAVID', 'JL. PLOSO TIMUR IVA/3', '3895301', '1995-12-10', '2016-10-19', '0000-00-00', 60115, 'david555@gmail.com', '222', 0, '', '', '1'),
+('US010', 'JU003', 'KING JULIAN', 'JL. MADAGASCAR 96', '7783540', '1996-07-09', '2016-05-16', '0000-00-00', 60119, 'iliketomoveit@gmail.com', '111', 0, '', '', '1'),
+('US011', 'JU002', 'cobacoba', ' ', '0123123123', '2016-11-22', '0000-00-00', '0000-00-00', 0, 'a@a.com', '1', 0, '', '', '1'),
+('US012', 'JU002', 'Hendy Lukas', ' ', '082332515552', '2016-11-16', '0000-00-00', '0000-00-00', 0, 'hendylukas68@gmail.com', 'lukas123', 0, '', '', '1'),
+('US013', 'JU002', 'hendy lukassssse', ' ', '082332515552', '2016-11-11', '0000-00-00', '0000-00-00', 0, 'hendylukas69@gmail.com', 'lukas123', 0, '', '', '1');
 
 --
 -- Constraints for dumped tables
