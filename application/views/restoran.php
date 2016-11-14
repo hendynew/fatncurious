@@ -115,9 +115,9 @@
             if($kodeuser != ''){
               ?>
     			<center>
-    				<h4> Give Rating </h4>
             <?php
-              if($rating == 0){
+              if($userRating == 0){
+                echo "<h4> Give Rating </h4>";
                 echo '<h2 class="rating" >';?>
                           <span class="glyphicon <?php echo $glyphicon1;?>" data-val="1" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
                           <span class="glyphicon <?php echo $glyphicon2;?>" data-val="2" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
@@ -128,7 +128,6 @@
               }else{
             ?>
               <center>
-                <h2> Rating Jika Sudah Pernah</h2>
                 <h2>
                   <div class="row">
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -147,7 +146,6 @@
               <a href="<?php echo site_url('fatncurious/editRatingRestoran'); ?>" class="btn btn-primary btn-md">Edit</a>
               </center>
               <?php } ?>
-
               <!--Modal -->
               <div id="modalRating" class="modal fade">
               <div class="modal-dialog">
@@ -207,90 +205,33 @@
                     <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
                 </div>
                 <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                  <?php foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
                       <img class="media-object" src="..." alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
+                      <h4 class="media-heading"><?php echo $rr->NAMA ?></h4>
                       <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
+                        <?php
+                          $counter = 0;
+                          for($i = 0; $i < 5; $i++){
+                            if($counter < $rr->RATING){
+                              echo '<span class="glyphicon glyphicon-star"></span>';
+                            }
+                            else{
+                              echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                            }
+                            $counter++;
+                          }
+                         ?>
                       </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                      <strong><?php echo $rr->JUDUL ?> </strong><br/>
+                      <?php echo $rr->DESKRIPSI ?>
                     </div>
                   </div>
                   <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
+                  <?php } ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -327,14 +268,14 @@
 
 					if($m->KODE_JENIS_MENU == 'JM001'){
 						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:35px;'>";
+						echo "<div class='media'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right' data-menu='".$m->NAMA_MENU."' data-kodeMenu = '".$m->KODE_MENU."' data-restoran=".$resto->NAMA_RESTORAN.">Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -345,8 +286,7 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW.'<br/>';
-                  echo "<span class='glyphicon glyphicon-thumbs-up likeReview' data-kodeReview = ".$r->KODE_REVIEW."></span><span class='glyphicon glyphicon-thumbs-down dislikeReview' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span><span class='glyphicon glyphicon-ok-circle reviewed' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span>";
+                  echo $r->DESKRIPSI_REVIEW;
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -359,13 +299,13 @@
                 echo "<span class='input-group-btn'>";
                 echo form_hidden('menu',$m->KODE_MENU);
                 echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default ','name'=>'btnGo','value'=>'Go!'];
+                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
                 echo form_submit($arr);
                 echo "</span>";
                 echo "</div>";
                 echo form_close();
               }
-              echo "</div>";
+
               echo "</div>";
               echo "</div>";
             }
@@ -410,55 +350,23 @@
 
 			//===========MAKANAN=========
 		?>
-    <!--Modal -->
-    <div id="modalUpload" class="modal fade">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Upload Foto Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
-              </div>
-              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                <center>
-                  <div class="media">
-                    <a href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <?php
-                        echo form_open_multipart('fatncurious/uploadFoto');
-                          echo form_upload('uploadFoto');
-                        echo form_close();
-                      ?>
-                    </div>
-                  </div>
-              </center>
-                <hr>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
-              </div>
-          </div>
-      </div>
-  </div>
+
 		<?php
 		$adaMenu=false;
 		//===========MINUMAN=========
 			if(isset($menu)){
-        echo '<hr>';
 				echo "<h4>MINUMAN</h4>";
         foreach($menu as $m){
 					if($m->KODE_JENIS_MENU == 'JM002'){
 						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:35px;'>";
+						echo "<div class='media'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right' data-menu='".$m->NAMA_MENU."' data-kodeMenu = '".$m->KODE_MENU."' data-restoran=".$resto->NAMA_RESTORAN.">Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -469,8 +377,7 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW.'<br/>';
-                  echo "<span class='glyphicon glyphicon-thumbs-up likeReview' data-kodeReview = ".$r->KODE_REVIEW."></span><span class='glyphicon glyphicon-thumbs-down dislikeReview' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span><span class='glyphicon glyphicon-ok-circle reviewed' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span>";
+                  echo $r->DESKRIPSI_REVIEW;
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -488,7 +395,6 @@
                 echo "</div>";
                 echo form_close();
               }
-              echo "</div>";
               echo "</div>";
               echo "</div>";
             }
@@ -535,20 +441,19 @@
 		$adaMenu=false;
 		//===========SNACK=========
 			if(isset($menu)){
-        echo '<hr>';
 				echo "<h4>SNACK</h4>";
 				foreach($menu as $m){
 
 					if($m->KODE_JENIS_MENU == 'JM003'){
 						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:35px;'>";
+						echo "<div class='media'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right' data-menu='".$m->NAMA_MENU."' data-kodeMenu = '".$m->KODE_MENU."' data-restoran=".$resto->NAMA_RESTORAN.">Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -559,8 +464,7 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW.'<br/>';
-                  echo "<span class='glyphicon glyphicon-thumbs-up likeReview' data-kodeReview = ".$r->KODE_REVIEW."></span><span class='glyphicon glyphicon-thumbs-down dislikeReview' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span><span class='glyphicon glyphicon-ok-circle reviewed' data-kodeReview = ".$r->KODE_REVIEW." style='margin-left:20px;'></span>";
+                  echo $r->DESKRIPSI_REVIEW;
                   echo "</div>";
                   echo "<br/>";
                 }
