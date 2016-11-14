@@ -308,10 +308,14 @@ $('#modalUpload').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var recipient = button.data('menu'); // Extract info from data-* attributes
 	var restoran = button.data('restoran');
+	var kodeMenu = button.data('kode1');
+	var kodeRestoran = button.data('kode2');
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this);
   modal.find('.modal-title').text("Upload Foto " + recipient + " Restoran "+ restoran);
+	$("#hidKodeMenu").attr("value",kodeMenu);
+	$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
 
 $(".likeReview").on("click",function()
