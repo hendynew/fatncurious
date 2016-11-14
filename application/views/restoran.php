@@ -115,9 +115,9 @@
             if($kodeuser != ''){
               ?>
     			<center>
-    				<h4> Give Rating </h4>
             <?php
-              if($rating == 0){
+              if($userRating == 0){
+                echo "<h4> Give Rating </h4>";
                 echo '<h2 class="rating" >';?>
                           <span class="glyphicon <?php echo $glyphicon1;?>" data-val="1" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
                           <span class="glyphicon <?php echo $glyphicon2;?>" data-val="2" data-val2=<?php echo $kodeuser?> data-val3=<?php echo $resto->KODE_RESTORAN?> data-val4="<?php echo $userRating?>" data-toggle="modal" data-target="#modalRating" aria-hidden="true"></span>
@@ -128,7 +128,6 @@
               }else{
             ?>
               <center>
-                <h2> Rating Jika Sudah Pernah</h2>
                 <h2>
                   <div class="row">
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
