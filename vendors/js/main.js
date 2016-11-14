@@ -255,7 +255,8 @@ $('#modalRating').on('show.bs.modal', function (event) {
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 	var valueBintang = button.data('val');
-	//bersihkan Bintang
+	$("#hidBintang").attr("value",valueBintang);
+
 	$('.bintang').each(function(index,value)
 	{
 		if($(this).hasClass('glyphicon-star'))
@@ -274,9 +275,33 @@ $('#modalRating').on('show.bs.modal', function (event) {
 			$(this).addClass('glyphicon-star');
 		}
 	});
+	//bersihkan Bintang
   /*var modal = $(this);
   modal.find('.modal-title').text('New message to ' + recipient);
   modal.find('.modal-body input').val(recipient);*/
+});
+
+$('.bintang').on('click', function (event) {
+	var valueBintang = $(this).attr("data-val");
+	$('.bintang').each(function(index,value)
+	{
+		if($(this).hasClass('glyphicon-star'))
+		{
+			$(this).removeClass('glyphicon-star');
+			$(this).addClass('glyphicon-star-empty');
+
+		}
+	});
+	//tambah Bintang
+	$(".bintang").each(function(index,value)
+	{
+		if($(this).attr('data-val')<=valueBintang)
+		{
+			$(this).removeClass('glyphicon-star-empty');
+			$(this).addClass('glyphicon-star');
+		}
+	});
+	$("#hidBintang").attr("value",valueBintang);
 });
 
 $('#modalUpload').on('show.bs.modal', function (event) {

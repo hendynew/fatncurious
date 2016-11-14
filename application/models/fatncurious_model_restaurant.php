@@ -83,7 +83,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 			'KODE_RESTORAN'=>$kodeResto,
 			'KODE_USER'=>$kodeUser
 		];
-		$this->db->select('JUMLAH_RATING');
+		$this->db->select('*');
 		$this->db->where($where);
 		$this->db->from('rating_restoran');
 		return $this->db->get()->row();
