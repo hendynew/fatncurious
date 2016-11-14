@@ -333,7 +333,7 @@
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU.form_submit('btnUpload',['class'=>'btn btn-primary'])."</h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -357,13 +357,12 @@
                 echo "<span class='input-group-btn'>";
                 echo form_hidden('menu',$m->KODE_MENU);
                 echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+                $arr = ['class'=>'btn btn-default ','name'=>'btnGo','value'=>'Go!'];
                 echo form_submit($arr);
                 echo "</span>";
                 echo "</div>";
                 echo form_close();
               }
-
               echo "</div>";
               echo "</div>";
             }
