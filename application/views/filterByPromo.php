@@ -91,6 +91,7 @@
   </header><!--/#home-->
     <br>
     <div class='container navbarSpace'>
+      <!--
       <div class="row">
         <h1>Inline Form</h1>
           <div class="form-group">
@@ -222,6 +223,50 @@
           </div>
       </div>
 
+    -->
+
+    <?php
+        echo form_open('fatncurious/searchFilterByPromo');
+          if(isset($kataSearch)){
+              echo form_input('txtSearchKredit',$kataSearch)."<br/>";
+          }
+          else{
+              echo form_input('txtSearchKredit')."<br/>";
+          }
+          if(isset($namaResto)){
+              echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
+          }
+          if(isset($alamatResto)){
+            echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
+          }
+          if(isset($namaPromo)){
+            echo form_checkbox('ckNamaPromo'," namaPromo",true)."Nama Promo"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckNamaPromo'," namaPromo",false)."Nama Promo"."<br/>";
+          }
+          if(isset($deskripsiPromo)){
+            echo form_checkbox('ckDeskripsiPromo'," deskripsiPromo",true)."Deskripsi Promo"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckDeskripsiPromo'," deskripsiPromo",false)."Deskripsi Promo"."<br/>";
+          }
+          if(isset($persentasePromo)){
+            echo "Persentase Promo Minimal : "."<input type='number' name='txtPersentase' min=0 max=100 value=".$persentasePromo.">"."<br/>";
+          }
+          else{
+            echo "Persentase Promo Minimal : "."<input type='number' name='txtPersentase' value=0 min=0 max=100>"."<br/>";
+          }
+          echo form_submit('btnSearch','Search');
+        echo form_close();
+    ?>
+
 
   <?php
 		foreach($promo as $r){
@@ -235,6 +280,10 @@
 				echo "</div>";
 				echo "<div class='media-body jarakMedia'>";
 					echo "<h3 class='media-heading jarakMedia'>".$r->RESTORAN.', '.$r->ALAMAT."</h3>";
+          echo "<h5 class='jarakMedia'>"."Kartu Kredit : ".$r->KARTU."</h5>";
+          echo "<h5 class='jarakMedia'>"."Nama Promo : ".$r->NAMA_PROMO."</h5>";
+          echo "<h5 class='jarakMedia'>"."Deskripsi Promo : ".$r->DESKRIPSI_PROMO."</h5>";
+          echo "<h5 class='jarakMedia'>"."Jumlah Diskon : ".$r->PERSENTASE_PROMO."</h5>";
 					echo "<ul class='media-list '>";
 						echo "<li class='media'>";
 							echo "<div class='media-right'>";
