@@ -163,7 +163,7 @@
     	<?php
     					echo "</div>";
               echo "<div class='media-body'>";
-    						echo "<h4 class='media-heading'>Michelle Withney</h4>";
+    						echo "<h4 class='media-heading'>"  . $review[$key]['NAMA_USER'] ."</h4>";
     						echo $review[$key]["DESKRIPSI"];
     					echo "</div>";
               echo "</div>";

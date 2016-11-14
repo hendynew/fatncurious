@@ -189,7 +189,8 @@ class Model_restaurant extends CI_Model {
 	}
 
 
-	public function RATE($rate,$user,$resto){
+	public function RATE($rate,$user,$resto,$comment,$judul){
+		$tanggal = date("Y-m-d");
 		$where = [
 			"KODE_USER"=>$user,
 			"KODE_RESTORAN"=>$resto,
@@ -203,12 +204,16 @@ class Model_restaurant extends CI_Model {
 				"STATUS"=>'1'
 			];
 			$this->db->where($arr);
-			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate]);
+			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate,"JUDUL"=>$judul,"DESKRIPSI"=>$comment,"TANGGAL"=>$tanggal]);
 		}else{
 			$arr = [
 				"KODE_USER"=>$user,
 				"KODE_RESTORAN"=>$resto,
 				"JUMLAH_RATING"=>$rate,
+				"TANGGAL"=>$tanggal,
+				"JUDUL"=>$judul,
+				"DESKRIPSI"=>$comment,
+				"JUMLAH_LIKE"=>0,
 				"STATUS"=>'1'
 			];
 			$this->db->insert('rating_restoran',$arr);
