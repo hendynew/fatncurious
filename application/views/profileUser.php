@@ -104,7 +104,7 @@
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-		      <?php echo form_open('fatncurious/updateProfilUser'); ?>
+		<?php echo form_open_multipart('fatncurious/updateProfilUser'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Profile User</center></h4>
@@ -114,11 +114,14 @@
 				<?php $this->table->add_row('Nama User',form_input('txtRestoran',$user->NAMA_USER,['style'=>'margin-left:20px;'])); ?>
 				<?php $this->table->add_row('Alamat',form_input('txtJalan',$user->ALAMAT_USER,['style'=>'margin-left:20px;'])); ?>
 				<?php $this->table->add_row('Nomor Telepon',form_input('txtNoTelp',$user->NOR_TELEPON_USER,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Upload Profile Foto',form_upload('foto')); ?>
 				<?php echo $this->table->generate(); ?>
           </div>
           <div class="modal-footer">
             <?php
-				echo "<button type='submit' class='submit btn-default' >Submit</button>";
+				//echo "<button type='submit' class='submit btn-default' >Submit</button>";
+        $arr = ['name'=>'btnSubmit','class'=>'submit btn-default','value'=>'Submit'];
+        echo form_submit($arr);
 			?>
             <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>

@@ -149,7 +149,7 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_REVIEW($kode){
-		$hasil = $this->db->query("SELECT rr.KODE_REVIEW_RESTORAN as 'KODE',user.KODE_USER as 'KODE_USER', user.NAMA_USER as 'NAMA', rr.DESKRIPSI_REVIEW_RESTORAN as 'DESKRIPSI', rr.TANGGAL_REVIEW_RESTORAN as 'TANGGAL', rr.JUMLAH_LIKE_REVIEW_RESTORAN as 'LIKE', rr.KETERANGAN_REVIEW_RESTORAN as 'KETERANGAN' from review_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
 		return $hasil;
 	}
 
