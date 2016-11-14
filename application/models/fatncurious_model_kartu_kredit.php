@@ -22,7 +22,7 @@ class Fatncurious_model_kartu_kredit extends CI_Model {
 		return $data->result();
 	}
 
-	public function searchKredit($limit,$start,$kataSearch,$namaKartu,$namaPromo)
+	public function searchKredit($limit,$start,$namaKartu)
 	{
 		$this->db->limit($limit,$start);
 		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.kode_restoran as 'KODE_RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'",'promo.*'));
@@ -32,18 +32,7 @@ class Fatncurious_model_kartu_kredit extends CI_Model {
 		$this->db->join('kartu_kredit','kartu_kredit.kode_kartu_kredit = sponsor_promo.kode_kartu_kredit');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
 		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
-		if( $namaKartu=='' && $namaPromo==''){
-			$this->db->like('kartu_kredit.nama_kartu_kredit',$kataSearch);
-			$this->db->or_like('promo.nama_promo',$kataSearch);
-		}
-		else{
-			if($namaKartu!=''){
-				$this->db->like('kartu_kredit.nama_kartu_kredit',$kataSearch);
-			}
-			if($namaPromo!=''){
-				$this->db->like('promo.nama_promo',$kataSearch);
-			}
-		}
+		$this->db->like('kartu_kredit.nama_kartu_kredit',$namaKartu);
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
 		$data = $this->db->get();
 		return $data->result();

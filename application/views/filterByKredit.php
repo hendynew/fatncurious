@@ -90,33 +90,44 @@
     </div>
   </header><!--/#home-->
     <br>
+    <?php
+      echo form_open('fatncurious/searchFilterByKredit');
+    ?>
     <div class='container navbarSpace diperkecil'>
       <div class="row">
-          <div class="form-group">
-            <div class="combobox-container" style="display:none;">
-      <input type="hidden" name="inline" value="">
-        <div class="input-group">
-          <input type="text" autocomplete="off" placeholder="Pilih Kartu Kredit" class="combobox form-control">
-          	<ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px;">
-          </ul>
-          <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown">
-            <span class="caret"></span>
-          <span class="glyphicon glyphicon-remove"></span>
-          </span>
-        </div>
-      </div>
-			<select class="combobox form-control" style="display: none;">
-        <option value="" selected="selected">Pilih Kartu Kredit</option>
-			<?php
-        foreach($semuaKartu as $k){
-            echo "<option value='".$k->NAMA_KARTU_KREDIT."'>".$k->NAMA_KARTU_KREDIT."</option>";
-        }
-      ?>
-				  <option value="Mandiri">Mandiri</option>
-      </select>
-    </div>
-</div>
+              <div class="form-group">
+                <div class="combobox-container" style="display:none;">
+              <input type="hidden" name="inline" value="">
+                <div class="input-group">
+                  <input type="text" autocomplete="off" placeholder="Pilih Kartu Kredit" class="combobox form-control">
+                  	<ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px;">
+                  </ul>
+                  <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown">
+                    <span class="caret"></span>
+                  <span class="glyphicon glyphicon-remove"></span>
+                  </span>
+                </div>
+              </div>
+        			<select name="namaKartu" class="form-control" style="display: inherit;">
+                <?php
+                  if(isset($namaKartu)){
+                    echo "<option value='".$namaKartu."' selected>".$namaKartu."</option>";
+                  }
+                  else{
+                    echo "<option value='' selected>Pilih Kartu Kredit</option>";
+                  }
+                ?>
 
+        			<?php
+                foreach($semuaKartu as $k){
+                    echo "<option value='".$k->NAMA_KARTU_KREDIT."'>".$k->NAMA_KARTU_KREDIT."</option>";
+                }
+              ?>
+              </select>
+            </div>
+        </div>
+    <?php echo form_submit('btnSearch','Search');?>
+    <?php echo form_close();?>
 
 
       <?php
