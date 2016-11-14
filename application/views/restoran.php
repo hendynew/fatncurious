@@ -48,7 +48,6 @@
                     }
                     ?>
                   </h2>
-
               </h1>
               <p><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
@@ -241,7 +240,34 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-
+    <div id="modalUpload" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+              </div>
+              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                <center>
+                  <div class="media">
+                    <a class="media" href="#">
+                      <img class="media-object" src="..." alt="Generic placeholder image">
+                    </a>
+                    <div class="media-body">
+                      <?php echo form_open_multipart('fatncurious/uploadFoto').form_upload('uploadFoto').form_close(); ?>
+                    </div>
+                  </div>
+              </center>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
         <?php
 			if(isset($promo)){
 				foreach($promo as $p){
@@ -268,14 +294,14 @@
 
 					if($m->KODE_JENIS_MENU == 'JM001'){
 						$adaMenu=true;
-						echo "<div class='media'>";
+						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -287,6 +313,8 @@
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
+                  echo '<br/>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -305,7 +333,7 @@
                 echo "</div>";
                 echo form_close();
               }
-
+              echo "</div>";
               echo "</div>";
               echo "</div>";
             }
@@ -355,18 +383,19 @@
 		$adaMenu=false;
 		//===========MINUMAN=========
 			if(isset($menu)){
+        echo "<hr>";
 				echo "<h4>MINUMAN</h4>";
         foreach($menu as $m){
 					if($m->KODE_JENIS_MENU == 'JM002'){
 						$adaMenu=true;
-						echo "<div class='media'>";
+						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -378,6 +407,8 @@
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
+                  echo '<br/>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -395,6 +426,7 @@
                 echo "</div>";
                 echo form_close();
               }
+              echo "</div>";
               echo "</div>";
               echo "</div>";
             }
@@ -441,19 +473,20 @@
 		$adaMenu=false;
 		//===========SNACK=========
 			if(isset($menu)){
+        echo "<hr>";
 				echo "<h4>SNACK</h4>";
 				foreach($menu as $m){
 
 					if($m->KODE_JENIS_MENU == 'JM003'){
 						$adaMenu=true;
-						echo "<div class='media'>";
+						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
 			?>
 							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -465,6 +498,8 @@
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
+                  echo '<br/>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -482,6 +517,7 @@
                 echo "</div>";
                 echo form_close();
               }
+              echo "</div>";
               echo "</div>";
               echo "</div>";
             }
