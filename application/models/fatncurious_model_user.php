@@ -8,7 +8,7 @@ class Fatncurious_model_user extends CI_Model {
 	}
 
 	public function master_login($username,$password){
-		$data = $this->db->query("SELECT * FROM user where EMAIL_USER='$username' and PASSWORD='$password' AND STATUS='1'");
+		$data = $this->db->query("SELECT * FROM user where EMAIL_USER='$username' and PASSWORD='$password' AND STATUS='1' AND KODE_JENISUSER='JU001'");
 		return $data->result();
 	}
 
@@ -16,9 +16,9 @@ class Fatncurious_model_user extends CI_Model {
 		$data = $this->db->query("SELECT * FROM user where KODE_USER='$kode'");
 		return $data->row();
 	}
-	
+
 	public function selectUserByEmail($kode){
-		$data = $this->db->query("SELECT KODE_USER FROM user where EMAIL_USER='$kode'");
+		$data = $this->db->query("SELECT KODE_USER FROM user where EMAIL_USER='$kode' AND KODE_JENISUSER!='JU001'");
 		return $data->row();
 	}
 	public function selectJenisUserByKode($kode){
