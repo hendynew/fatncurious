@@ -266,6 +266,7 @@ class Fatncurious extends CI_Controller {
 					$data['resto']->STATUS = 'Buka';
 				}
 				$this->load->model('Model_restaurant');
+				$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 				$data['kodeuser'] = $kodeUser;
 				$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
@@ -309,6 +310,15 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
 			//echo $kodeUser;
+			$this->load->library('upload');
+			$config = array(
+				'upload_path' => './vendors/images/profilepicture/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $this->session->userdata('userYangLogin')
+			);
+			$this->upload->initialize($config);
 			$this->load->view('profileUser',$data);
 		}
 
@@ -354,21 +364,36 @@ class Fatncurious extends CI_Controller {
 	}
 	public function updateProfilUser(){
 		if($this->session->userdata('userYangLogin')){
-			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-			$user = $this->fatncurious_model_user->SEARCH($kodeUser);
-			$kode = $user->KODE_USER;
-			$kodeJU = $user->KODE_JENISUSER;
-			$nama = $this->input->post('txtRestoran');
-			$alamat = $this->input->post('txtJalan');
-			$telp = $this->input->post('txtNoTelp');
-			$tgl = $user->TANGGAL_LAHIR_USER;
-			$pos = $user->KODE_POS_USER;
-			$email = $user->EMAIL_USER;
-			$pass = $user->PASSWORD;
-			$report = $user->JUMLAH_REPORT_USER;
-			$ket = $user->KETERANGAN_USER;
-			$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
-			redirect('fatncurious/index/update_berhasil');
+			$this->load->library('upload');
+			if($this->input->post('btnSubmit')){
+				$config = array(
+					'upload_path' => './vendors/images/profilepicture/',
+					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+					'overwrite' => TRUE,
+					'max_size' => "1000KB",
+					'file_name' => $this->session->userdata('userYangLogin')
+				);
+				$this->upload->initialize($config);
+				if($this->upload->do_upload('foto')){
+					$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+					$user = $this->fatncurious_model_user->SEARCH($kodeUser);
+					$kode = $user->KODE_USER;
+					$kodeJU = $user->KODE_JENISUSER;
+					$nama = $this->input->post('txtRestoran');
+					$alamat = $this->input->post('txtJalan');
+					$telp = $this->input->post('txtNoTelp');
+					$tgl = $user->TANGGAL_LAHIR_USER;
+					$pos = $user->KODE_POS_USER;
+					$email = $user->EMAIL_USER;
+					$pass = $user->PASSWORD;
+					$report = $user->JUMLAH_REPORT_USER;
+					$ket = $user->KETERANGAN_USER;
+					$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
+					redirect('fatncurious/index/update_berhasil');
+				}else{
+					redirect('fatncurious/index/update_gagal');
+				}
+			}
 		}
 		else{
 			redirect('fatncurious/index/belum_login');
@@ -603,6 +628,7 @@ class Fatncurious extends CI_Controller {
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
 		$this->load->model('Model_restaurant');
+		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['active1'] = '';
@@ -624,6 +650,7 @@ class Fatncurious extends CI_Controller {
 		$data['active3'] = '';
 		$data['active4'] = '';
 		$this->load->model('Model_restaurant');
+		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
@@ -687,6 +714,7 @@ class Fatncurious extends CI_Controller {
 			}
 		}
 		$this->load->model('Model_restaurant');
+		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
