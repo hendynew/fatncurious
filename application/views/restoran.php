@@ -205,90 +205,33 @@
                     <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
                 </div>
                 <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                  <?php foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
                       <img class="media-object" src="..." alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
+                      <h4 class="media-heading"><?php echo $rr->NAMA ?></h4>
                       <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
+                        <?php
+                          $counter = 0;
+                          for($i = 0; $i < 5; $i++){
+                            if($counter < $rr->RATING){
+                              echo '<span class="glyphicon glyphicon-star"></span>';
+                            }
+                            else{
+                              echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                            }
+                            $counter++;
+                          }
+                         ?>
                       </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                      <strong><?php echo $rr->JUDUL ?> </strong><br/>
+                      <?php echo $rr->DESKRIPSI ?>
                     </div>
                   </div>
                   <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="media">
-                    <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Media heading</h4>
-                      <h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                      </h4>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                  </div>
+                  <?php } ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
