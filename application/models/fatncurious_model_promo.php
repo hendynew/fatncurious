@@ -80,9 +80,11 @@ class Fatncurious_model_promo extends CI_Model {
 
 	public function selectSemuaPromo($limit,$start){
 		$this->db->limit($limit,$start);
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
+		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');
+		$this->db->join('kartu_kredit','kartu_kredit.kode_kartu_kredit = sponsor_promo.kode_kartu_kredit');
 		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
 		$this->db->where('promo.status',1);
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');

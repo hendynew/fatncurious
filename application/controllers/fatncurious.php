@@ -407,7 +407,6 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
-
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/filterByPromo');
 		$config["per_page"] = 5;
@@ -797,6 +796,10 @@ class Fatncurious extends CI_Controller {
 		$data['snack'] = $snack;
 		$data['dessert']=$dessert;
 
+		$this->load->model('Model_menu');
+		$data['review'] = $this->Model_menu->SELECT_ALL_REVIEW();
+		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
+
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/searchFilterByMenu');
 		$config["per_page"] = 5;
@@ -864,6 +867,7 @@ class Fatncurious extends CI_Controller {
 		$data['kataSearch'] = $kataSearch;
 		$data['namaResto'] = $namaResto;
 		$data['alamatResto'] = $alamatResto;
+		//echo $kataSearch;
 
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/searchFilterByRestoran');
