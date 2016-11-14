@@ -14,6 +14,7 @@
   <link id="css-preset" href="<?php echo base_url('/vendors/css/presets/preset1.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/main.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('/vendors/css/bootstrap-combobox.css'); ?>" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -90,26 +91,42 @@
   </header><!--/#home-->
     <br>
     <div class='container navbarSpace diperkecil'>
+      <div class="row">
+          <div class="form-group">
+            <div class="combobox-container" style="display:none;">
+      <input type="hidden" name="inline" value="">
+        <div class="input-group">
+          <input type="text" autocomplete="off" placeholder="Pilih Kartu Kredit" class="combobox form-control">
+          	<ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px;">
+          </ul>
+          <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown">
+            <span class="caret"></span>
+          <span class="glyphicon glyphicon-remove"></span>
+          </span>
+        </div>
+      </div>
+			<select class="combobox form-control" style="display: none;">
+        <option value="" selected="selected">Pilih Kartu Kredit</option>
+			<?php
+        foreach($semuaKartu as $k){
+            echo "<option value='".$k->NAMA_KARTU_KREDIT."'>".$k->NAMA_KARTU_KREDIT."</option>";
+        }
+      ?>
+				  <option value="Mandiri">Mandiri</option>
+      </select>
+    </div>
+</div>
+
+
 
       <?php
+      /*
           echo form_open('fatncurious/searchFilterByKredit');
             if(isset($kataSearch)){
                 echo form_input('txtSearchKredit',$kataSearch)."<br/>";
             }
             else{
                 echo form_input('txtSearchKredit')."<br/>";
-            }
-            if(isset($namaResto)){
-                echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
-            }
-            else{
-              echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
-            }
-            if(isset($alamatResto)){
-              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
-            }
-            else{
-              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
             }
             if(isset($namaKartu)){
               echo form_checkbox('ckKartuKredit'," kartuKredit",true)."Kartu Kredit"."<br/>";
@@ -124,7 +141,7 @@
               echo form_checkbox('ckNamaPromo'," namaPromo",false)."Nama Promo"."<br/>";
             }
             echo form_submit('btnSearch','Search');
-          echo form_close();
+          echo form_close();*/
       ?>
 
 	<?php
@@ -162,5 +179,9 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>"></script>
+    <script>
+  $('.combobox').combobox();
+</script>
 </body>
 </html>
