@@ -1,5 +1,4 @@
--	Fitur untuk pengguna:
-	* foto makanan yang diupload oleh user. -> view Sudah
+- Fitur untuk pengguna:
 	* comment dan like pada restoran maupun makanan. ->restoran belum
 	* bisa melihat lokasi restoran tersebut melalui google maps. -> sudah?
 	* user bisa mengedit dan menghapus comment miliknya.
