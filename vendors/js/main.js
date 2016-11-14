@@ -317,3 +317,18 @@ $('#modalUpload').on('show.bs.modal', function (event) {
 	$("#hidKodeMenu").attr("value",kodeMenu);
 	$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
+
+$(".likeReview").on("click",function()
+{
+	alert("likeReview");
+});
+
+$(".dislikeReview").on("click",function()
+{
+	alert("dislikeReview");
+});
+
+$(".reportReview").on("click",function()
+{
+	alert("reportReview");
+});
