@@ -53,6 +53,7 @@
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
+              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModalPassword">  Lihat Lokasi</a></p>
           </div>
         </div>
       </div>
