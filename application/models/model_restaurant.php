@@ -166,10 +166,28 @@ class Model_restaurant extends CI_Model {
 			$total += $h->RATING;
 			$jumlah++;
 		}
-		$total_rating = $total/$jumlah;
+		if($jumlah > 0){
+			$total_rating = $total/$jumlah;
+		}else{
+			$total_rating = $total;
+		}
+
 
 		return floor($total_rating);
 	}
+
+	public function COUNT_ALL_RATING(){
+		$hasil = $this->db->query("SELECT rating.KODE_RESTORAN as KODE,rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating where rating.STATUS='1'")->result();
+		$data = [];
+		foreach($hasil as $h){
+			$this->db->where('KODE_RESTORAN',$h->KODE);
+			$jumlah = $this->db->count_all_results("rating_restoran");
+			$jumlahnya = $h->RATING / $jumlah;
+			$data[$h->KODE] = floor($jumlahnya);
+		}
+		return $data;
+	}
+
 
 	public function RATE($rate,$user,$resto){
 		$where = [

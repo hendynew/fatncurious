@@ -87,39 +87,94 @@
   </header><!--/#home-->
     <br/>
     <div class='container navbarSpace'>
+
+      <?php
+          echo form_open('fatncurious/searchFilterByRestoran');
+            if(isset($kataSearch)){
+                echo form_input('txtSearchRestoran',$kataSearch)."<br/>";
+            }
+            else{
+                echo form_input('txtSearchRestoran')."<br/>";
+            }
+            if(isset($namaResto)){
+                echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
+            }
+            if(isset($alamatResto)){
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
+            }
+            else{
+              echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
+            }
+            echo form_submit('btnSearch','Search');
+          echo form_close();
+      ?>
+
+
     <div id="output">asdasd</div>
 	<?php
 	$ctr=0;
-		foreach($resto as $r){
+		foreach($resto as $key=>$r){
+      $restoSebelumnya='';
+      $ctrKartu=0;
+      $simpanKredit='';
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
         echo '<p id="jarak'.$ctr++.'">Jarak = Undefined</p>';
 				echo "<div class='media-left'>";
-					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>';
+					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$key).'>';
 						?>
 						<img class='media-object img-rounded gambarRestoran' src='<?php echo base_url('/vendors/images/portfolio/1.jpg');?>' alt='...'>
 						<?php
 				echo "</div>";
 				echo "<div class='media-body jarakMedia'>";
-					echo "<h3 class='media-heading jarakMedia'>".$r->NAMA_RESTORAN.', '.$r->ALAMAT_RESTORAN."</h3>";
+					echo "<h3 class='media-heading jarakMedia'>".$r['NAMA_RESTORAN'].', '.$r['ALAMAT_RESTORAN']."</h3>";
           echo "</a>";
 					echo "<h4 class='jarakMedia'>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-						echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+          $ada = false;
+            foreach($rating as $key2=>$value){
+              if($key2 == $key){
+                $ada = true;
+                $jumlah_rating = $value;
+                for($i = 0; $i < 5; $i++){
+                  if($jumlah_rating > 0){
+                    echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+                  }else
+                    echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+                  $jumlah_rating--;
+                }
+                break;
+              }
+            }
+            if(!$ada){
+              for($i = 0; $i < 5; $i++){
+                echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+              }
+            }
 					echo "</h4>";
-					echo "<h5 class='jarakMedia'>"."No Telp : ".$r->NO_TELEPON_RESTORAN."</h5>";
-					echo "<h5 class='jarakMedia'>"."Jam Buka : ".$r->JAM_BUKA_RESTORAN."</h5>";
-					echo "<h5 class='jarakMedia'>"."Hari Buka : ".$r->HARI_BUKA_RESTORAN."</h5>";
-					if($r->STATUS==1){
+					echo "<h5 class='jarakMedia'>"."No Telp : ".$r['NO_TELEPON_RESTORAN']."</h5>";
+					echo "<h5 class='jarakMedia'>"."Jam Buka : ".$r['JAM_BUKA_RESTORAN']."</h5>";
+					echo "<h5 class='jarakMedia'>"."Hari Buka : ".$r['HARI_BUKA_RESTORAN']."</h5>";
+					if($r['STATUS_RESTORAN']==1){
 						$status = 'Buka';
 					}
-					else if($r->STATUS==0){
+					else if($r['STATUS_RESTORAN']==0){
 						$status = 'Tutup';
 					}
 					echo "<h5 class='jarakMedia'>"."Status : ".$status."</h5>";
-					echo "<h5 class='jarakMedia'>"."Deskripsi : ".$r->DESKRIPSI_RESTORAN."</h5>";
+					echo "<h5 class='jarakMedia'>"."Deskripsi : ".$r['DESKRIPSI_RESTORAN']."</h5>";
+
+          if($r['KARTU_KREDIT']==' '){
+              echo "<h5 class='jarakMedia'> Kartu Kredit yang ada promo : Tidak Ada Promo";
+          }
+          else{
+              echo "<h5 class='jarakMedia'> Kartu Kredit yang ada promo : " . $r['KARTU_KREDIT'];
+          }
+
+          echo " </h5>";
+
+          $ctrKartu++;
 				echo "</div>";
 			echo "</div>";
 		}
@@ -149,11 +204,14 @@
           {
             destination[i]='';
           }
+
           <?php
             $counter = 0;
+
             foreach($resto as $row)
             {
-                echo 'destination['.$counter++.'] = "'.$row->ALAMAT_RESTORAN.'";';
+
+                echo 'destination['.$counter++.'] = "'.$row['ALAMAT_RESTORAN'].'";';
             }
           ?>
           //alert(destinationA);

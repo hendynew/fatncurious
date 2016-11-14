@@ -14,6 +14,7 @@
   <link id="css-preset" href="<?php echo base_url('/vendors/css/presets/preset1.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/main.css');?>" rel="stylesheet">
   <link href="<?php echo base_url('/vendors/css/responsive.css');?>" rel="stylesheet">
+  <link href="<?php echo base_url('/vendors/css/bootstrap-combobox.css'); ?>" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -89,8 +90,185 @@
     </div>
   </header><!--/#home-->
     <br>
-    <div class='container navbarSpace diperkecil'>
-	<?php
+    <div class='container navbarSpace'>
+      <!--
+      <div class="row">
+        <h1>Inline Form</h1>
+          <div class="form-group">
+            <div class="combobox-container" style="display:none;">
+			<input type="hidden" name="inline" value="">
+				<div class="input-group">
+					<input type="text" autocomplete="off" placeholder="Select a State" class="combobox form-control">
+						<ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px;">
+							<li data-value="Mandiri" class="active">
+								<a href="#">
+									<strong></strong>M
+									<strong></strong>a
+									<strong></strong>n
+									<strong></strong>d
+									<strong></strong>i
+									<strong></strong>r
+									<strong></strong>i
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BII">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>I
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BNI">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>N
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Danamon">
+								<a href="#">
+									<strong></strong>D
+									<strong></strong>a
+									<strong></strong>n
+									<strong></strong>a
+									<strong></strong>m
+									<strong></strong>o
+									<strong></strong>n
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BRI">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>R
+									<strong></strong>I
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="BCA">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>C
+									<strong></strong>A
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Mega">
+								<a href="#">
+									<strong></strong>M
+									<strong></strong>e
+									<strong></strong>g
+									<strong></strong>a
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="CIMB">
+								<a href="#">
+									<strong></strong>C
+									<strong></strong>I
+									<strong></strong>M
+									<strong></strong>B
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Sinarmas">
+								<a href="#">
+									<strong></strong>S
+									<strong></strong>i
+									<strong></strong>n
+									<strong></strong>a
+									<strong></strong>r
+									<strong></strong>m
+									<strong></strong>a
+									<strong></strong>s
+									<strong></strong>
+								</a>
+							</li>
+							<li data-value="Bukopin">
+								<a href="#">
+									<strong></strong>B
+									<strong></strong>u
+									<strong></strong>k
+									<strong></strong>o
+									<strong></strong>p
+									<strong></strong>i
+									<strong></strong>n
+									<strong></strong>
+								</a>
+							</li>
+							</ul>
+							<span class="input-group-addon dropdown-toggle" data-dropdown="dropdown">
+								<span class="caret"></span>
+							<span class="glyphicon glyphicon-remove"></span>
+							</span>
+						</div>
+					</div>
+				<select class="combobox form-control" style="display: none;">
+				  <option value="" selected="selected">Select a State</option>
+				  <option value="Mandiri">Mandiri</option>
+				  <option value="BII">BII</option>
+				  <option value="BCA">BCA</option>
+				  <option value="BNI">BNI</option>
+				  <option value="Danamon">Danamon</option>
+				  <option value="BRI">BRI</option>
+				  <option value="Mega">Mega</option>
+				  <option value="Bersama">Bersama</option>
+				  <option value="CIMB">CIMB</option>
+				  <option value="Sinarmas">Sinarmas</option>
+				  <option value="Bukopin">Bukopin</option>
+            </select>
+          </div>
+      </div>
+
+    -->
+
+    <?php
+        echo form_open('fatncurious/searchFilterByPromo');
+          if(isset($kataSearch)){
+              echo form_input('txtSearchKredit',$kataSearch)."<br/>";
+          }
+          else{
+              echo form_input('txtSearchKredit')."<br/>";
+          }
+          if(isset($namaResto)){
+              echo form_checkbox('ckNamaRestoran'," namaRestoran",true)."Nama Restoran"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckNamaRestoran'," namaRestoran",false)."Nama Restoran"."<br/>";
+          }
+          if(isset($alamatResto)){
+            echo form_checkbox('ckAlamatRestoran'," alamatRestoran",true)."Alamat Restoran"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckAlamatRestoran'," alamatRestoran",false)."Alamat Restoran"."<br/>";
+          }
+          if(isset($namaPromo)){
+            echo form_checkbox('ckNamaPromo'," namaPromo",true)."Nama Promo"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckNamaPromo'," namaPromo",false)."Nama Promo"."<br/>";
+          }
+          if(isset($deskripsiPromo)){
+            echo form_checkbox('ckDeskripsiPromo'," deskripsiPromo",true)."Deskripsi Promo"."<br/>";
+          }
+          else{
+            echo form_checkbox('ckDeskripsiPromo'," deskripsiPromo",false)."Deskripsi Promo"."<br/>";
+          }
+          if(isset($persentasePromo)){
+            echo "Persentase Promo Minimal : "."<input type='number' name='txtPersentase' min=0 max=100 value=".$persentasePromo.">"."<br/>";
+          }
+          else{
+            echo "Persentase Promo Minimal : "."<input type='number' name='txtPersentase' value=0 min=0 max=100>"."<br/>";
+          }
+          echo form_submit('btnSearch','Search');
+        echo form_close();
+    ?>
+
+
+  <?php
 		foreach($promo as $r){
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
 				echo "<div class='media-left'>";
@@ -102,6 +280,10 @@
 				echo "</div>";
 				echo "<div class='media-body jarakMedia'>";
 					echo "<h3 class='media-heading jarakMedia'>".$r->RESTORAN.', '.$r->ALAMAT."</h3>";
+          echo "<h5 class='jarakMedia'>"."Kartu Kredit : ".$r->KARTU."</h5>";
+          echo "<h5 class='jarakMedia'>"."Nama Promo : ".$r->NAMA_PROMO."</h5>";
+          echo "<h5 class='jarakMedia'>"."Deskripsi Promo : ".$r->DESKRIPSI_PROMO."</h5>";
+          echo "<h5 class='jarakMedia'>"."Jumlah Diskon : ".$r->PERSENTASE_PROMO."</h5>";
 					echo "<ul class='media-list '>";
 						echo "<li class='media'>";
 							echo "<div class='media-right'>";
@@ -116,6 +298,7 @@
 				echo "</div>";
 			echo "</div>";
 		}
+		echo $links;
 	?>
     </div>
 
@@ -130,5 +313,9 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>"></script>
+  <script>
+    $('.combobox').combobox();
+  </script>
 </body>
 </html>

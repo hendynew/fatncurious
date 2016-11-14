@@ -88,12 +88,12 @@
             </div>
               <h1> <?php echo $user->NAMA_USER ;?>
               </h1>
-              <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><?php echo $user->ALAMAT_USER ;?></p>
-              <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span><?php echo $user->NOR_TELEPON_USER ;?> </p>
+              <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span><?php echo $user->ALAMAT_USER;?></p>
+              <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><?php echo $user->NOR_TELEPON_USER ;?> </p>
               <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><?php echo $user->EMAIL_USER ;?>  </p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo $user->JUMLAH_REPORT_USER ;?></p>
-                            <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModal">  Click To Edit Profile</a></p>
-			  <p><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModalPassword">  Click To Change Password</a></p>
+              <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModal">  Click To Edit Profile</a></p>
+              <p><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModalPassword">  Click To Change Password</a></p>
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-		<?php echo form_open('fatncurious/updateProfilUser'); ?>
+		      <?php echo form_open('fatncurious/updateProfilUser'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Profile User</center></h4>
