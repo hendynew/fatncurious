@@ -104,7 +104,7 @@
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-		<?php echo form_open('fatncurious/updateProfilUser'); ?>
+		      <?php echo form_open('fatncurious/updateProfilUser'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Profile User</center></h4>
