@@ -36,7 +36,7 @@
             <div class="media">
               <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
             </div>
-              <h1><span> <?php echo $resto->NAMA_RESTORAN ;?> </span>  </h1>
+              <h1><span> <?php echo $resto->NAMA_RESTORAN;?> </span>  </h1>
                   <h2 style="margin-top:-30px;color:#fff">
                     <?php
                     $temp_rating = $rating;
@@ -53,7 +53,7 @@
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
-              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModalPassword">  Lihat Lokasi</a></p>
+              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#modalMap">  Lihat Lokasi</a></p>
           </div>
         </div>
       </div>
@@ -212,6 +212,41 @@
               </div>
               <!-- /.modal-dialog -->
           </div>
+
+          <!--Modal -->
+          <div id="modalMap" class="modal fade">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                  </div>
+                  <div class="modal-body">
+                    <div id="floating-panel" style="position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;">
+                    <input id="address" type="textbox" value="Sydney, NSW">
+                    <input id="submit" type="button" value="Geocode">
+                  </div>
+                    <div id="map" style="width:500px;height:500px;">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+
+                  </div>
+              </div>
+              <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>
               <?php
           }?>
     			</center>
@@ -343,7 +378,7 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -437,7 +472,7 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -528,7 +563,7 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo $r->DESKRIPSI_REVIEW;
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
+                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
                   echo "</div>";
                   echo "<br/>";
                 }
@@ -651,11 +686,39 @@
 			//===========Kredit=========
 		?>
     </div>
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: {lat: -34.397, lng: 150.644}
+      });
+      var geocoder = new google.maps.Geocoder();
 
+      document.getElementById('submit').addEventListener('click', function() {
+        geocodeAddress(geocoder, map);
+      });
+    }
+
+    function geocodeAddress(geocoder, resultsMap) {
+      var address = document.getElementById('address').value;
+      alert(address);
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          resultsMap.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: resultsMap,
+            position: results[0].geometry.location
+          });
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+    }
+
+  </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.inview.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/wow.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/mousescroll.js');?>"></script>
@@ -664,5 +727,6 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&sensor=true"></script>
 </body>
 </html>

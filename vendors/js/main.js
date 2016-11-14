@@ -313,3 +313,18 @@ $('#modalUpload').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('.modal-title').text("Upload Foto " + recipient + " Restoran "+ restoran);
 });
+
+$(".likeReview").on("click",function()
+{
+	alert("likeReview");
+});
+
+$(".dislikeReview").on("click",function()
+{
+	alert("dislikeReview");
+});
+
+$(".reportReview").on("click",function()
+{
+	alert("reportReview");
+});
