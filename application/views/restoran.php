@@ -692,7 +692,7 @@
         <!-- /.modal-dialog -->
     </div>
     </div>
-    <script>
+    <!--<script>
     function initMap() {
     /*var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
@@ -743,7 +743,47 @@
     });
   }
 
-    </script>
+</script>-->
+  <script>
+  function initMap() {
+    var resultMaps = new google.maps.Map(document.getElementById("map"), {
+      zoom: 8
+    });
+    var origin2 = $('#alamatRestoran').attr('data-alamat');
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode(
+      {
+        address : origin2,
+        region : 'INDONESIA'
+      },function(response,status)
+      {
+        if(status !== google.maps.GeocoderStatus.OK)
+        {
+          alert("Error was : "+status);
+        }
+        else
+        {
+
+          console.log(response[0].geometry.location.lat());
+          console.log(response[0].geometry.location.lng());
+          var marker = new google.maps.Marker(
+            {
+              map : resultMaps,
+              position : response[0].geometry.location
+            });
+          resultMaps.setCenter(marker.position);
+          console.log(marker.position.lat());
+          console.log(marker.position.lng());
+          console.log(resultMaps.center.lat());
+          console.log(resultMaps.center.lng());
+          alert("masuk");
+          console.log(resultMaps.getCenter().lat());
+          console.log(resultMaps.getCenter().lng());
+        }
+      });
+
+  }
+  </script>
 
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
@@ -756,9 +796,7 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
-  <script
-    async defer
-    src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap">
-    </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap"
+      async defer></script>
 </body>
 </html>
