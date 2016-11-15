@@ -332,3 +332,48 @@ $(".reportReview").on("click",function()
 {
 	alert("reportReview");
 });
+
+$(".btnDelete").on("click",function()
+{
+	$("#hKodeReview").val($(this).attr("id"));
+	//alert($("#hKodeReview").val());
+});
+
+$(".btnUpdate").on("click",function()
+{
+	//$("#hKodeReview").val($(this).attr("id"));
+	//alert("asd");
+	var para = document.createElement("textarea");
+	var node = document.createTextNode($(this).attr("data-val"));
+	para.appendChild(node);
+
+	var element = document.getElementById($(this).attr("data-val2"));
+	document.getElementById($(this).attr("data-val2")).innerHTML='';
+	element.appendChild(para);
+
+	document.getElementById($(this).attr("id")).style.display = "none";
+	document.getElementById($(".btnUpdate2").attr("id")).style.display = "inherit";
+
+	para.setAttribute('id','textarea');
+	para.setAttribute('value','');
+
+	//alert(document.getElementById($(this).attr("data-val2")).innerHTML);
+});
+
+$(".btnUpdate2").on("click",function()
+{
+	//alert("tes");
+	var target = document.getElementById("textarea");
+	var targetValue = document.getElementById("textarea").value;
+	var url = $(this).attr('data-url');
+	//$.session("deskripsiReview",target.value);
+	//alert($.session("deskripsiReview"));
+	//window.location.assign(url);
+	//alert(url);
+
+	$.post(url,{ deskripsi: targetValue},
+  function(result){
+			location.reload();
+			alert("Success");
+  });
+});

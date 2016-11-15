@@ -72,3 +72,6 @@ $route['master_user/detail/restaurant/(:any)'] = 'master/master_detail_restauran
 $route['master_user/detail/promo/(:any)'] = 'master/master_detail_promo/$1';
 $route['master_user/detail/menu/(:any)'] = 'master/master_detail_menu/$1';
 $route['master_user/detail/kartu_kredit/(:any)'] = 'master/master_detail_kartu_kredit/$1';
+
+$route['fatncurious/deleteComment/(:any)/(:any)'] = 'fatncurious/deleteComment/$1/$2';
+$route['fatncurious/updateComment/(:any)/(:any)'] = 'fatncurious/updateComment/$1/$2';

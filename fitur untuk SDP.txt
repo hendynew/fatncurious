@@ -1,8 +1,8 @@
--	Fitur untuk pengguna:
-	* foto makanan yang diupload oleh user. -> view Sudah
-	* comment dan like pada restoran maupun makanan. ->restoran belum
+- Fitur untuk pengguna:
+	* comment dan like pada restoran maupun makanan. ->comment blm bisa di like pada makanan
 	* bisa melihat lokasi restoran tersebut melalui google maps. -> sudah?
 	* user bisa mengedit dan menghapus comment miliknya.
+	* report comment.
 
  - fitur untuk pemilik restoran : 
 	* interface berbeda dengan user.
