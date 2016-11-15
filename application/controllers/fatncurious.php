@@ -765,7 +765,7 @@ class Fatncurious extends CI_Controller {
 		$config = array(
 			'upload_path' => './vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',
 			'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-			'overwrite' => FALSE,
+			'overwrite' => TRUE,
 			'max_size' => "1000KB",
 			'file_name' => $this->Model_menu->count_foto_menu($kodeMenu)
 		);
