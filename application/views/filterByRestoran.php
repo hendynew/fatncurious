@@ -87,6 +87,8 @@
   </header><!--/#home-->
     <br/>
     <div class='container navbarSpace'>
+<<<<<<< HEAD
+<<<<<<< HEAD
 
       <?php
           echo form_open('fatncurious/searchFilterByRestoran');
@@ -114,6 +116,11 @@
 
 
     <div id="output">asdasd</div>
+=======
+>>>>>>> refs/remotes/origin/master
+=======
+    <div id="output">asdasd</div>
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 	<?php
 	$ctr=0;
 		foreach($resto as $key=>$r){
@@ -182,6 +189,10 @@
 	?>
        <!-- <div class="shadow">asdasdsadsd</div>-->
     </div>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
     <script>
     function initMap() {
       var bounds = new google.maps.LatLngBounds;
@@ -204,6 +215,7 @@
           {
             destination[i]='';
           }
+<<<<<<< HEAD
 
           <?php
             $counter = 0;
@@ -212,6 +224,13 @@
             {
 
                 echo 'destination['.$counter++.'] = "'.$row['ALAMAT_RESTORAN'].'";';
+=======
+          <?php
+            $counter = 0;
+            foreach($resto as $row)
+            {
+                echo 'destination['.$counter++.'] = "'.$row->ALAMAT_RESTORAN.'";';
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
             }
           ?>
           //alert(destinationA);
@@ -263,6 +282,11 @@
         });
       }
     }
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 
     function deleteMarkers(markersArray) {
       for (var i = 0; i < markersArray.length; i++) {

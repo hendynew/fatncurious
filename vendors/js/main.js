@@ -212,6 +212,7 @@ $(".displayPictureMenu").on('click',function()
 
 $(".links").on('click',function(event)
 {
+<<<<<<< HEAD
 	event = event || window.event;
 	var target = event.target || event.srcElement,
 			link = target.src ? target.parentNode : target,
@@ -257,6 +258,16 @@ $('#modalRating').on('show.bs.modal', function (event) {
 	var valueBintang = button.data('val');
 	$("#hidBintang").attr("value",valueBintang);
 
+=======
+	$total = parseInt($(this).attr('data-val'));
+	$user = $(this).attr('data-val2');
+	$resto = $(this).attr('data-val3');
+	$total_sebelumnya = parseInt($(this).attr('data-val4'));
+	if($total != $total_sebelumnya){
+		window.location = '/fatncurious/index.php/fatncurious/rate_restoran/' + $total + '/' + $user + '/' + $resto;
+	}
+	//bersihkan Bintang
+>>>>>>> refs/remotes/origin/master
 	$('.bintang').each(function(index,value)
 	{
 		if($(this).hasClass('glyphicon-star'))

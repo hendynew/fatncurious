@@ -266,7 +266,6 @@ class Fatncurious extends CI_Controller {
 					$data['resto']->STATUS = 'Buka';
 				}
 				$this->load->model('Model_restaurant');
-				$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 				$data['kodeuser'] = $kodeUser;
 				$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
@@ -538,11 +537,11 @@ class Fatncurious extends CI_Controller {
 	//================Filter BY================
 
 	//================Sorted BY================
-	public function sortByPromoProfilRestoran($kode){
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
-		}
+
+	public function sortByPromoProfilRestoran($kode)
+	{
 		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
@@ -605,8 +604,7 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 			else{
-				$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
-				$data['userRatingJudul'] = $rating->JUDUL;
+
 				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
@@ -644,8 +642,8 @@ class Fatncurious extends CI_Controller {
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
+
 		$this->load->model('Model_restaurant');
-		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['active1'] = '';
@@ -666,8 +664,8 @@ class Fatncurious extends CI_Controller {
 		$data['active2'] = '';
 		$data['active3'] = '';
 		$data['active4'] = '';
+
 		$this->load->model('Model_restaurant');
-		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
@@ -730,54 +728,19 @@ class Fatncurious extends CI_Controller {
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
+
 		$this->load->model('Model_restaurant');
-		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
-		$data['kodeRestoran'] = $kode;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$this->load->view('restoran',$data);
 	}
-	public function rate_restoran(){
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin')->KODE_USER;
-		}
+
+	public function rate_restoran($rate,$user,$resto){
 		$this->load->model('Model_restaurant');
-		$rate = $this->input->post("valueBintang");
-		$user = $data['kodeUser'];
-		$resto = $this->input->post('kodeRestoran');
-		$comment = $this->input->post('txtComment');
-		$judul = $this->input->post('txtTitle');
-		$this->Model_restaurant->rate($rate,$user,$resto,$comment,$judul);
-
+		$this->Model_restaurant->rate($rate,$user,$resto);
 		redirect("fatncurious/sortByMenuRestoran/".$resto);
-	}
-
-	public function uploadFoto(){
-		$this->load->model('Model_menu');
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin')->KODE_USER;
-		}
-		$kodeRestoran = $this->input->post('hidKodeRestoran');
-		$kodeMenu = $this->input->post('hidKodeMenu');
-		$this->load->library('upload');
-		$config = array(
-			'upload_path' => './vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',
-			'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-			'overwrite' => FALSE,
-			'max_size' => "1000KB",
-			'file_name' => $this->Model_menu->count_foto_menu($kodeMenu)
-		);
-		if(!is_dir('./vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu)){
-			mkdir('./vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',0777,true);
-		}
-		$this->upload->initialize($config);
-		if($this->upload->do_upload('foto')){
-			$this->Model_menu->upload($kodeMenu,$data['kodeUser'],$this->upload->data('file_name'));
-		}
-		redirect("fatncurious/sortByMenuRestoran/".$kodeRestoran);
-
 	}
 	//================Sorted BY================
 

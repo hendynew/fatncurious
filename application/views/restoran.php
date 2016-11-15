@@ -36,7 +36,8 @@
             <div class="media">
               <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
             </div>
-              <h1><span> <?php echo $resto->NAMA_RESTORAN ;?> </span>  </h1>
+
+              <h1><span> <?php echo $resto->NAMA_RESTORAN;?> </span>  </h1>
                   <h2 style="margin-top:-30px;color:#fff">
                     <?php
                     $temp_rating = $rating;
@@ -52,7 +53,9 @@
               <p><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
+              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#modalMap">  Lihat Lokasi</a></p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
+
           </div>
         </div>
       </div>
@@ -211,8 +214,8 @@
               </div>
               <!-- /.modal-dialog -->
           </div>
-              <?php
-          }?>
+          <?php
+            }?>
     			</center>
               <h2>Sorted By :</h2>
               <ul class="nav nav-tabs">
@@ -396,7 +399,17 @@
                 echo "</div>";
                 echo form_close();
               }
-              echo "</div>";
+              echo form_open('fatncurious/sortByMenuRestoran');
+							echo "<div class='input-group customInputGroup img-rounded'>";
+              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+              echo "<span class='input-group-btn'>";
+              echo form_hidden('menu',$m->KODE_MENU);
+              echo form_hidden('resto',$m->KODE_RESTORAN);
+              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+              echo form_submit($arr);
+              echo "</span>";
+							echo "</div>";
+              echo form_close();
               echo "</div>";
               echo "</div>";
             }

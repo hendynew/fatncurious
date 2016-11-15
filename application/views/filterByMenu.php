@@ -188,11 +188,19 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
+<<<<<<< HEAD
+<<<<<<< HEAD
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-combobox.js'); ?>"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&signed_in=true&callback=initMap"
       async defer></script>
       <script>
         $('.combobox').combobox();
       </script>
+=======
+>>>>>>> refs/remotes/origin/master
+=======
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&signed_in=true&callback=initMap"
+      async defer></script>
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 </body>
 </html>
