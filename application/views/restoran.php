@@ -327,6 +327,7 @@
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                   <?php
+                  //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
                   $arr = ['name'=>'hidKodeRestoran','id'=>'hidKodeRestoran','value'=>'','type'=>'hidden'];
                   echo form_input($arr);
                   $arr2 = ['name'=>'hidKodeMenu','id'=>'hidKodeMenu','value'=>'','type'=>'hidden'];
@@ -373,7 +374,7 @@
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-koderestoran = '".$resto->KODE_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."'>Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -467,7 +468,7 @@
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-koderestoran = '".$resto->KODE_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."'>Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-kode1='" . $m->KODE_MENU ."' data-kode2='" . $resto->KODE_RESTORAN ."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
@@ -558,7 +559,7 @@
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-koderestoran = '".$resto->KODE_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."'>Upload Foto</a></h4>";
+							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
