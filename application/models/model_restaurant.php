@@ -142,12 +142,6 @@ class Model_restaurant extends CI_Model {
 		return $hasil;
 	}
 
-	public function COUNT_REPORT($kode){
-		$arr = ["KODE_RESTORAN"=>$kode,"STATUS"=>'1'];
-		$this->db->where($arr);
-		return $count = $this->db->count_all_results('report_restoran');
-	}
-
 	public function SELECT_REVIEW($kode){
 		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
 		return $hasil;
@@ -157,6 +151,7 @@ class Model_restaurant extends CI_Model {
 		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER', user.NAMA_USER as 'NAMA', rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1' and user.KODE_USER=rating.KODE_USER")->result();
 		return $hasil;
 	}
+<<<<<<< HEAD
 
 	public function COUNT_RATING($kode){
 		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1'")->result();
@@ -219,4 +214,6 @@ class Model_restaurant extends CI_Model {
 			$this->db->insert('rating_restoran',$arr);
 		}
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 }

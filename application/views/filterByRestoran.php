@@ -22,6 +22,7 @@
 
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="<?php echo base_url('/vendors/images/favicon.ico');?>">
+
     <style>
         body
         {
@@ -30,6 +31,7 @@
             background-repeat: no-repeat;
         }
     </style>
+
 </head><!--/head-->
 
 <body>
@@ -46,24 +48,24 @@
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
-          </a>
+          </a>                   
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
+            <li class="scroll"><a href="#home">Home</a></li>
+            <li class="scroll"><a href="#about-us">About Us</a></li>
             <li class="scroll">
     				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					FilterBy <span class="caret"></span>
     				  </a>
     				  <ul class="dropdown-menu">
-    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
-    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
-    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
-    					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
+    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
+    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
+    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
+    					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
     				  </ul>
     			</li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
+            <li class="scroll"><a href="#contact">Contact Us</a></li>
 			<?php
 				if(isset($kodeUser)){
 			?>
@@ -72,9 +74,9 @@
             <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
-            <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Ganti Password</a></li>
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
 			<?php
@@ -87,6 +89,7 @@
   </header><!--/#home-->
     <br/>
     <div class='container navbarSpace'>
+<<<<<<< HEAD
 
       <?php
           echo form_open('fatncurious/searchFilterByRestoran');
@@ -114,6 +117,8 @@
 
 
     <div id="output">asdasd</div>
+=======
+>>>>>>> refs/remotes/origin/master
 	<?php
 	$ctr=0;
 		foreach($resto as $key=>$r){
@@ -121,7 +126,6 @@
       $ctrKartu=0;
       $simpanKredit='';
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
-        echo '<p id="jarak'.$ctr++.'">Jarak = Undefined</p>';
 				echo "<div class='media-left'>";
 					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$key).'>';
 						?>
@@ -182,6 +186,7 @@
 	?>
        <!-- <div class="shadow">asdasdsadsd</div>-->
     </div>
+<<<<<<< HEAD
     <script>
     function initMap() {
       var bounds = new google.maps.LatLngBounds;
@@ -263,18 +268,14 @@
         });
       }
     }
+=======
+>>>>>>> refs/remotes/origin/master
 
-    function deleteMarkers(markersArray) {
-      for (var i = 0; i < markersArray.length; i++) {
-      markersArray[i].setMap(null);
-      }
-      markersArray = [];
-    }
-    </script>
 
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.inview.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/wow.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/mousescroll.js');?>"></script>
@@ -282,7 +283,5 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&signed_in=true&callback=initMap"
-      async defer></script>
 </body>
 </html>

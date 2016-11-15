@@ -36,6 +36,7 @@
             <div class="media">
               <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
             </div>
+<<<<<<< HEAD
               <h1><span> <?php echo $resto->NAMA_RESTORAN;?> </span>  </h1>
                   <h2 style="margin-top:-30px;color:#fff">
                     <?php
@@ -47,18 +48,30 @@
                       $temp_rating--;
                     }
                     ?>
+=======
+              <h1><span> <?php echo $resto->NAMA_RESTORAN ;?> </span>  </h1>
+                  <h2 style="margin-top:-30px;color:#fff"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+>>>>>>> refs/remotes/origin/master
                   </h2>
               </h1>
               <p><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
+<<<<<<< HEAD
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
               <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#modalMap">  Lihat Lokasi</a></p>
+=======
+              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '.$resto->STATUS ;?></p>
+>>>>>>> refs/remotes/origin/master
           </div>
         </div>
       </div>
     </div>
-    <div class="main-nav">
+      <div class="main-nav">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -70,40 +83,40 @@
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
           </a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
-            <li class="scroll">
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="scroll"><a href="<?php echo site_url('/fatncurious') ?>">Home</a></li>
+              <li class="scroll"><a href="#about-us">About Us</a></li>
+              <li class="scroll">
+      				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      					FilterBy <span class="caret"></span>
+      				  </a>
+      				  <ul class="dropdown-menu">
+      					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
+      					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
+      					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
+      					<li><a href="#" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
+      				  </ul>
+      			</li>
+              <li class="scroll"><a href="#contact">Contact Us</a></li>
+  			<?php
+  				if(isset($kodeUser)){
+  			?>
+          <li class="scroll">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              FilterBy <span class="caret"></span>
+              <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
+              <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
+              <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Ganti Password</a></li>
+              <li><a href="#" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
               </ul>
           </li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
-      <?php
-        if(isset($kodeUser)){
-      ?>
-        <li class="scroll">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
-            <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
+  			<?php
+  				}
+  			?>
             </ul>
-        </li>
-      <?php
-        }
-      ?>
-          </ul>
         </div>
       </div>
     </div>
@@ -111,10 +124,8 @@
 
     <div class = "container navbarSpace" style="background-color:#fafafa">
         <div>
-          <?php
-            if($kodeuser != ''){
-              ?>
     			<center>
+<<<<<<< HEAD
             <?php
               if($userRating == 0){
                 echo "<h4> Give Rating </h4>";
@@ -249,6 +260,15 @@
       </div>
               <?php
           }?>
+=======
+    				<h4> Give Rating </h4>
+    				<h2 class="rating"> <span class="glyphicon <?php echo $glyphicon1;?> bintang" data-val="1" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon2;?> bintang" data-val="2" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon3;?> bintang" data-val="3" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon4;?> bintang" data-val="4" aria-hidden="true"></span>
+                      <span class="glyphicon <?php echo $glyphicon5;?> bintang" aria-hidden="true" data-val="5"></span>
+    				  </h2>
+>>>>>>> refs/remotes/origin/master
     			</center>
               <h2>Sorted By :</h2>
               <ul class="nav nav-tabs">
@@ -392,6 +412,7 @@
                 }
               }
 
+<<<<<<< HEAD
               if($kodeuser != ''){
                 echo form_open('fatncurious/sortByMenuRestoran');
                 echo "<div class='input-group customInputGroup img-rounded'>";
@@ -406,6 +427,19 @@
                 echo form_close();
               }
               echo "</div>";
+=======
+              echo form_open('fatncurious/sortByMenuRestoran');
+							echo "<div class='input-group customInputGroup img-rounded'>";
+              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+              echo "<span class='input-group-btn'>";
+              echo form_hidden('menu',$m->KODE_MENU);
+              echo form_hidden('resto',$m->KODE_RESTORAN);
+              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+              echo form_submit($arr);
+              echo "</span>";
+							echo "</div>";
+              echo form_close();
+>>>>>>> refs/remotes/origin/master
               echo "</div>";
               echo "</div>";
             }
@@ -485,19 +519,17 @@
                   echo "<br/>";
                 }
               }
-              if($kodeuser != ''){
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                echo form_hidden('menu',$m->KODE_MENU);
-                echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              }
+              echo form_open('fatncurious/sortByMenuRestoran');
+							echo "<div class='input-group customInputGroup img-rounded'>";
+              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+              echo "<span class='input-group-btn'>";
+              echo form_hidden('menu',$m->KODE_MENU);
+              echo form_hidden('resto',$m->KODE_RESTORAN);
+              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+              echo form_submit($arr);
+              echo "</span>";
+							echo "</div>";
+              echo form_close();
               echo "</div>";
               echo "</div>";
               echo "</div>";
@@ -576,19 +608,17 @@
                   echo "<br/>";
                 }
               }
-              if($kodeuser != ''){
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                echo form_hidden('menu',$m->KODE_MENU);
-                echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              }
+              echo form_open('fatncurious/sortByMenuRestoran');
+							echo "<div class='input-group customInputGroup img-rounded'>";
+              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+              echo "<span class='input-group-btn'>";
+              echo form_hidden('menu',$m->KODE_MENU);
+              echo form_hidden('resto',$m->KODE_RESTORAN);
+              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+              echo form_submit($arr);
+              echo "</span>";
+							echo "</div>";
+              echo form_close();
               echo "</div>";
               echo "</div>";
               echo "</div>";

@@ -29,8 +29,8 @@
 <body>
 <div id="asd">Restoran</div>
   <header id="home">
-    <div class="main-nav navbar-fixed-top">
-      <div class="container berubahLain">
+	<div class="main-nav navbar-fixed-top berubah">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -40,40 +40,17 @@
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
-          </a>
+          </a>                   
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
-            <li class="scroll">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              FilterBy <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
-              </ul>
-          </li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
-      <?php
-        if(isset($kodeUser)){
-      ?>
-        <li class="scroll">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
-            <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
-            </ul>
-        </li>
-      <?php
-        }
-      ?>
+            <li class="scroll"><a href="<?php echo site_url('/fatncurious') ?>">Home</a></li>
+            <li class="scroll"><a href="#services">Service</a></li>
+            <li class="scroll"><a href="#about-us">About Us</a></li>
+            <li class="scroll"><a href="#portfolio">Portfolio</a></li>
+            <li class="scroll"><a href="#team">Team</a></li>
+            <li class="scroll"><a href="#blog">Blog</a></li>
+            <li class="scroll"><a href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
