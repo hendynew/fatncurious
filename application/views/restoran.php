@@ -49,11 +49,11 @@
                     ?>
                   </h2>
               </h1>
-              <p><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
+              <p id="alamatRestoran" data-alamat = "<?php echo $resto->ALAMAT_RESTORAN; ?>"><span class="glyphicon glyphicon-road" aria-hidden="true"> </span><?php echo ' '.$resto->ALAMAT_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->HARI_BUKA_RESTORAN.','.$resto->JAM_BUKA_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '. $report ;?></p>
-              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#modalMap">  Lihat Lokasi</a></p>
+              <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><a href="#" style="color:lightblue" data-toggle="modal" data-target="#modalMap">  Lihat Lokasi </a></p>
           </div>
         </div>
       </div>
@@ -213,40 +213,6 @@
               <!-- /.modal-dialog -->
           </div>
 
-          <!--Modal -->
-          <div id="modalMap" class="modal fade">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
-                  </div>
-                  <div class="modal-body">
-                    <div id="floating-panel" style="position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;">
-                    <input id="address" type="textbox" value="Sydney, NSW">
-                    <input id="submit" type="button" value="Geocode">
-                  </div>
-                    <div id="map" style="width:500px;height:500px;">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-
-                  </div>
-              </div>
-              <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-      </div>
               <?php
           }?>
     			</center>
@@ -694,37 +660,91 @@
 			}
 			//===========Kredit=========
 		?>
+        <!--Modal -->
+        <div id="modalMap" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title">Lokasi Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
+                </div>
+                <div class="modal-body">
+                <!--<div id="floating-panel" style="position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        width: 350px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;">
+                    <input id="address" type="text" value="SURABAYA" style="width: 225px;">
+                    <input id="submit" type="button" value="Reverse Geocode">
+                  </div>-->
+                  <div id="map" style="height: 500px;width:500px;background-color:red"></div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
-  <script>
+    </div>
+    <script>
     function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: {lat: -34.397, lng: 150.644}
-      });
-      var geocoder = new google.maps.Geocoder();
+    /*var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: -34.397, lng: 150.644}
+    });
 
-      document.getElementById('submit').addEventListener('click', function() {
-        geocodeAddress(geocoder, map);
-      });
-    }
+    var geocoder = new google.maps.Geocoder();
 
-    function geocodeAddress(geocoder, resultsMap) {
-      var address = document.getElementById('address').value;
-      alert(address);
-      geocoder.geocode({'address': address}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          resultsMap.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
-            map: resultsMap,
-            position: results[0].geometry.location
-          });
-        } else {
-          alert('Geocode was not successful for the following reason: ' + status);
-        }
-      });
-    }
+    document.getElementById('submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map);
+    });*/
 
-  </script>
+    var resultMap = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: -7.2575, lng: 112.7521}
+    });
+
+    var geocoder = new google.maps.Geocoder();
+    var address = $("#alamatRestoran").attr("data-alamat");
+    geocoder.geocode({"address": address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        resultMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultMap,
+          position: results[0].geometry.location
+        });
+        alert("GeoCode Successful");
+        console.log(results[0].geometry.location);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+  function geocodeAddress(geocoder, resultsMap) {
+    //var address = document.getElementById('address').value;
+    var address = $("#alamatRestoran").attr("data-alamat");
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        resultsMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+    </script>
+
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
@@ -736,6 +756,9 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&sensor=true"></script>
+  <script
+    async defer
+    src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap">
+    </script>
 </body>
 </html>
