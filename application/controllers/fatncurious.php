@@ -241,12 +241,14 @@ class Fatncurious extends CI_Controller {
 				$data['active4'] = '';
 
 				$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+				$data['userRating'] = 0;
 				if($rating==null){
 					for($i=1;$i<=5;$i++){
 						$data['glyphicon'.$i] = 'glyphicon-star-empty';
 					}
 				}
 				else{
+					$data['userRating'] = $rating->JUMLAH_RATING;
 					for($i=1;$i<=5;$i++){
 						if(($rating->JUMLAH_RATING) - $i >= 0){
 							$data['glyphicon'.$i] = 'glyphicon-star';
@@ -264,6 +266,7 @@ class Fatncurious extends CI_Controller {
 					$data['resto']->STATUS = 'Buka';
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$this->load->model('Model_restaurant');
 				$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 				$data['kodeuser'] = $kodeUser;
@@ -271,6 +274,12 @@ class Fatncurious extends CI_Controller {
 				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+				$this->load->model('Model_restaurant');
+				$data['kodeuser'] = $kodeUser;
+				$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+				$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 				//echo 'masuk 2';
 				$this->load->view('restoran',$data);
 			}
@@ -536,7 +545,14 @@ class Fatncurious extends CI_Controller {
 =======
 	public function sortByPromoProfilRestoran($kode)
 	{
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['active1'] = '';
@@ -569,6 +585,9 @@ class Fatncurious extends CI_Controller {
 		else if($data['resto']->STATUS == 1){
 			$data['resto']->STATUS = 'Buka';
 		}
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$this->load->model('Model_menu');
 		foreach($data['menu'] as $d){
@@ -587,6 +606,7 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
@@ -594,11 +614,15 @@ class Fatncurious extends CI_Controller {
 			}
 			else{
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
 				$data['userRatingJudul'] = $rating->JUDUL;
 				$data['userRating'] = $rating->JUMLAH_RATING;
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+				$data['userRating'] = $rating->JUMLAH_RATING;
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
@@ -636,12 +660,18 @@ class Fatncurious extends CI_Controller {
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$this->load->model('Model_restaurant');
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+		$this->load->model('Model_restaurant');
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 		$data['active1'] = '';
 		$data['active2'] = '';
 		$data['active3'] = 'active';
@@ -661,6 +691,7 @@ class Fatncurious extends CI_Controller {
 		$data['active3'] = '';
 		$data['active4'] = '';
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$this->load->model('Model_restaurant');
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
@@ -668,14 +699,22 @@ class Fatncurious extends CI_Controller {
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
+		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 
 		$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+		$data['userRating'] = 0;
 		if($rating==null){
 			for($i=1;$i<=5;$i++){
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
 		}
 		else{
+			$data['userRating'] = $rating->JUMLAH_RATING;
 			for($i=1;$i<=5;$i++){
 				if(($rating->JUMLAH_RATING) - $i >= 0){
 					$data['glyphicon'.$i] = 'glyphicon-star';
@@ -702,12 +741,14 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$rating = $this->fatncurious_model_restaurant->selectJumlahRatingRestoUser($kode,$kodeUser);
+			$data['userRating'] = 0;
 			if($rating==null){
 				for($i=1;$i<=5;$i++){
 					$data['glyphicon'.$i] = 'glyphicon-star-empty';
 				}
 			}
 			else{
+				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
 						$data['glyphicon'.$i] = 'glyphicon-star';
@@ -724,15 +765,21 @@ class Fatncurious extends CI_Controller {
 			}
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$this->load->model('Model_restaurant');
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['kodeuser'] = $kodeUser;
 		$data['kodeRestoran'] = $kode;
+=======
+		$this->load->model('Model_restaurant');
+		$data['kodeuser'] = $kodeUser;
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 
 		$this->load->view('restoran',$data);
 	}
+<<<<<<< HEAD
 	public function rate_restoran(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin')->KODE_USER;
@@ -778,6 +825,13 @@ class Fatncurious extends CI_Controller {
 		$this->load->view('restoran',$data);
 	}
 >>>>>>> refs/remotes/origin/master
+=======
+	public function rate_restoran($rate,$user,$resto){
+		$this->load->model('Model_restaurant');
+		$this->Model_restaurant->rate($rate,$user,$resto);
+		redirect("fatncurious/sortByMenuRestoran/".$resto);
+	}
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 	//================Sorted BY================
 
 

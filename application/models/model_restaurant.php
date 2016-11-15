@@ -142,6 +142,12 @@ class Model_restaurant extends CI_Model {
 		return $hasil;
 	}
 
+	public function COUNT_REPORT($kode){
+		$arr = ["KODE_RESTORAN"=>$kode,"STATUS"=>'1'];
+		$this->db->where($arr);
+		return $count = $this->db->count_all_results('report_restoran');
+	}
+
 	public function SELECT_REVIEW($kode){
 		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
 		return $hasil;
@@ -152,6 +158,9 @@ class Model_restaurant extends CI_Model {
 		return $hasil;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 
 	public function COUNT_RATING($kode){
 		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1'")->result();
@@ -161,16 +170,21 @@ class Model_restaurant extends CI_Model {
 			$total += $h->RATING;
 			$jumlah++;
 		}
+<<<<<<< HEAD
 		if($jumlah > 0){
 			$total_rating = $total/$jumlah;
 		}else{
 			$total_rating = $total;
 		}
 
+=======
+		$total_rating = $total/$jumlah;
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 
 		return floor($total_rating);
 	}
 
+<<<<<<< HEAD
 	public function COUNT_ALL_RATING(){
 		$hasil = $this->db->query("SELECT rating.KODE_RESTORAN as KODE,rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating where rating.STATUS='1'")->result();
 		$data = [];
@@ -186,6 +200,9 @@ class Model_restaurant extends CI_Model {
 
 	public function RATE($rate,$user,$resto,$comment,$judul){
 		$tanggal = date("Y-m-d");
+=======
+	public function RATE($rate,$user,$resto){
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 		$where = [
 			"KODE_USER"=>$user,
 			"KODE_RESTORAN"=>$resto,
@@ -199,21 +216,31 @@ class Model_restaurant extends CI_Model {
 				"STATUS"=>'1'
 			];
 			$this->db->where($arr);
+<<<<<<< HEAD
 			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate,"JUDUL"=>$judul,"DESKRIPSI"=>$comment,"TANGGAL"=>$tanggal]);
+=======
+			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate]);
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 		}else{
 			$arr = [
 				"KODE_USER"=>$user,
 				"KODE_RESTORAN"=>$resto,
 				"JUMLAH_RATING"=>$rate,
+<<<<<<< HEAD
 				"TANGGAL"=>$tanggal,
 				"JUDUL"=>$judul,
 				"DESKRIPSI"=>$comment,
 				"JUMLAH_LIKE"=>0,
+=======
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 				"STATUS"=>'1'
 			];
 			$this->db->insert('rating_restoran',$arr);
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> parent of 64efe0a... Revert "Merge pull request #9 from hendynew/NavBar-Selesai"
 }
