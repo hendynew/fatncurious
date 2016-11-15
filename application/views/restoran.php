@@ -315,9 +315,26 @@
 		<?php
 		$adaMenu=false;
 		//===========MAKANAN=========
+    $data=array(
+      'type'=> 'hidden',
+      'name'=> 'hKodeReview',
+      'id' => 'hKodeReview',
+      'value' =>''
+    );
+    echo form_input($data);
+
+    $data=array(
+      'type'=> 'hidden',
+      'name'=> 'hKodeResto',
+      'id' => 'hKodeResto',
+      'value' => $resto->KODE_RESTORAN
+    );
+    echo form_input($data);
+
 			if(isset($menu)){
         $ctrRow = 0;
 				echo "<h4>MAKANAN</h4>";
+        $ctrReview=0;
 				foreach($menu as $m){
 
 					if($m->KODE_JENIS_MENU == 'JM001'){
@@ -340,17 +357,21 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>';
                   echo '<br/>';
+                  //print_r ($r);
                   if($kodeuser == $r->KODE){
-                    echo anchor('fatncurious/deleteComment',"Delete").' ';
-                    echo anchor('fatncurious/updateComment',"Update");
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
                   }
-
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
 

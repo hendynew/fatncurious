@@ -324,6 +324,20 @@ class Fatncurious extends CI_Controller {
 
 	}
 
+	public function deleteComment($kodeResto,$kodeReview){
+		$this->load->model('model_menu');
+		$this->model_menu->delete_review($kodeReview);
+		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
+	public function updateComment($kodeResto,$kodeReview){
+			$this->load->model('model_menu');
+			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+			echo $_POST['deskripsi'];
+			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
+			redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
 	public function LogOut(){
 		if($this->session->userdata('userYangLogin')){
 			$this->session->set_userdata('userYangLogin','');
