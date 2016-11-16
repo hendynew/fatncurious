@@ -350,7 +350,7 @@ $(".btnUpdate").on("click",function()
 	element.appendChild(para);
 
 	document.getElementById($(this).attr("id")).style.display = "none";
-	document.getElementById($(".btnUpdate2").attr("id")).style.display = "inherit";
+	document.getElementById($(this).attr("id")+'2').style.display = "inherit";
 
 	para.setAttribute('id','textarea');
 	para.setAttribute('value','');
@@ -364,6 +364,11 @@ $(".btnUpdate2").on("click",function()
 	var target = document.getElementById("textarea");
 	var targetValue = document.getElementById("textarea").value;
 	var url = $(this).attr('data-url');
+	var namaIdComment = $(this).attr("data-val2");
+	var idBtn2 = $(this).attr("id");
+	var idBtn1 = idBtn2.substring(0,6);
+	//alert(idBtn1);
+	//alert(namaIdComment);
 	//$.session("deskripsiReview",target.value);
 	//alert($.session("deskripsiReview"));
 	//window.location.assign(url);
@@ -371,7 +376,15 @@ $(".btnUpdate2").on("click",function()
 
 	$.post(url,{ deskripsi: targetValue},
   function(result){
-			location.reload();
+			//location.reload();
 			alert("Success");
+			//alert(document.getElementById($(this).attr("id")));
+			document.getElementById(namaIdComment).innerHTML=targetValue;
+			document.getElementById(idBtn2).style.display = "none";
+			document.getElementById(idBtn1).style.display = "inherit";
+
+
+			//var asd=document.getElementById("textarea").remove();
+
   });
 });

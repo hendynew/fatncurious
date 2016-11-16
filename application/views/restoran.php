@@ -359,7 +359,7 @@
                     echo '<div class="row" style="margin-left : 5px;">';
                     echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
                     echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
-                    echo "<span><a class = 'btnUpdate2' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
                     echo '</div>';
                   }
                   echo "</div>";
@@ -454,11 +454,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -545,11 +553,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -805,7 +821,7 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap"
-      async defer></script>
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap"
+      async defer></script>-->
 </body>
 </html>
