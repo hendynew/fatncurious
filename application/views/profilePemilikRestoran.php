@@ -101,9 +101,9 @@
   <div class="container navbarSpace">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active toogleNavBar"><a href="#">Recent Comment</a></li>
-        <li role="presentation" class="toogleNavBar"><a href="#">Kartu Kredit</a></li>
-        <li role="presentation" class=" toogleNavBar"><a href="#">Jenis Menu</a></li>
-        <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReview">Lihat Review Restoran</a></li>
+        <li role="presentation" class="toogleNavBar"><a href="#">Edit</a></li>
+        <li role="presentation" class=" toogleNavBar"><a href="#">Tambah</a></li>
+        <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReview">Lihat Restoran</a></li>
     </ul>
   </div>
   <div id="myModal" class="modal fade" role="dialog">
