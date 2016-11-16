@@ -99,5 +99,10 @@ class Fatncurious_model_user extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function UPDATE_FOTO($kode,$url){
+		$this->db->where('KODE_USER',$kode);
+		$this->db->update('user',array('URL_FOTO'=>$url));
+	}
+
 
 }

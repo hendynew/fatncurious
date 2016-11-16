@@ -34,7 +34,13 @@
         <div class="item active" style="background-image: url(<?php echo base_url('/vendors/images/Background/Wallpapers-fruit-flowers-black-background-hd-desktop-wallpapers.jpg');?>)">
           <div class="captionRestoran">
             <div class="media">
-              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
+              <?php
+              if($resto->URL_FOTO_RESTORAN == ''){
+                $url = 'default.png';
+              }else $url = $resto->URL_FOTO_RESTORAN;
+              $url_full = base_url('/vendors/images/restoran/' . $url);
+              ?>
+              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full?>" alt="Generic placeholder image">
             </div>
               <h1><span> <?php echo $resto->NAMA_RESTORAN;?> </span>  </h1>
                   <h2 style="margin-top:-30px;color:#fff">
@@ -342,12 +348,19 @@
 						  echo "<div class='media-body'>";
 							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
+
+
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
                 foreach($review[$m->KODE_MENU] as $r){
-                  echo "<div class='media-left' href='#'>";?>
-                    <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
-      <?php
+                  echo "<div class='media-left' href='#'>";
+                  if($r->URL_FOTO == ''){
+                    $url = 'default.jpg';
+                  }else $url = $r->URL_FOTO;
+                  $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                    ?>
+                      <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
+                    <?php
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";

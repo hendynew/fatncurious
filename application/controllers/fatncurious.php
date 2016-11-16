@@ -311,14 +311,13 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
-			//echo $kodeUser;
 			$this->load->library('upload');
 			$config = array(
 				'upload_path' => './vendors/images/profilepicture/',
 				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
 				'overwrite' => TRUE,
 				'max_size' => "1000KB",
-				'file_name' => $this->session->userdata('userYangLogin')
+				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
 			);
 			$this->upload->initialize($config);
 			$this->load->view('profileUser',$data);
@@ -333,7 +332,6 @@ class Fatncurious extends CI_Controller {
 		}
 
 	}
-
 	public function gantiPassProfilUser(){
 		if($this->session->userdata('userYangLogin')){
 			if($this->input->post('txtNewPassword') == $this->input->post('txtConfirmNewPassword')){
@@ -368,32 +366,34 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$this->load->library('upload');
 			if($this->input->post('btnSubmit')){
+				$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+				$user = $this->fatncurious_model_user->SEARCH($kodeUser);
+				$kode = $user->KODE_USER;
+				$kodeJU = $user->KODE_JENISUSER;
+				$nama = $this->input->post('txtRestoran');
+				$alamat = $this->input->post('txtJalan');
+				$telp = $this->input->post('txtNoTelp');
+				$tgl = $user->TANGGAL_LAHIR_USER;
+				$pos = $user->KODE_POS_USER;
+				$email = $user->EMAIL_USER;
+				$pass = $user->PASSWORD;
+				$report = $user->JUMLAH_REPORT_USER;
+				$ket = $user->KETERANGAN_USER;
+				$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
 				$config = array(
 					'upload_path' => './vendors/images/profilepicture/',
 					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
 					'overwrite' => TRUE,
 					'max_size' => "1000KB",
-					'file_name' => $this->session->userdata('userYangLogin')
+					'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
 				);
 				$this->upload->initialize($config);
 				if($this->upload->do_upload('foto')){
-					$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-					$user = $this->fatncurious_model_user->SEARCH($kodeUser);
-					$kode = $user->KODE_USER;
-					$kodeJU = $user->KODE_JENISUSER;
-					$nama = $this->input->post('txtRestoran');
-					$alamat = $this->input->post('txtJalan');
-					$telp = $this->input->post('txtNoTelp');
-					$tgl = $user->TANGGAL_LAHIR_USER;
-					$pos = $user->KODE_POS_USER;
-					$email = $user->EMAIL_USER;
-					$pass = $user->PASSWORD;
-					$report = $user->JUMLAH_REPORT_USER;
-					$ket = $user->KETERANGAN_USER;
-					$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
-					redirect('fatncurious/index/update_berhasil');
+					$url = $this->upload->data('file_name');
+					$this->fatncurious_model_user->UPDATE_FOTO($kodeUser,$url);
+					redirect('fatncurious/index/update_foto_berhasil');
 				}else{
-					redirect('fatncurious/index/update_gagal');
+					redirect('fatncurious/index/update_foto_gagal');
 				}
 			}
 		}
