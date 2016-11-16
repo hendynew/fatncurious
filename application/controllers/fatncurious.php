@@ -1082,6 +1082,28 @@ class Fatncurious extends CI_Controller {
 		$data['promo'] = $this->fatncurious_model_promo->searchPromo(5,$page,$kataSearch,$namaResto,$alamatResto,$namaPromo,$deskripsiPromo,$persentasePromo);
 		$this->load->view('filterByPromo',$data);
 	}
+
+	public function profilPemilikRestoran()	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
+		if($this->session->userdata('userYangLogin')){
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+			//echo $kodeUser;
+			$this->load->library('upload');
+			$config = array(
+				'upload_path' => './vendors/images/profilepicture/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $this->session->userdata('userYangLogin')
+			);
+			$this->upload->initialize($config);
+			$this->load->view('profilePemilikRestoran',$data);
+		}
+
+	}
 	//================Search===================
 
 }
