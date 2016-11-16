@@ -142,13 +142,81 @@ class Model_restaurant extends CI_Model {
 		return $hasil;
 	}
 
+	public function COUNT_REPORT($kode){
+		$arr = ["KODE_RESTORAN"=>$kode,"STATUS"=>'1'];
+		$this->db->where($arr);
+		return $count = $this->db->count_all_results('report_restoran');
+	}
+
 	public function SELECT_REVIEW($kode){
-		$hasil = $this->db->query("SELECT rr.KODE_REVIEW_RESTORAN as 'KODE',user.KODE_USER as 'KODE_USER', user.NAMA_USER as 'NAMA', rr.DESKRIPSI_REVIEW_RESTORAN as 'DESKRIPSI', rr.TANGGAL_REVIEW_RESTORAN as 'TANGGAL', rr.JUMLAH_LIKE_REVIEW_RESTORAN as 'LIKE', rr.KETERANGAN_REVIEW_RESTORAN as 'KETERANGAN' from review_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
 		return $hasil;
 	}
 
 	public function SELECT_RATING($kode){
 		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER', user.NAMA_USER as 'NAMA', rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1' and user.KODE_USER=rating.KODE_USER")->result();
 		return $hasil;
+	}
+
+	public function COUNT_RATING($kode){
+		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1'")->result();
+		$total = 0;
+		$jumlah = 0;
+		foreach($hasil as $h){
+			$total += $h->RATING;
+			$jumlah++;
+		}
+		if($jumlah > 0){
+			$total_rating = $total/$jumlah;
+		}else{
+			$total_rating = $total;
+		}
+
+
+		return floor($total_rating);
+	}
+
+	public function COUNT_ALL_RATING(){
+		$hasil = $this->db->query("SELECT rating.KODE_RESTORAN as KODE,rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating where rating.STATUS='1'")->result();
+		$data = [];
+		foreach($hasil as $h){
+			$this->db->where('KODE_RESTORAN',$h->KODE);
+			$jumlah = $this->db->count_all_results("rating_restoran");
+			$jumlahnya = $h->RATING / $jumlah;
+			$data[$h->KODE] = floor($jumlahnya);
+		}
+		return $data;
+	}
+
+
+	public function RATE($rate,$user,$resto,$comment,$judul){
+		$tanggal = date("Y-m-d");
+		$where = [
+			"KODE_USER"=>$user,
+			"KODE_RESTORAN"=>$resto,
+			"STATUS"=>'1'
+		];
+		$this->db->where($where);
+		if($this->db->get('rating_restoran')->result()){
+			$arr = [
+				"KODE_USER"=>$user,
+				"KODE_RESTORAN"=>$resto,
+				"STATUS"=>'1'
+			];
+			$this->db->where($arr);
+			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate,"JUDUL"=>$judul,"DESKRIPSI"=>$comment,"TANGGAL"=>$tanggal]);
+		}else{
+			$arr = [
+				"KODE_USER"=>$user,
+				"KODE_RESTORAN"=>$resto,
+				"JUMLAH_RATING"=>$rate,
+				"TANGGAL"=>$tanggal,
+				"JUDUL"=>$judul,
+				"DESKRIPSI"=>$comment,
+				"JUMLAH_LIKE"=>0,
+				"STATUS"=>'1'
+			];
+			$this->db->insert('rating_restoran',$arr);
+		}
 	}
 }

@@ -163,30 +163,32 @@ jQuery(function($) {
 	});
 
 	//Google Map
-	var latitude = $('#google-map').data('latitude')
-	var longitude = $('#google-map').data('longitude')
-	function initialize_map() {
-		var myLatlng = new google.maps.LatLng(latitude,longitude);
-		var mapOptions = {
-			zoom: 14,
-			scrollwheel: false,
-			center: myLatlng
-		};
-		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-		var contentString = '';
-		var infowindow = new google.maps.InfoWindow({
-			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
-		});
-		var marker = new google.maps.Marker({
-			position: myLatlng,
-			map: map
-		});
-		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.open(map,marker);
-		});
+	if($('#asd').html()==" Index ")
+	{
+		var latitude = $('#google-map').data('latitude')
+		var longitude = $('#google-map').data('longitude')
+		function initialize_map() {
+			var myLatlng = new google.maps.LatLng(latitude,longitude);
+			var mapOptions = {
+				zoom: 14,
+				scrollwheel: false,
+				center: myLatlng
+			};
+			var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+			var contentString = '';
+			var infowindow = new google.maps.InfoWindow({
+				content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
+			});
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map
+			});
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.open(map,marker);
+			});
+		}
+		google.maps.event.addDomListener(window, 'load', initialize_map);
 	}
-	google.maps.event.addDomListener(window, 'load', initialize_map);
-
 });
 
 /*EDITANKU*/
@@ -208,34 +210,6 @@ $(".displayPictureMenu").on('click',function()
 
 });
 
-$(".bintang").on('click',function()
-{
-	$total = parseInt($(this).attr('data-val'));
-	//bersihkan Bintang
-	$('.bintang').each(function(index,value)
-	{
-		if($(this).hasClass('glyphicon-star'))
-		{
-			$(this).removeClass('glyphicon-star');
-			$(this).addClass('glyphicon-star-empty');
-		}
-	});
-	//tambah Bintang
-	$(".bintang").each(function(index,value)
-	{
-		if($(this).attr('data-val')<=$total)
-		{
-			$(this).removeClass('glyphicon-star-empty');
-			$(this).addClass('glyphicon-star');
-		}
-
-	});
-});
-
-$('.toogleNavBar').on('click',function()
-                      {
-});
-
 $(".links").on('click',function(event)
 {
 	event = event || window.event;
@@ -254,3 +228,107 @@ $(".links").on('click',function(event)
         links = this.getElementsByTagName('a');
     blueimp.Gallery(links, options);
 };*/
+
+$(".likeButton").on('click',function()
+{
+	alert('likeButton');
+});
+
+$(".dislikeButton").on('click',function()
+{
+	alert('dislikeButton');
+});
+
+$(".reportButton").on('click',function()
+{
+	alert('reportButton');
+});
+
+$(".shareButton").on('click',function()
+{
+	alert('shareButton');
+});
+
+$('#modalRating').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever'); // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	var valueBintang = button.data('val');
+	$("#hidBintang").attr("value",valueBintang);
+
+	$('.bintang').each(function(index,value)
+	{
+		if($(this).hasClass('glyphicon-star'))
+		{
+			$(this).removeClass('glyphicon-star');
+			$(this).addClass('glyphicon-star-empty');
+
+		}
+	});
+	//tambah Bintang
+	$(".bintang").each(function(index,value)
+	{
+		if($(this).attr('data-val')<=valueBintang)
+		{
+			$(this).removeClass('glyphicon-star-empty');
+			$(this).addClass('glyphicon-star');
+		}
+	});
+	//bersihkan Bintang
+  /*var modal = $(this);
+  modal.find('.modal-title').text('New message to ' + recipient);
+  modal.find('.modal-body input').val(recipient);*/
+});
+
+$('.bintang').on('click', function (event) {
+	var valueBintang = $(this).attr("data-val");
+	$('.bintang').each(function(index,value)
+	{
+		if($(this).hasClass('glyphicon-star'))
+		{
+			$(this).removeClass('glyphicon-star');
+			$(this).addClass('glyphicon-star-empty');
+
+		}
+	});
+	//tambah Bintang
+	$(".bintang").each(function(index,value)
+	{
+		if($(this).attr('data-val')<=valueBintang)
+		{
+			$(this).removeClass('glyphicon-star-empty');
+			$(this).addClass('glyphicon-star');
+		}
+	});
+	$("#hidBintang").attr("value",valueBintang);
+});
+
+$('#modalUpload').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('menu'); // Extract info from data-* attributes
+	var restoran = button.data('restoran');
+	var kodeMenu = button.data('kode1');
+	var kodeRestoran = button.data('kode2');
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this);
+  modal.find('.modal-title').text("Upload Foto " + recipient + " Restoran "+ restoran);
+	$("#hidKodeMenu").attr("value",kodeMenu);
+	$("#hidKodeRestoran").attr("value",kodeRestoran);
+});
+
+$(".likeReview").on("click",function()
+{
+	alert("likeReview");
+});
+
+$(".dislikeReview").on("click",function()
+{
+	alert("dislikeReview");
+});
+
+$(".reportReview").on("click",function()
+{
+	alert("reportReview");
+});

@@ -28,6 +28,44 @@ class Fatncurious_model_menu extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function searchMenu($limit,$start,$kataSearch,$makanan,$minuman,$snack,$dessert)
+	{
+		$mak=false;
+		$min=false;
+		$sna=false;
+		$des=false;
+
+		$this->db->limit($limit,$start);
+		$this->db->select('*');
+		$this->db->from('menu');
+		$this->db->join('restoran','menu.kode_restoran = restoran.kode_restoran');
+		$this->db->like('menu.NAMA_MENU',$kataSearch);
+		if($makanan != ''){
+			$this->db->where('menu.KODE_JENIS_MENU','JM001');
+			$mak=true;
+		}
+		else if($minuman != ''){
+			$this->db->where('menu.KODE_JENIS_MENU','JM002');
+			$min=true;
+		}
+		else if($snack != ''){
+			$this->db->where('menu.KODE_JENIS_MENU','JM003');
+			$sna=true;
+		}
+		else if($dessert != ''){
+			$this->db->where('menu.KODE_JENIS_MENU','JM004');
+			$des=true;
+		}
+		if($makanan != '' and $mak==false){	$this->db->or_where('menu.KODE_JENIS_MENU','JM001');}
+		if($minuman != '' and $min==false){	$this->db->or_where('menu.KODE_JENIS_MENU','JM002');}
+		if($snack != '' and $sna==false){	$this->db->or_where('menu.KODE_JENIS_MENU','JM003');}
+		if($dessert != '' and $des==false){	$this->db->or_where('menu.KODE_JENIS_MENU','JM004');}
+
+		$this->db->where('menu.status',1);
+		$this->db->order_by('menu.nama_menu','asc');
+		return $this->db->get()->result();
+	}
+
 	public function selectMenuByResto($resto)
 	{
 		$data = $this->db->query("SELECT menu.*, restoran.* FROM menu , restoran WHERE restoran.KODE_RESTORAN = menu.KODE_RESTORAN AND menu.KODE_RESTORAN = '$resto' and menu.STATUS='1'");

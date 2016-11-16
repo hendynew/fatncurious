@@ -17,6 +17,44 @@ class Fatncurious_model_promo extends CI_Model {
 		$data = $this->db->query("SELECT * FROM " . $var . " where STATUS='1'");
 		return $data->result();
 	}
+
+	public function searchPromo($limit,$start,$kataSearch,$namaResto,$alamatResto,$namaPromo,$deskripsiPromo,$persentasePromo)
+	{
+		if($persentasePromo==''){$persentasePromo='0';}
+		$this->db->limit($limit,$start);
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.kode_restoran as 'KODE_RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'",'promo.*'));
+		$this->db->distinct();
+		$this->db->from('promo');
+		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');
+		$this->db->join('kartu_kredit','kartu_kredit.kode_kartu_kredit = sponsor_promo.kode_kartu_kredit');
+		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
+		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
+		if($namaResto=='' && $alamatResto=='' && $deskripsiPromo=='' && $namaPromo=='' && $persentasePromo=='0'){
+			$this->db->like('restoran.nama_restoran',$kataSearch);
+			$this->db->or_like('restoran.alamat_restoran',$kataSearch);
+			$this->db->or_like('promo.nama_promo',$kataSearch);
+			$this->db->or_like('promo.deskripsi_promo',$kataSearch);
+		}
+		else{
+			if($namaResto!=''){
+					$this->db->like('restoran.nama_restoran',$kataSearch);
+			}
+			if($alamatResto!=''){
+				$this->db->like('restoran.alamat_restoran',$kataSearch);
+			}
+			if($deskripsiPromo!=''){
+				$this->db->like('promo.deskripsi_promo',$kataSearch);
+			}
+			if($namaPromo!=''){
+				$this->db->like('promo.nama_promo',$kataSearch);
+			}
+		}
+		$this->db->where("promo.PERSENTASE_PROMO >=",$persentasePromo);
+		$this->db->order_by('promo.PERSENTASE_PROMO','asc');
+		$data = $this->db->get();
+		return $data->result();
+	}
+
 	public function selectPromoByResto($var,$resto)
 	{
 		$data = $this->db->query(
@@ -37,18 +75,25 @@ class Fatncurious_model_promo extends CI_Model {
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
 		$data = $this->db->get();
 		return $data->result();
-		
+
 	}
+
+	public function selectSemuaPromo($limit,$start){
+		$this->db->limit($limit,$start);
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
+		$this->db->from('promo');
+		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
+		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');
+		$this->db->join('kartu_kredit','kartu_kredit.kode_kartu_kredit = sponsor_promo.kode_kartu_kredit');
+		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
+		$this->db->where('promo.status',1);
+		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
+		return $this->db->get()->result();
+	}
+
 	public function selectBiggestPromo()
 	{
-		/*
-		select restoran.nama_restoran as 'RESTORAN', promo.*
-		from promo
-		join promo_restoran on promo.kode_promo = promo_restoran.kode_promo
-		join restoran on promo_restoran.kode_restoran = restoran.kode_restoran
-		order by promo.persentase_promo desc
-		*/
-		
+
 		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
@@ -56,16 +101,7 @@ class Fatncurious_model_promo extends CI_Model {
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
 		$data = $this->db->get();
 		return $data->result();
-		/*
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'",'promo.*'));
-		$this->db->from('promo');
-		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
-		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
-		$this->db->where('restoran.kode_restoran',$var);
-		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
-		$data = $this->db->get();
-		return $data->result();
-		*/
+
 	}
 
 	public function buatCombobox(){
