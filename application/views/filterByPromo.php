@@ -73,13 +73,7 @@
 			?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php
-            if($kodeUser->URL_FOTO == ''){
-              $url = 'default.jpg';
-            }else $url = $kodeUser->URL_FOTO;
-            $url_full = base_url('/vendors/images/profilepicture/' . $url);
-              ?>
-            <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
+            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
@@ -97,7 +91,7 @@
   </header><!--/#home-->
     <br>
     <div class='container navbarSpace'>
-
+      
     <?php
         echo form_open('fatncurious/searchFilterByPromo');
           if(isset($kataSearch)){

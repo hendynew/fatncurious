@@ -332,3 +332,59 @@ $(".reportReview").on("click",function()
 {
 	alert("reportReview");
 });
+
+$(".btnUpdate").on("click",function()
+{
+	//$("#hKodeReview").val($(this).attr("id"));
+	//alert("asd");
+	var para = document.createElement("textarea");
+	var node = document.createTextNode($(this).attr("data-val"));
+	para.appendChild(node);
+
+	var element = document.getElementById($(this).attr("data-val2"));
+	//alert($(this).attr('data-val2'));
+	//alert(element);
+	//console.log(element);
+	document.getElementById($(this).attr("data-val2")).innerHTML='';
+	//element.text("");
+	element.appendChild(para);
+
+	document.getElementById($(this).attr("id")).style.display = "none";
+	document.getElementById($(this).attr("id")+'2').style.display = "inherit";
+
+	para.setAttribute('id','textarea');
+	para.setAttribute('value','');
+
+	//alert(document.getElementById($(this).attr("data-val2")).innerHTML);
+});
+
+$(".btnUpdate2").on("click",function()
+{
+	//alert("tes");
+	var target = document.getElementById("textarea");
+	var targetValue = document.getElementById("textarea").value;
+	var url = $(this).attr('data-url');
+	var namaIdComment = $(this).attr("data-val2");
+	var idBtn2 = $(this).attr("id");
+	var idBtn1 = idBtn2.substring(0,6);
+	//alert(idBtn1);
+	//alert(namaIdComment);
+	//$.session("deskripsiReview",target.value);
+	//alert($.session("deskripsiReview"));
+	//window.location.assign(url);
+	//alert(url);
+
+	$.post(url,{ deskripsi: targetValue},
+  function(result){
+			//location.reload();
+			alert("Success");
+			//alert(document.getElementById($(this).attr("id")));
+			document.getElementById(namaIdComment).innerHTML=targetValue;
+			document.getElementById(idBtn2).style.display = "none";
+			document.getElementById(idBtn1).style.display = "inherit";
+
+
+			//var asd=document.getElementById("textarea").remove();
+
+  });
+});
