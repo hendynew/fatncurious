@@ -327,7 +327,8 @@ class Fatncurious extends CI_Controller {
 
 	public function LogOut(){
 		if($this->session->userdata('userYangLogin')){
-			$this->session->set_userdata('userYangLogin','');
+			//$this->session->set_userdata('userYangLogin','');
+			$this->session->unset_userdata('userYangLogin');
 			redirect('fatncurious');
 		}
 
