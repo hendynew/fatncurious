@@ -34,13 +34,7 @@
         <div class="item active" style="background-image: url(<?php echo base_url('/vendors/images/Background/Wallpapers-fruit-flowers-black-background-hd-desktop-wallpapers.jpg');?>)">
           <div class="captionRestoran">
             <div class="media">
-              <?php
-              if($resto->URL_FOTO_RESTORAN == ''){
-                $url = 'default.png';
-              }else $url = $resto->URL_FOTO_RESTORAN;
-              $url_full = base_url('/vendors/images/restoran/' . $url);
-              ?>
-              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full?>" alt="Generic placeholder image">
+              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
             </div>
               <h1><span> <?php echo $resto->NAMA_RESTORAN;?> </span>  </h1>
                   <h2 style="margin-top:-30px;color:#fff">
@@ -98,13 +92,7 @@
       ?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php
-            if($kodeUser->URL_FOTO == ''){
-              $url = 'default.jpg';
-            }else $url = $kodeUser->URL_FOTO;
-            $url_full = base_url('/vendors/images/profilepicture/' . $url);
-              ?>
-            <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
+            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
@@ -341,6 +329,7 @@
 			if(isset($menu)){
         $ctrRow = 0;
 				echo "<h4>MAKANAN</h4>";
+        $ctrReview=0;
 				foreach($menu as $m){
 
 					if($m->KODE_JENIS_MENU == 'JM001'){
@@ -354,27 +343,28 @@
 						  echo "<div class='media-body'>";
 							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
 							echo $m->DESKRIPSI_MENU;
-
-
 							echo "<div class='media m-t-2'>";
               if(isset($review[$m->KODE_MENU])){
                 foreach($review[$m->KODE_MENU] as $r){
-                  echo "<div class='media-left' href='#'>";
-                  if($r->URL_FOTO == ''){
-                    $url = 'default.jpg';
-                  }else $url = $r->URL_FOTO;
-                  $url_full = base_url('/vendors/images/profilepicture/' . $url);
-                    ?>
-                      <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
-                    <?php
+                  echo "<div class='media-left' href='#'>";?>
+                    <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
+      <?php
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
 
@@ -464,11 +454,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -555,11 +553,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -700,7 +706,7 @@
                     <input id="address" type="text" value="SURABAYA" style="width: 225px;">
                     <input id="submit" type="button" value="Reverse Geocode">
                   </div>-->
-                  <div id="map" style="height: 500px;width:500px;background-color:red"></div>
+                  <div id="map" style="height: 500px;background-color:red"></div>
                 </div>
                 <div class="modal-footer">
 
@@ -815,7 +821,7 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap"
-      async defer></script>
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqpR9uFr9Cdp4XDNAsrEojh3GTWNmCte8&callback=initMap"
+      async defer></script>-->
 </body>
 </html>
