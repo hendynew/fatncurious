@@ -18,8 +18,8 @@ class Fatncurious_model_user extends CI_Model {
 	}
 
 	public function selectUserByEmail($kode){
-		$data = $this->db->query("SELECT * FROM user where EMAIL_USER='$kode' AND KODE_JENISUSER!='JU001'");
-		return $data->row();
+		$data = $this->db->query("SELECT KODE_USER,URL_FOTO FROM user where EMAIL_USER='$kode' AND KODE_JENISUSER!='JU001'")->result();
+		return $data;
 	}
 	public function selectJenisUserByKode($kode){
 		$data = $this->db->query("SELECT KODE_JENISUSER FROM user where KODE_USER='$kode'");
@@ -97,6 +97,11 @@ class Fatncurious_model_user extends CI_Model {
 		$data = $this->db->update_string('user',$user,$where);
 		$this->db->query($data);
 		return $this->db->affected_rows();
+	}
+
+	public function UPDATE_FOTO($kode,$url){
+		$this->db->where('KODE_USER',$kode);
+		$this->db->update('user',array('URL_FOTO'=>$url));
 	}
 
 
