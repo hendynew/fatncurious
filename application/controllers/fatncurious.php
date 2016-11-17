@@ -702,6 +702,8 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 			else{
+				$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
+				$data['userRatingJudul'] = $rating->JUDUL;
 				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
