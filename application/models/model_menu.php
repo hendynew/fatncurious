@@ -133,11 +133,6 @@ class Model_menu extends CI_Model {
 		return $this->db->query("SELECT p.NAMA_PROMO as NAMA, p.KODE_PROMO as KODE, p.PERSENTASE_PROMO as persen from promo as p, menu as m, tipe_promo as tp,jenis_menu as jm where m.KODE_MENU='$kode' AND m.KODE_JENIS_MENU=jm.KODE_JENISMENU AND jm.KODE_JENISMENU = tp.KODE_JENISMENU AND tp.KODE_PROMO=p.KODE_PROMO and tp.STATUS='1'")->result();
 	}
 
-	public function update_review($kode,$review){
-		$this->db->where('KODE_REVIEW',$kode);
-		$this->db->update('review_menu',array('DESKRIPSI_REVIEW'=>$review));
-	}
-
 	public function SELECT_RATING($kode){
 		return $this->db->query("SELECT u.KODE_USER as KODE, u.NAMA_USER as NAMA, rm.JUMLAH_RATING as RATING from rating_menu as rm, user as u WHERE rm.KODE_MENU='$kode' and rm.KODE_USER=u.KODE_USER and rm.STATUS='1'")->result();
 	}

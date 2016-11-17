@@ -117,8 +117,7 @@ class Fatncurious extends CI_Controller {
 				{
 					$user = $this->fatncurious_model_user->selectUserByEmail($this->input->post('txtEmailLogin'));
 					$this->session->set_userdata('userYangLogin',$user);
-					//redirect("fatncurious/index/login_Berhasil");
-					redirect('fatncurious/profilUser');
+					redirect("fatncurious/index/login_Berhasil");
 				}
 				else
 				{
@@ -311,44 +310,20 @@ class Fatncurious extends CI_Controller {
 		}
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-			//print_r($this->session->userdata('userYangLogin')) ;
-			if($this->session->userdata('userYangLogin')->KODE_JENISUSER == 'JU003'){
-				//echo "1";
-				redirect('fatncurious/profilPemilikRestoran');
-			}
-			else{
-				//echo "2";
-
-				$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
-				//echo $kodeUser;
-				$this->load->library('upload');
-				$config = array(
-					'upload_path' => './vendors/images/profilepicture/',
-					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-					'overwrite' => TRUE,
-					'max_size' => "1000KB",
-					'file_name' => $this->session->userdata('userYangLogin')
-				);
-				$this->upload->initialize($config);
-				$this->load->view('profileUser',$data);
-			}
-
+			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+			//echo $kodeUser;
+			$this->load->library('upload');
+			$config = array(
+				'upload_path' => './vendors/images/profilepicture/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $this->session->userdata('userYangLogin')
+			);
+			$this->upload->initialize($config);
+			$this->load->view('profileUser',$data);
 		}
 
-	}
-
-	public function deleteComment($kodeResto,$kodeReview){
-		$this->load->model('model_menu');
-		$this->model_menu->delete_review($kodeReview);
-		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
-	}
-
-	public function updateComment($kodeResto,$kodeReview){
-			$this->load->model('model_menu');
-			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
-			echo $_POST['deskripsi'];
-			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
-			redirect("fatncurious/sortByMenuRestoran/$kodeResto");
 	}
 
 	public function LogOut(){
