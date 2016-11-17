@@ -63,7 +63,13 @@
       ?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
+            <?php
+            if($kodeUser->URL_FOTO == ''){
+              $url = 'default.jpg';
+            }else $url = $kodeUser->URL_FOTO;
+            $url_full = base_url('/vendors/images/profilepicture/' . $url);
+              ?>
+            <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
@@ -84,7 +90,13 @@
           <div class="captionRestoran">
             <div class="media">
 				<br/>
-              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
+        <?php
+        if($kodeUser->URL_FOTO == ''){
+          $url = 'default.jpg';
+        }else $url = $kodeUser->URL_FOTO;
+        $url_full = base_url('/vendors/images/profilepicture/' . $url);
+          ?>
+              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full;?>" alt="Generic placeholder image">
             </div>
               <h1> <?php echo $user->NAMA_USER ;?>
               </h1>
