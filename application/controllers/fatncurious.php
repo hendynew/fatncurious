@@ -117,7 +117,8 @@ class Fatncurious extends CI_Controller {
 				{
 					$user = $this->fatncurious_model_user->selectUserByEmail($this->input->post('txtEmailLogin'));
 					$this->session->set_userdata('userYangLogin',$user);
-					redirect("fatncurious/index/login_Berhasil");
+					//redirect("fatncurious/index/login_Berhasil");
+					redirect('fatncurious/profilUser');
 				}
 				else
 				{
@@ -310,19 +311,44 @@ class Fatncurious extends CI_Controller {
 		}
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
-			$this->load->library('upload');
-			$config = array(
-				'upload_path' => './vendors/images/profilepicture/',
-				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-				'overwrite' => TRUE,
-				'max_size' => "1000KB",
-				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
-			);
-			$this->upload->initialize($config);
-			$this->load->view('profileUser',$data);
+			//print_r($this->session->userdata('userYangLogin')) ;
+			if($this->session->userdata('userYangLogin')->KODE_JENISUSER == 'JU003'){
+				//echo "1";
+				redirect('fatncurious/profilPemilikRestoran');
+			}
+			else{
+				//echo "2";
+
+				$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+				//echo $kodeUser;
+				$this->load->library('upload');
+				$config = array(
+					'upload_path' => './vendors/images/profilepicture/',
+					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+					'overwrite' => TRUE,
+					'max_size' => "1000KB",
+					'file_name' => $this->session->userdata('userYangLogin')
+				);
+				$this->upload->initialize($config);
+				$this->load->view('profileUser',$data);
+			}
+
 		}
 
+	}
+
+	public function deleteComment($kodeResto,$kodeReview){
+		$this->load->model('model_menu');
+		$this->model_menu->delete_review($kodeReview);
+		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
+	public function updateComment($kodeResto,$kodeReview){
+			$this->load->model('model_menu');
+			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+			echo $_POST['deskripsi'];
+			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
+			redirect("fatncurious/sortByMenuRestoran/$kodeResto");
 	}
 
 	public function LogOut(){
@@ -332,6 +358,7 @@ class Fatncurious extends CI_Controller {
 		}
 
 	}
+
 	public function gantiPassProfilUser(){
 		if($this->session->userdata('userYangLogin')){
 			if($this->input->post('txtNewPassword') == $this->input->post('txtConfirmNewPassword')){
@@ -366,34 +393,32 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$this->load->library('upload');
 			if($this->input->post('btnSubmit')){
-				$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-				$user = $this->fatncurious_model_user->SEARCH($kodeUser);
-				$kode = $user->KODE_USER;
-				$kodeJU = $user->KODE_JENISUSER;
-				$nama = $this->input->post('txtRestoran');
-				$alamat = $this->input->post('txtJalan');
-				$telp = $this->input->post('txtNoTelp');
-				$tgl = $user->TANGGAL_LAHIR_USER;
-				$pos = $user->KODE_POS_USER;
-				$email = $user->EMAIL_USER;
-				$pass = $user->PASSWORD;
-				$report = $user->JUMLAH_REPORT_USER;
-				$ket = $user->KETERANGAN_USER;
-				$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
 				$config = array(
 					'upload_path' => './vendors/images/profilepicture/',
 					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
 					'overwrite' => TRUE,
 					'max_size' => "1000KB",
-					'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
+					'file_name' => $this->session->userdata('userYangLogin')
 				);
 				$this->upload->initialize($config);
 				if($this->upload->do_upload('foto')){
-					$url = $this->upload->data('file_name');
-					$this->fatncurious_model_user->UPDATE_FOTO($kodeUser,$url);
-					redirect('fatncurious/index/update_foto_berhasil');
+					$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+					$user = $this->fatncurious_model_user->SEARCH($kodeUser);
+					$kode = $user->KODE_USER;
+					$kodeJU = $user->KODE_JENISUSER;
+					$nama = $this->input->post('txtRestoran');
+					$alamat = $this->input->post('txtJalan');
+					$telp = $this->input->post('txtNoTelp');
+					$tgl = $user->TANGGAL_LAHIR_USER;
+					$pos = $user->KODE_POS_USER;
+					$email = $user->EMAIL_USER;
+					$pass = $user->PASSWORD;
+					$report = $user->JUMLAH_REPORT_USER;
+					$ket = $user->KETERANGAN_USER;
+					$aff=$this->fatncurious_model_user->UPDATE($kode,$kodeJU,$nama,$alamat,$telp,$tgl,$pos,$email,$pass,$report,$ket);
+					redirect('fatncurious/index/update_berhasil');
 				}else{
-					redirect('fatncurious/index/update_foto_gagal');
+					redirect('fatncurious/index/update_gagal');
 				}
 			}
 		}
@@ -668,8 +693,6 @@ class Fatncurious extends CI_Controller {
 			}
 		}
 		else{
-			$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
-			$data['userRatingJudul'] = $rating->JUDUL;
 			$data['userRating'] = $rating->JUMLAH_RATING;
 			for($i=1;$i<=5;$i++){
 				if(($rating->JUMLAH_RATING) - $i >= 0){
@@ -704,8 +727,6 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 			else{
-				$data['userRatingDeskripsi'] = $rating->DESKRIPSI;
-				$data['userRatingJudul'] = $rating->JUDUL;
 				$data['userRating'] = $rating->JUMLAH_RATING;
 				for($i=1;$i<=5;$i++){
 					if(($rating->JUMLAH_RATING) - $i >= 0){
