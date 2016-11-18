@@ -1,8 +1,18 @@
 -	Fitur untuk pengguna:
-	* foto makanan yang diupload oleh user. -> view Sudah
+V	* search untuk mencari rumah makan atau restoran yang diinginkan.
+V	* search untuk promo yang diinginkan.
+V	* filter berdasarkan promo terbesar, harga dan lainnya.
+V	* foto makanan yang diupload oleh user.
 	* comment dan like pada restoran maupun makanan. ->restoran belum
-	* bisa melihat lokasi restoran tersebut melalui google maps. -> sudah?
-	* user bisa mengedit dan menghapus comment miliknya.
+V	* log in untuk comment, like dan upload foto.
+	* menampilkan jam buka dan tutup restoran atau rumah makan secara live-time.
+V	* bisa melihat lokasi restoran tersebut melalui google maps.
+V	* bisa mengetahui nomor telepon restoran yang diinginkan.
+V	* Jarak dari posisi kita ke rumah makan yang diinginkan.#optional/kalau bisa.
+V	* user bisa mengedit dan menghapus comment miliknya.
+V	* Bisa melihat jumlah peringatan yang diberikan oleh admin kepada restoran tersebut.
+
+	
 
  - fitur untuk pemilik restoran : 
 	* interface berbeda dengan user.
@@ -15,3 +25,4 @@
 	* bisa membalas comment milik user.
 	* bisa mendapat peringatan oleh jika ada data yang tidak cocok.
 	* bisa memasukkan deskripsi tentang restoran tersebut.
+
