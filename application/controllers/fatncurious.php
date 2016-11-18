@@ -182,6 +182,10 @@ class Fatncurious extends CI_Controller {
 		$data = [];
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		if($adaError == null){
 			if(isset($_SESSION['nama'])){
@@ -202,6 +206,10 @@ class Fatncurious extends CI_Controller {
 		//echo $this->session->userdata('userYangLogin')->KODE_USER;
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		if($this->session->userdata('userYangLogin')){
 			$pemilik = false;
@@ -309,7 +317,10 @@ class Fatncurious extends CI_Controller {
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 		}
 		if($this->session->userdata('userYangLogin')){
+			$this->load->model('model_user');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
 			$this->load->library('upload');
 			$config = array(
@@ -323,6 +334,20 @@ class Fatncurious extends CI_Controller {
 			$this->load->view('profileUser',$data);
 		}
 
+	}
+
+	public function deleteComment($kodeResto,$kodeReview){
+		$this->load->model('model_menu');
+		$this->model_menu->delete_review($kodeReview);
+		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
+	public function updateComment($kodeResto,$kodeReview){
+			$this->load->model('model_menu');
+			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+			echo $_POST['deskripsi'];
+			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
+			redirect("fatncurious/sortByMenuRestoran/$kodeResto");
 	}
 
 	public function LogOut(){
@@ -409,6 +434,10 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('fatncurious_model_promo');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/filterByPromo');
@@ -437,6 +466,10 @@ class Fatncurious extends CI_Controller {
 	public function filterByRestoran(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$this->load->model('Model_restaurant');
 		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
@@ -467,6 +500,10 @@ class Fatncurious extends CI_Controller {
 	public function filterByKartu(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$config = array();
@@ -496,6 +533,10 @@ class Fatncurious extends CI_Controller {
 	public function filterByMenu(){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$this->load->model('Model_menu');
@@ -530,6 +571,10 @@ class Fatncurious extends CI_Controller {
 	public function sortByPromoProfilRestoran($kode){
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$this->load->model('Model_restaurant');
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
@@ -552,6 +597,10 @@ class Fatncurious extends CI_Controller {
 	public function sortByMenuProfilRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
@@ -582,6 +631,10 @@ class Fatncurious extends CI_Controller {
 	public function sortByMenuRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$kodeUser = '';
 		if($this->session->userdata('userYangLogin')){
@@ -623,6 +676,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$this->load->model('Model_menu');
+		$this->load->model('model_user');
 		foreach($data['menu'] as $d){
 			$temp = $this->Model_menu->SELECT_REVIEW($d->KODE_MENU);
 			foreach($temp as $t){
@@ -630,6 +684,9 @@ class Fatncurious extends CI_Controller {
 			}
 		}
 		$data['kodeuser'] = $kodeUser;
+		$fotoUser = $this->model_user->SEARCH($kodeUser);
+		$data['fotoUser'] = $fotoUser;
+		//print_r($data['fotoUser']);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
@@ -648,6 +705,10 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
@@ -686,6 +747,10 @@ class Fatncurious extends CI_Controller {
 	public function sortByKreditRestoran($kode)	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		$data['kartu'] = $this->fatncurious_model_restaurant->selectBiggestKreditResto($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
@@ -788,6 +853,10 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('fatncurious_model_menu');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$makanan=null;
@@ -879,6 +948,10 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('fatncurious_model_restaurant');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$namaResto=null;
@@ -947,6 +1020,10 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('fatncurious_model_kartu_kredit');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$namaKartu=null;
@@ -1003,6 +1080,10 @@ class Fatncurious extends CI_Controller {
 		$this->load->model('fatncurious_model_promo');
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 
 		$namaResto=null;
@@ -1093,6 +1174,10 @@ class Fatncurious extends CI_Controller {
 	public function profilPemilikRestoran()	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+			$this->load->model('model_user');
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
 		}
 		if($this->session->userdata('userYangLogin')){
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;

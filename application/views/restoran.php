@@ -99,9 +99,10 @@
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
-            if($kodeUser->URL_FOTO == ''){
+            //print_r($fotoUser);
+            if($fotoUser[0]->URL_FOTO == ''){
               $url = 'default.jpg';
-            }else $url = $kodeUser->URL_FOTO;
+            }else $url = $fotoUser[0]->URL_FOTO;
             $url_full = base_url('/vendors/images/profilepicture/' . $url);
               ?>
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
@@ -341,6 +342,7 @@
 			if(isset($menu)){
         $ctrRow = 0;
 				echo "<h4>MAKANAN</h4>";
+        $ctrReview=0;
 				foreach($menu as $m){
 
 					if($m->KODE_JENIS_MENU == 'JM001'){
@@ -348,7 +350,7 @@
 						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
 			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/'.$kode.'/'.$m->KODE_MENU.'/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
@@ -370,11 +372,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
 
@@ -400,7 +410,7 @@
     					echo "<div class='links'>";
     						echo "<div class='container-fluid'>";
     							echo "<div class='row'>";
-                  $ctr=1;
+                  $ctr=2;
                   $tidakAdaFoto=true;
                   if(isset($fotoMenu)){
                     foreach($fotoMenu as $f){
@@ -464,11 +474,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -494,7 +512,7 @@
               echo "<div class='links'>";
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
-                  $ctr=1;
+                  $ctr=2;
                   $tidakAdaFoto=true;
                     foreach($fotoMenu as $f){
                       if($f->KODE_MENU == $m->KODE_MENU){
@@ -532,10 +550,10 @@
 		//===========SNACK=========
 			if(isset($menu)){
         echo "<hr>";
-				echo "<h4>SNACK</h4>";
+				echo "<h4>SNACK dan Dessert</h4>";
 				foreach($menu as $m){
 
-					if($m->KODE_JENIS_MENU == 'JM003'){
+					if($m->KODE_JENIS_MENU == 'JM003' || $m->KODE_JENIS_MENU == 'JM004'){
 						$adaMenu=true;
 						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
@@ -555,11 +573,19 @@
                   echo "</div>";
                   echo "<div class='media-body'>";
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo $r->DESKRIPSI_REVIEW;
+                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
                   echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser == $r->KODE){
+                    echo '<div class="row" style="margin-left : 5px;">';
+                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Update </a></span>";
+                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >UpdateComment </a></span>";
+                    echo '</div>';
+                  }
                   echo "</div>";
                   echo "<br/>";
+                  $ctrReview++;
                 }
               }
               if($kodeuser != ''){
@@ -585,7 +611,7 @@
               echo "<div class='links'>";
                 echo "<div class='container-fluid'>";
                   echo "<div class='row'>";
-                  $ctr=1;
+                  $ctr=2;
                   $tidakAdaFoto=true;
                     foreach($fotoMenu as $f){
                       if($f->KODE_MENU == $m->KODE_MENU){
@@ -612,7 +638,7 @@
             //gallery
 				}
 				if($adaMenu==false){
-					echo "<h5>Tidak Ada Menu Snack</h5>";
+					echo "<h5>Tidak Ada Menu Snack atau Dessert</h5>";
 				}
 			}
 			//===========SNACK=========

@@ -70,9 +70,9 @@
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
-            if($kodeUser->URL_FOTO == ''){
+            if($fotoUser[0]->URL_FOTO == ''){
               $url = 'default.jpg';
-            }else $url = $kodeUser->URL_FOTO;
+            }else $url = $fotoUser[0]->URL_FOTO;
             $url_full = base_url('/vendors/images/profilepicture/' . $url);
               ?>
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>

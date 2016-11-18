@@ -92,7 +92,13 @@
 			?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
+            <?php
+            if($fotoUser[0]->URL_FOTO == ''){
+              $url = 'default.jpg';
+            }else $url = $fotoUser[0]->URL_FOTO;
+            $url_full = base_url('/vendors/images/profilepicture/' . $url);
+              ?>
+            <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
