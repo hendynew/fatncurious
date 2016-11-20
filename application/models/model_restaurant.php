@@ -138,7 +138,7 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_REPORT($kode){
-		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', user.URL_FOTO as 'URL_FOTO', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER")->result();
 		return $hasil;
 	}
 

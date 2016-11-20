@@ -250,7 +250,13 @@
                   <?php foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
+                      <?php
+                      $url = base_url('/vendors/images/profilepicture/default.jpg');
+                      if($rr->URL_FOTO != ''){
+                        $url = base_url('/vendors/images/profilepicture/'. $rr->URL_FOTO);
+                      }
+                      ?>
+                      <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
                       <h4 class="media-heading"><?php echo $rr->NAMA ?></h4>
@@ -349,8 +355,13 @@
 						$adaMenu=true;
 						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
+              $url = base_url('/vendors/images/menu/default.jpg');
+              if($m->URL_FOTO != ''){
+                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
+                echo $url;
+              }
 			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/'.$kode.'/'.$m->KODE_MENU.'/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
@@ -458,8 +469,13 @@
 						$adaMenu=true;
 						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
+              $url = base_url('/vendors/images/menu/default.jpg');
+              if($m->URL_FOTO != ''){
+                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
+                echo $url;
+              }
 			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
@@ -557,8 +573,13 @@
 						$adaMenu=true;
 						echo "<div class='media' style='margin-bottom:30px;'>";
 							echo "<div class='media-left'>";
+              $url = base_url('/vendors/images/menu/default.jpg');
+              if($m->URL_FOTO != ''){
+                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
+                echo $url;
+              }
 			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
 			<?php
 							echo "</div>";
 						  echo "<div class='media-body'>";
