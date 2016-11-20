@@ -180,10 +180,16 @@ class Model_restaurant extends CI_Model {
 		$hasil = $this->db->query("SELECT rating.KODE_RESTORAN as KODE,rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating where rating.STATUS='1'")->result();
 		$data = [];
 		foreach($hasil as $h){
-			$this->db->where('KODE_RESTORAN',$h->KODE);
+			if(!isset($data[$h->KODE])){
+				$data[$h->KODE] = 0;
+			}
+			$jumlahnya = $data[$h->KODE] + $h->RATING;
+			$data[$h->KODE] = $jumlahnya;
+		}
+		foreach($data as $key=>$val){
+			$this->db->where('KODE_RESTORAN',$key);
 			$jumlah = $this->db->count_all_results("rating_restoran");
-			$jumlahnya = $h->RATING / $jumlah;
-			$data[$h->KODE] = floor($jumlahnya);
+			$data[$key] = floor($val/$jumlah);
 		}
 		return $data;
 	}
