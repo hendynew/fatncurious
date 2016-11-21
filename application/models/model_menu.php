@@ -257,4 +257,49 @@ public function upload($kodeMenu,$kodeUser,$url){
 	$this->db->insert('upload_foto_menu',$arr);
 
 }
+
+public function count_like($kodeReview,$state){
+	$this->db->where(array('KODE_REVIEW'=>$kodeReview,'STATUS'=>$state));
+	$like = $this->db->count_all_results('like_review_user');
+	return $like;
+}
+
+public function count_all_like_review(){
+	$this->db->where('STATUS!=',0);
+	$hasil = $this->db->get('like_review_user');
+	$hasil2 = [];
+	foreach($hasil as $h){
+		if(!isset($hasil2[$h->KODE_REVIEW]['LIKE'])){
+			$hasil2[$h->KODE_REVIEW]['LIKE'] = 0;
+		}
+		if(!isset($hasil2[$h->KODE_REVIEW]['DISLIKE'])){
+			$hasil2[$h->KODE_REVIEW]['DISLIKE'] = 0;
+		}
+		if($h->STATUS == 1){
+			$hasil2[$h->KODE_REVIEW]['LIKE']++;
+		}
+		else {
+			$hasil2[$h->KODE_REVIEW]['DISLIKE']++;
+		}
+	}
+	return $hasil2;
+}
+
+public function like_review($kodeReview,$kodeUser,$state){
+	$array = [
+			'KODE_REVIEW' => $kodeReview,
+			'KODE_USER' => $kodeUser,
+	];
+	$this->db->where($array);
+	if($this->db->get('like_review_user')->result()){
+		$arr = ['KODE_REVIEW'=>$kodeReview,'KODE_USER'=>$kodeUser];
+		$this->db->where($arr);
+		$this->db->update('like_review_user',['STATUS'=>$state]);
+	}else{
+		$arr = ['KODE_REVIEW'=>$kodeReview,'KODE_USER'=>$kodeUser,'STATUS'=>$state];
+		$this->db->insert('like_review_user',$arr);
+	}
+}
+
+
 }

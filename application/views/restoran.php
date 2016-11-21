@@ -384,7 +384,11 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser != '')
+                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
+                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
+                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
+
                   if($kodeuser == $r->KODE){
                     echo '<div class="row" style="margin-left : 5px;">';
                     echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
@@ -490,7 +494,10 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser != '')
+                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
+                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
+                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
                   if($kodeuser == $r->KODE){
                     echo '<div class="row" style="margin-left : 5px;">';
                     echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
@@ -593,7 +600,10 @@
                   echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
                   echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
                   echo '<br/>';
-                  echo '<span class="glyphicon glyphicon-thumbs-up likeReview"></span><span class="glyphicon glyphicon-thumbs-down dislikeReview" style="margin-left:20px;"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span> <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"></span>';
+                  if($kodeuser != '')
+                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
+                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
+                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
                   if($kodeuser == $r->KODE){
                     echo '<div class="row" style="margin-left : 5px;">';
                     echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
@@ -839,7 +849,7 @@
           console.log(marker.position.lng());
           console.log(resultMaps.center.lat());
           console.log(resultMaps.center.lng());
-          alert("masuk");
+          //alert("masuk");
           console.log(resultMaps.getCenter().lat());
           console.log(resultMaps.getCenter().lng());
         }

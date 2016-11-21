@@ -320,12 +320,24 @@ $('#modalUpload').on('show.bs.modal', function (event) {
 
 $(".likeReview").on("click",function()
 {
-	alert("likeReview");
+	var kodeReview = $(this).attr("data-review");
+	var kodeUser = $(this).attr("data-user");
+	var url = $(this).attr("data-url");
+	$.post(url,
+  function(result){
+			document.getElementById('like' + kodeReview).innerHTML=result;
+  });
 });
 
 $(".dislikeReview").on("click",function()
 {
-	alert("dislikeReview");
+	var kodeReview = $(this).attr("data-review");
+	var kodeUser = $(this).attr("data-user");
+	var url = $(this).attr("data-url");
+	$.post(url,
+  function(result){
+			document.getElementById('dislike' + kodeReview).innerHTML=result;
+  });
 });
 
 $(".reportReview").on("click",function()
