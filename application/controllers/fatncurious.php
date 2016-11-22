@@ -230,10 +230,10 @@ class Fatncurious extends CI_Controller {
 				$data['active3'] = 'active';
 				$data['active4'] = '';
 				$data['active5'] = '';
-				if($data['resto']->STATUS == 0){
+				if($data['resto']->STATUS_RESTORAN == 0){
 					$data['resto']->STATUS = 'Tutup';
 				}
-				else if($data['resto']->STATUS == 1){
+				else if($data['resto']->STATUS_RESTORAN == 1){
 					$data['resto']->STATUS = 'Buka';
 				}
 				//echo 'masuk 1';
@@ -269,10 +269,10 @@ class Fatncurious extends CI_Controller {
 					}
 				}
 
-				if($data['resto']->STATUS == 0){
+				if($data['resto']->STATUS_RESTORAN == 0){
 					$data['resto']->STATUS = 'Tutup';
 				}
-				else if($data['resto']->STATUS == 1){
+				else if($data['resto']->STATUS_RESTORAN == 1){
 					$data['resto']->STATUS = 'Buka';
 				}
 				$this->load->model('Model_restaurant');
@@ -301,10 +301,10 @@ class Fatncurious extends CI_Controller {
 			for($i=1;$i<=5;$i++){
 				$data['glyphicon'.$i] = 'glyphicon-star-empty';
 			}
-			if($data['resto']->STATUS == 0){
+			if($data['resto']->STATUS_RESTORAN == 0){
 				$data['resto']->STATUS = 'Tutup';
 			}
-			else if($data['resto']->STATUS == 1){
+			else if($data['resto']->STATUS_RESTORAN == 1){
 				$data['resto']->STATUS = 'Buka';
 			}
 			//echo 'masuk 3';
@@ -347,7 +347,25 @@ class Fatncurious extends CI_Controller {
 			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
 			echo $_POST['deskripsi'];
 			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
-			redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+			//redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
+	public function updateStatusRestoran(){
+
+		$kodeResto = $_REQUEST['kode'];
+		$status = $_REQUEST['status'];
+		$statusSekarang='';
+
+		if($status=='Buka'){
+			$statusSekarang='Tutup';
+		}
+		else if($status=='Tutup'){
+			$statusSekarang='Buka';
+		}
+
+		$this->load->model('model_restaurant');
+		$this->model_restaurant->updateStatusRestoran($kodeResto,$statusSekarang);
+		echo $statusSekarang;
 	}
 
 	public function LogOut(){
@@ -358,6 +376,24 @@ class Fatncurious extends CI_Controller {
 		}
 
 	}
+
+	public function updateProfilRestoran($kode){
+				$kodeResto = $kode;
+				$nama = $this->input->post('txtRestoran');
+				$alamat = $this->input->post('txtAlamat');
+				$telepon = $this->input->post('txtTelepon');
+				$temp = $telepon;
+				$jam = $this->input->post('txtJam');
+				$hari = $this->input->post('txtHari');
+				$deskripsi = $this->input->post('txtDeskripsi');
+
+				$this->load->model('model_restaurant');
+				$this->model_restaurant->updateRestoran($kodeResto,$nama,$alamat,$telepon,$jam,$hari,$deskripsi);
+				redirect('fatncurious/profilRestoran/'.$kode.'');
+
+	}
+
+
 	public function gantiPassProfilUser(){
 		if($this->session->userdata('userYangLogin')){
 			if($this->input->post('txtNewPassword') == $this->input->post('txtConfirmNewPassword')){

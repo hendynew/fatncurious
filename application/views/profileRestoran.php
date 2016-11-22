@@ -51,9 +51,10 @@
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->JAM_BUKA_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><?php echo  ' '.$resto->HARI_BUKA_RESTORAN ;?></p>
-              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo  ' '.$resto->STATUS ;?></p>
+              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><button id="btnStatus"  class="btnStatus" type="button" data-url="<?php echo site_url('fatncurious/updateStatusRestoran')?>" data-val=<?php echo $resto->KODE_RESTORAN?> value="<?php echo $resto->STATUS ?>" style="color : red;"><?php  echo  ' '.$resto->STATUS ;?></button></p>
+              <!--<p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php // echo  ' '.$resto->STATUS ;?></p>  -->
               <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><?php echo  ' '.$resto->DESKRIPSI_RESTORAN ;?></p>
-              <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <a href="#" style="color:lightblue">Click To Edit Profile</a></p>
+              <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModal">Click To Edit Profile</a></p>
           </div>
         </div>
       </div>
@@ -114,6 +115,41 @@
       </div>
     </div>
   </header><!--/#home-->
+
+      <!-- Untuk Edit Profil Restoran -->
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+    <?php echo form_open_multipart('fatncurious/updateProfilRestoran/'.$resto->KODE_RESTORAN.''); ?>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><center>Profile Restoran</center></h4>
+          </div>
+          <div class="modal-body">
+
+        <?php $this->table->add_row('Nama Restoran',form_input('txtRestoran',$resto->NAMA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Alamat Restoran',form_input('txtAlamat',$resto->ALAMAT_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Telepon',form_input('txtTelepon',$resto->NO_TELEPON_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Jam Buka',form_input('txtJam',$resto->JAM_BUKA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Hari Buka',form_input('txtHari',$resto->HARI_BUKA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Deskripsi Restoran',form_input('txtDeskripsi',$resto->DESKRIPSI_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php echo $this->table->generate(); ?>
+          </div>
+          <div class="modal-footer">
+            <?php
+              //echo "<button type='submit' class='submit btn-default' >Submit</button>";
+              $arr = ['name'=>'btnSubmit','class'=>'submit btn-default','value'=>'Submit'];
+              echo form_submit($arr);
+            ?>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+    <?php echo form_close(); ?>
+        </div>
+      </div>
+    </div>
+<!-- Untuk Edit Profil Restoran -->
+
     <h2>Sorted By :</h2>
     <div class = "container navbarSpace" style="background-color:#fafafa">
         <div>

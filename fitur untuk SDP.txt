@@ -17,12 +17,12 @@ V	* Bisa melihat jumlah peringatan yang diberikan oleh admin kepada restoran ter
  - fitur untuk pemilik restoran : 
 	* interface berbeda dengan user.
 	* memasukkan promo, menu dan foto menu tersebut tetapi foto tersebut akan diganti ketika ada user yang mengupload foto makanan tersebut melalui persetujuan admin.
-	* dapat melakukan status buka/tutup restoran tersebut dengan mudah.
+!	* dapat melakukan status buka/tutup restoran tersebut dengan mudah. ->tinggal Tampilan
 	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment dan like tersebut.
 	* report jika comment mengandung SARA ataupun tidak layak untuk dipublikasikan.
 	* pemilik restoran hanya bisa mengakses halaman milik restoran tersebut.
 	* pemilik restoran bisa melihat interface user dari promo atau menu yang dimasukkan melalui form.
 	* bisa membalas comment milik user.
 	* bisa mendapat peringatan oleh jika ada data yang tidak cocok.
-	* bisa memasukkan deskripsi tentang restoran tersebut.
+!	* bisa memasukkan deskripsi tentang restoran tersebut. ->Tinggal Tampilan
 
