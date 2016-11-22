@@ -101,9 +101,7 @@
   <div class="container navbarSpace">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active toogleNavBar"><a href="#">Recent Comment</a></li>
-        <li role="presentation" class="toogleNavBar"><a href="#">Edit</a></li>
-        <li role="presentation" class=" toogleNavBar"><a href="#">Tambah</a></li>
-        <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReview">Lihat Restoran</a></li>
+        <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalLihatRestoran">Lihat Restoran</a></li>
     </ul>
   </div>
   <div id="myModal" class="modal fade" role="dialog">
@@ -160,6 +158,71 @@
         </div>
       </div>
     </div>
+
+    <div id="modalLihatRestoran" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><center>List Restoran</center></h4>
+              </div>
+              <div class="modal-body">
+                <div class="media">
+                  <div class="media-left">
+                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
+                  </div>
+                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                    <h4 class="media-heading">asd</h4>
+                    <div>
+                      asdasdasdasdsad
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="media">
+                  <div class="media-left">
+                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
+                  </div>
+                  <div class="media-body" >
+                    <h4 class="media-heading">asd</h4>
+                    <div>
+                      asdasdasdasdsad
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="media">
+                  <div class="media-left">
+                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
+                  </div>
+                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                    <h4 class="media-heading">asd</h4>
+                    <div>
+                      asdasdasdasdsad
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="media">
+                  <div class="media-left">
+                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
+                  </div>
+                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                    <h4 class="media-heading">asd</h4>
+                    <div>
+                      asdasdasdasdsad
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
