@@ -192,6 +192,33 @@
         </li>
 			<?php
 				}
+        else
+        {?>
+          <li class="scroll">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Register/Login
+            </a>
+            <ul class="dropdown-menu loginRegister">
+            <form accept-charset="UTF-8" action="/sessions" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" /></div>
+                <fieldset class='textbox'>
+                  <label id='js-username'>
+                    <span>Username</span>
+                    <input autocomplete="on" id="username" name="username" type="text" />
+                  </label>
+                  <label id='password'>
+                    <span>Passwort</span>
+                    <input id="userpassword" name="userpassword" type="password" />
+                  </label>
+                </fieldset>
+                <fieldset class='subchk'>
+                  <input name="commit" type="submit" value="Log In" />
+
+                </fieldset>
+              </form>
+              <a href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+            <ul>
+          </li>
+        <?php }
 			?>
           </ul>
         </div>
@@ -252,7 +279,72 @@
       </div>
     </div>
   </section><!--/#contact-->
+  <div id="modalRegister" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+		<?php echo form_open_multipart('fatncurious/updateProfilUser'); ?>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><center>Register</center></h4>
+          </div>
+          <div class="modal-body">
 
+            <?php
+      				echo form_open('fatncurious/register');
+      			?>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+      				<?php
+      				  $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister'];
+      				  echo form_input($array);
+      				  //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      				?>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+      				<?php
+      				  $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister'];
+      				  echo form_input($array);
+      				  //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      				?>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputNama"> Nama</label>
+      				<?php
+      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister'];
+      				  echo form_input($array);
+      				  //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+      				?>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputDTPicker">Tanggal Lahir</label>
+      				<?php
+      				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'YYYY-MM-DD','name'=>'txtTglRegister'];
+      				  echo form_input($array);
+      				  //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+      				?>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputNoTelp"> No Telp</label>
+      				<?php
+      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister'];
+      				  echo form_input($array);
+      				  //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+      				?>
+                    </div>
+      			  <?php
+                        $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register'];
+                        echo form_submit($array);
+      				  //<button type="submit" class="btn btn-info">Register</button>
+                      ?>
+      			  <?php
+      				echo form_close();
+      			  ?>
+          </div>
+      </div>
+    </div>
 
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/moment.js');?>"></script>
@@ -268,7 +360,11 @@
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-
+    <script>
+      $('.loginRegister').find('form').click(function (e) {
+        e.stopPropagation();
+      });
+    </script>
 
 </body>
 </html>
