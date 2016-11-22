@@ -101,6 +101,33 @@ class Model_restaurant extends CI_Model {
 		return $temp;
 	}
 
+	public function updateStatusRestoran($kodeResto, $status){
+		$statusAngka = 999;
+		if($status=='Tutup'){
+			$statusAngka=0;
+		}
+		else if($status=='Buka'){
+			$statusAngka=1;
+		}
+		$this->db->where('KODE_RESTORAN',$kodeResto);
+		$this->db->update('restoran',array('STATUS_RESTORAN'=>$statusAngka));
+	}
+
+	public function updateRestoran($kode,$nama,$alamat,$telp,$jam,$hari,$deskripsi){
+		$where = 'KODE_RESTORAN="' . $kode .'"';
+		$restoran = array(
+			'NAMA_RESTORAN' => $nama,
+			'ALAMAT_RESTORAN' => $alamat,
+			'NO_TELEPON_RESTORAN' => $telp,
+			'JAM_BUKA_RESTORAN' => $jam,
+			'HARI_BUKA_RESTORAN' => $hari,
+			'DESKRIPSI_RESTORAN' => $deskripsi,
+		);
+		$data = $this->db->update_string('restoran',$restoran,$where);
+		$this->db->query($data);
+	}
+
+
 	public function AUTO_MODERATE_REVIEW(){
 			$array_string = "fuck,FUCK,bitch,BITCH,ass,ASS,asshole,ASSHOLE";
 			$array_like = explode(',', $array_string);

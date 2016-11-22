@@ -378,3 +378,19 @@ $(".btnUpdate2").on("click",function()
 			document.getElementById(idBtn1).style.display = "inherit";
   });
 });
+
+$(".btnStatus").on("click",function()
+{
+	var statusRestoran = $(this).attr("value");
+	var url = $(this).attr("data-url");
+	var kodeResto = $(this).attr("data-val");
+	var id = $(this).attr("id");
+	//alert(id);
+	$.post(url,{ status: statusRestoran, kode: kodeResto},
+	function(result){
+		alert(result);
+		document.getElementById(id).value=result;
+		document.getElementById(id).innerHTML = result;
+	});
+
+});
