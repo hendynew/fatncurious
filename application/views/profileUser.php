@@ -64,7 +64,7 @@
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
-            //print_r($fotoUser);
+            //print_r($kodeUser);
             if($fotoUser[0]->URL_FOTO == ''){
               $url = 'default.jpg';
             }else $url = $fotoUser[0]->URL_FOTO;
@@ -96,7 +96,7 @@
           ?>
               <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full;?>" alt="Generic placeholder image">
             </div>
-              <h1> <?php echo $user->NAMA_USER ;?>
+              <h1> <?php echo $user->NAMA_USER;?>
               </h1>
               <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span><?php echo $user->ALAMAT_USER;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><?php echo $user->NOR_TELEPON_USER ;?> </p>
