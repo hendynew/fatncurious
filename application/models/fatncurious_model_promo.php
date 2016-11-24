@@ -22,7 +22,7 @@ class Fatncurious_model_promo extends CI_Model {
 	{
 		if($persentasePromo==''){$persentasePromo='0';}
 		$this->db->limit($limit,$start);
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.kode_restoran as 'KODE_RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'",'promo.*'));
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.kode_restoran as 'KODE_RESTORAN'","restoran.URL_FOTO_RESTORAN as 'URL_FOTO_RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'",'promo.*'));
 		$this->db->distinct();
 		$this->db->from('promo');
 		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');
@@ -80,7 +80,7 @@ class Fatncurious_model_promo extends CI_Model {
 
 	public function selectSemuaPromo($limit,$start){
 		$this->db->limit($limit,$start);
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","kartu_kredit.nama_kartu_kredit as 'KARTU'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
+		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'","restoran.alamat_restoran as 'ALAMAT'","restoran.URL_FOTO_RESTORAN as 'URL_FOTO_RESTORAN'","kartu_kredit.nama_kartu_kredit as 'KARTU'","restoran.kode_restoran as 'KODE_RESTORAN'",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
 		$this->db->join('sponsor_promo','sponsor_promo.kode_promo = promo.kode_promo');

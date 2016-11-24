@@ -26,3 +26,50 @@ V	* dapat melakukan status buka/tutup restoran tersebut dengan mudah. ->tinggal 
 	* bisa mendapat peringatan oleh jika ada data yang tidak cocok.
 !	* bisa memasukkan deskripsi tentang restoran tersebut. ->Tinggal Tampilan
 
+
+CREATE TABLE IF NOT EXISTS `kartu_kredit` (
+ 
+ `KODE_KARTU_KREDIT` varchar(5) NOT NULL,
+
+  `NAMA_KARTU_KREDIT` varchar(50) NOT NULL,
+ 
+ `ALAMAT_KARTU_KREDIT` varchar(100) NOT NULL,
+ 
+ `NOMOR_TELEPON_KARTU_KREDIT` varchar(12) NOT NULL,
+
+ `WEBSITE_KARTU_KREDIT` varchar(50) NOT NULL,
+ 
+ `URL_FOTO_KARTU_KREDIT` varchar(100) NOT NULL,
+ 
+ `KETERANGAN_KARTU_KREDIT` varchar(100) NOT NULL,
+ 
+ `STATUS` varchar(1) NOT NULL,
+  PRIMARY KEY (`KODE_KARTU_KREDIT`)
+
+) 
+ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+INSERT INTO `kartu_kredit` (`KODE_KARTU_KREDIT`, `NAMA_KARTU_KREDIT`, `ALAMAT_KARTU_KREDIT`, `NOMOR_TELEPON_KARTU_KREDIT`, `WEBSITE_KARTU_KREDIT`, `URL_FOTO_KARTU_KREDIT`, `KETERANGAN_KARTU_KREDIT`, `STATUS`) VALUES
+
+('KKK01', 'BCA', 'JALAN VETERAN NO1 SURABAYA', '031123123', 'www.bca.co.id', 'bca.jpg', '', '1'),
+
+('KKK02', 'MANDIRI', 'JALAN DHARMAHUSADA 3/IV SURABAYA', '031123456', 'www.mandiri.co.id', 'mandiri.jpg', '', '1'),
+
+('KKK03', 'BNI', 'JALAN PUCANG ANOM SURABAYA', '0315055018', 'ibank.bni.co.id', 'bni.jpg', '', '1'),
+
+('KKK04', 'DANAMON', 'JALAN KERTAJAYA 10 141A SURABAYA', '0315031411', 'danamon.co.id', 'danamon.jpg', '', '1'),
+
+('KKK05', 'BRI', 'JALAN DHARMAWANGSA 3A  SURABAYA', '0315016477', 'bri.co.id', '', '', '1'),
+
+('KKK06', 'MEGA', 'JALAN KIRI KANAN 22C/II SURABAYA', '031530511', 'megabank.co.id', '', '', '1'),
+
+('KKK07', 'BERSAMA', 'JALAN SUKOHARJO 22C/II SURABAYA', '0313890535', 'bersamapastibisa.co.id', '', '', '1'),
+
+('KKK08', 'CIMB', 'JALAN PASAR BUNGA VA SURABAYA', '0313679870', 'cimbniaga.com', '', '', '1'),
+
+('KKK09', 'SINARMAS', 'JALAN GATOT SUBROTO 5F/III SURABAYA', '031709780', 'sinarmas.co.id', '', '', '1'),
+
+('KKK10', 'BUKOPIN', 'JALAN BIKINI UP SURABAYA', '031777666', 'untungbukopin.co.id', '', '', '1');
+

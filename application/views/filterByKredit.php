@@ -166,8 +166,12 @@
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
 				echo "<div class='media-left'>";
 					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>';
+          if($r->URL_FOTO_KARTU_KREDIT == ''){
+            $url = 'default.jpg';
+          }else $url = $r->URL_FOTO_KARTU_KREDIT;
+          $url_full = base_url('/vendors/images/restoran/' . $url);
 	?>
-						<img class='media-object img-circle gambarRestoran' src='<?php echo base_url('/vendors/images/portfolio/1.jpg');?>' alt='...'>
+						<img class='media-object img-circle gambarRestoran' src='<?php echo $url_full;?>' alt='...'>
 	<?php
 					echo "</a>";
 				echo "</div>";

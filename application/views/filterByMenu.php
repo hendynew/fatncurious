@@ -178,13 +178,16 @@
 				echo "<p class='jarakMedia'>".$r->DESKRIPSI_MENU.'.'."</p>";
 
           foreach($review as $key=>$val){
+            //echo $review[$key]['URL_FOTO'];
             if($review[$key]['KODE_MENU'] == $r->KODE_MENU){
               echo "<div class='media m-t-2'>";
               echo "<div class='media-left' href='#'>";
+
               if($review[$key]['URL_FOTO'] == ''){
                 $url = 'default.jpg';
-              }else $url = $r->URL_FOTO;
+              }else $url = $review[$key]['URL_FOTO'];
               $url_full = base_url('/vendors/images/profilepicture/' . $url);
+              //echo $url;
                 ?>
                   <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
     	<?php
