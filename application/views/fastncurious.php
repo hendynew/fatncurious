@@ -199,23 +199,30 @@
               Register/Login
             </a>
             <ul class="dropdown-menu loginRegister">
-            <form accept-charset="UTF-8" action="/sessions" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" /></div>
+              <?php echo form_open('fatncurious/login');?>
+            <!--<form accept-charset="UTF-8" action="fatncurious/login" method="post"> -->
+              <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" >
+                <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
+              </div>
                 <fieldset class='textbox'>
                   <label id='js-username'>
                     <span>Username</span>
-                    <input autocomplete="on" id="username" name="username" type="text" />
+                    <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
                   </label>
                   <label id='password'>
                     <span>Passwort</span>
-                    <input id="userpassword" name="userpassword" type="password" />
+                    <input id="userpassword" name="txtPasswordLogin" type="password" />
                   </label>
                 </fieldset>
                 <fieldset class='subchk'>
-                  <input name="commit" type="submit" value="Log In" />
-
+                  <?php
+                    $array=['name'=>'btnLogin','value'=>'Login'];
+                    echo form_submit($array);
+                  ?>
                 </fieldset>
-              </form>
-              <a href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+                <?php echo form_close();?>
+              <!-- </form> -->
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 0;">Register</a>
             <ul>
           </li>
         <?php }
@@ -283,7 +290,7 @@
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-		<?php echo form_open_multipart('fatncurious/updateProfilUser'); ?>
+		<?php echo form_open_multipart('fatncurious/register'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Register</center></h4>
