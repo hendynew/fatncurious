@@ -130,34 +130,30 @@
         echo '<p id="jarak'.$ctr++.'">Jarak = Undefined</p>';
 				echo "<div class='media-left'>";
 					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$key).'>';
-						?>
-						<img class='media-object img-rounded gambarRestoran' src='<?php echo base_url('/vendors/images/portfolio/1.jpg');?>' alt='...'>
+          if($resto[$key]['URL_FOTO_RESTORAN'] == ''){
+            $url = 'default.jpg';
+          }else $url = $resto[$key]['URL_FOTO_RESTORAN'];
+          $url_full = base_url('/vendors/images/restoran/' . $url);
+          ?>
+          <img class="media-object img-rounded gambarRestoran" src="<?php echo $url_full?>" alt="Generic placeholder image">
 						<?php
 				echo "</div>";
 				echo "<div class='media-body jarakMedia'>";
 					echo "<h3 class='media-heading jarakMedia'>".$r['NAMA_RESTORAN'].', '.$r['ALAMAT_RESTORAN']."</h3>";
           echo "</a>";
 					echo "<h4 class='jarakMedia'>";
-          $ada = false;
-            foreach($rating as $key2=>$value){
-              if($key2 == $key){
-                $ada = true;
-                $jumlah_rating = $value;
-                for($i = 0; $i < 5; $i++){
-                  if($jumlah_rating > 0){
-                    echo "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-                  }else
-                    echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
-                  $jumlah_rating--;
-                }
-                break;
-              }
-            }
-            if(!$ada){
+          foreach($rating as $key2=>$value){
+            if($key2 == $key){
+              $counter = 0;
               for($i = 0; $i < 5; $i++){
-                echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+                if($counter < $value)
+                  echo '<span class="glyphicon glyphicon-star"></span>';
+                else
+                  echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                $counter++;
               }
             }
+          }
 					echo "</h4>";
 					echo "<h5 class='jarakMedia'>"."No Telp : ".$r['NO_TELEPON_RESTORAN']."</h5>";
 					echo "<h5 class='jarakMedia'>"."Jam Buka : ".$r['JAM_BUKA_RESTORAN']."</h5>";

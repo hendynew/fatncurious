@@ -165,7 +165,7 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_REPORT($kode){
-		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', user.URL_FOTO as 'URL_FOTO', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER")->result();
 		return $hasil;
 	}
 
@@ -207,10 +207,16 @@ class Model_restaurant extends CI_Model {
 		$hasil = $this->db->query("SELECT rating.KODE_RESTORAN as KODE,rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating where rating.STATUS='1'")->result();
 		$data = [];
 		foreach($hasil as $h){
-			$this->db->where('KODE_RESTORAN',$h->KODE);
+			if(!isset($data[$h->KODE])){
+				$data[$h->KODE] = 0;
+			}
+			$jumlahnya = $data[$h->KODE] + $h->RATING;
+			$data[$h->KODE] = $jumlahnya;
+		}
+		foreach($data as $key=>$val){
+			$this->db->where('KODE_RESTORAN',$key);
 			$jumlah = $this->db->count_all_results("rating_restoran");
-			$jumlahnya = $h->RATING / $jumlah;
-			$data[$h->KODE] = floor($jumlahnya);
+			$data[$key] = floor($val/$jumlah);
 		}
 		return $data;
 	}

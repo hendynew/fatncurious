@@ -125,7 +125,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 			$hasil2[$h->KODE_RESTORAN]['HARI_BUKA_RESTORAN'] = $h->HARI_BUKA_RESTORAN;
 			$hasil2[$h->KODE_RESTORAN]['STATUS_RESTORAN'] = $h->STATUS_RESTORAN;
 			$hasil2[$h->KODE_RESTORAN]['DESKRIPSI_RESTORAN'] = $h->DESKRIPSI_RESTORAN;
-			$hasil2[$h->KODE_RESTORAN]['URL_FOTO_RESTORAN'] = $h->JAM_BUKA_RESTORAN;
+			$hasil2[$h->KODE_RESTORAN]['URL_FOTO_RESTORAN'] = $h->URL_FOTO_RESTORAN;
 			$hasil2[$h->KODE_RESTORAN]['KARTU_KREDIT'] .= ' ' . $h->KARTU;
 		}
 		return $hasil2;
