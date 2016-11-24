@@ -336,21 +336,32 @@ class Fatncurious extends CI_Controller {
 
 	}
 
-	public function likeComment($kodeRestoran,$kodeUser,$kodeReview){
+	public function likeComment(){
+		$kodeRestoran = $_POST['restoran'];
+		$kodeUser = $_POST['user'];
+		$kodeReview = $_POST['review'];
 		$this->load->model('model_menu');
 		$this->model_menu->like_review($kodeReview,$kodeUser,1);
-		echo $this->model_menu->count_like($kodeReview,1);
+		$arr[0] = $this->model_menu->count_like($kodeReview,1);
+		$arr[1] = $this->model_menu->count_like($kodeReview,-1);
+		echo json_encode($arr);
 	}
 
-	public function dislikeComment($kodeRestoran,$kodeUser,$kodeReview){
+	public function dislikeComment(){
+		$kodeRestoran = $_POST['restoran'];
+		$kodeUser = $_POST['user'];
+		$kodeReview = $_POST['review'];
 		$this->load->model('model_menu');
 		$this->model_menu->like_review($kodeReview,$kodeUser,-1);
-		echo $this->model_menu->count_like($kodeReview,-1);
+		$arr[0] = $this->model_menu->count_like($kodeReview,1);
+		$arr[1] = $this->model_menu->count_like($kodeReview,-1);
+		echo json_encode($arr);
 	}
 
 	public function deleteComment($kodeResto,$kodeReview){
 		$this->load->model('model_menu');
 		$this->model_menu->delete_review($kodeReview);
+		echo $this->model_menu->count_report($kodeReview);
 	}
 
 	public function updateComment($kodeResto,$kodeReview){
@@ -359,6 +370,16 @@ class Fatncurious extends CI_Controller {
 			echo $_POST['deskripsi'];
 			$this->model_menu->update_review($kodeReview,$_POST['deskripsi']);
 			//redirect("fatncurious/sortByMenuRestoran/$kodeResto");
+	}
+
+	public function reportComment(){
+		$this->load->model('model_menu');
+		$review = $_POST['kodeReview'];
+		$restoran = $_POST['kodeRestoran'];
+		$user = $this->session->userdata('userYangLogin')->KODE_USER;
+		$deskripsi = $_POST['deskripsiReport'];
+		$this->model_menu->report_review($review,$user,$deskripsi);
+		//redirect('fatncurious/sortByMenuRestoran/' . $restoran);
 	}
 
 	public function updateStatusRestoran(){
@@ -724,6 +745,10 @@ class Fatncurious extends CI_Controller {
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$this->load->model('Model_menu');
 		$this->load->model('model_user');
+		$data['jenis_menu'] = $this->Model_menu->selectJenisMenu();
+		$data['like_review'] = $this->Model_menu->count_all_like_review();
+		$data['like_review_user'] = $this->Model_menu->select_like_review($kodeUser,$kode);
+		$data['report_review_user'] = $this->Model_menu->select_report_review($kodeUser,$kode);
 		foreach($data['menu'] as $d){
 			$temp = $this->Model_menu->SELECT_REVIEW($d->KODE_MENU);
 			foreach($temp as $t){
@@ -733,7 +758,6 @@ class Fatncurious extends CI_Controller {
 		$data['kodeuser'] = $kodeUser;
 		$fotoUser = $this->model_user->SEARCH($kodeUser);
 		$data['fotoUser'] = $fotoUser;
-		//print_r($data['fotoUser']);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);

@@ -68,7 +68,7 @@ class Fatncurious_model_menu extends CI_Model {
 
 	public function selectMenuByResto($resto)
 	{
-		$data = $this->db->query("SELECT menu.*, restoran.* FROM menu , restoran WHERE restoran.KODE_RESTORAN = menu.KODE_RESTORAN AND menu.KODE_RESTORAN = '$resto' and menu.STATUS='1'");
+		$data = $this->db->query("SELECT menu.*, restoran.* FROM menu , restoran WHERE restoran.KODE_RESTORAN = menu.KODE_RESTORAN AND menu.KODE_RESTORAN = '$resto' and menu.STATUS='1' ORDER BY menu.KODE_JENIS_MENU ASC");
 		return $data->result();
 	}
 

@@ -252,9 +252,11 @@ $(".shareButton").on('click',function()
 $('#modalRating').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var recipient = button.data('whatever'); // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 	var valueBintang = button.data('val');
+	var judul = $("#ratingJudul").html();
+	var deskripsi = $("#ratingDeskripsi").html();
+	$("#recipient-name").val(judul);
+	$("#message-text").val(deskripsi);
 	$("#hidBintang").attr("value",valueBintang);
 
 	$('.bintang').each(function(index,value)
@@ -275,10 +277,6 @@ $('#modalRating').on('show.bs.modal', function (event) {
 			$(this).addClass('glyphicon-star');
 		}
 	});
-	//bersihkan Bintang
-  /*var modal = $(this);
-  modal.find('.modal-title').text('New message to ' + recipient);
-  modal.find('.modal-body input').val(recipient);*/
 });
 
 $('.bintang').on('click', function (event) {
@@ -310,39 +308,87 @@ $('#modalUpload').on('show.bs.modal', function (event) {
 	var restoran = button.data('restoran');
 	var kodeMenu = button.data('kodemenu');
 	var kodeRestoran = button.data('koderestoran');
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this);
   modal.find('.modal-title').text("Upload Foto " + recipient + " Restoran "+ restoran);
 	$("#hidKodeMenu").attr("value",kodeMenu);
 	$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
 
-$(".likeReview").on("click",function()
-{
-	var kodeReview = $(this).attr("data-review");
-	var kodeUser = $(this).attr("data-user");
-	var url = $(this).attr("data-url");
-	$.post(url,
-  function(result){
-			document.getElementById('like' + kodeReview).innerHTML=result;
-  });
+$('#modalReport').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var restoran = button.data('restoran');
+	var review = button.data('review');
+	$("#kodeRestoranReport").attr("value",restoran);
+	$("#kodeReviewReport").attr("value",review);
+	if($("#report"+review).hasClass("sudahdiKlik") == true){
+		$("#modalReport").modal('toggle');
+	}
 });
 
-$(".dislikeReview").on("click",function()
-{
+$('#reportReview').on('click', function () {
+  var restoran = $("#kodeRestoranReport").val();
+  var review = $("#kodeReviewReport").val();
+	var deskripsi = $("#txtDeskripsi").val();
+	var urlnya = $("#urlReview").val();
+	$.ajax({
+				url: urlnya,
+				type: "POST",
+				data: {kodeRestoran: restoran, kodeReview: review,deskripsiReport: deskripsi},
+				success: function(response) {
+					$("#modalReport").modal('toggle');
+					$("#txtDeskripsi").val("");
+					$("#report" + review).addClass("sudahdiKlik");
+				}
+	});
+});
+
+$(".likeReview").on("click",function(){
 	var kodeReview = $(this).attr("data-review");
 	var kodeUser = $(this).attr("data-user");
-	var url = $(this).attr("data-url");
-	$.post(url,
-  function(result){
-			document.getElementById('dislike' + kodeReview).innerHTML=result;
-  });
+	var kodeRestoran = $(this).attr("data-restoran");
+	var urlnya = $(this).attr("data-url");
+	if($("#btnLike"+kodeReview).hasClass("sudahdiKlik") == false){
+		$("#btnLike" + kodeReview).addClass('sudahdiKlik');
+		$("#btnDislike" + kodeReview).removeClass('sudahdiKlik');
+		$.ajax({
+					url: urlnya,
+					type: "POST",
+					data: {user: kodeUser, review: kodeReview,restoran: kodeRestoran},
+					dataType: "JSON",
+					success: function(response) {
+						document.getElementById("like"+kodeReview).innerHTML=response[0];
+						document.getElementById("dislike"+kodeReview).innerHTML=response[1];
+					}
+		});
+	}
+});
+
+$(".dislikeReview").on("click",function(){
+	var kodeReview = $(this).attr("data-review");
+	var kodeUser = $(this).attr("data-user");
+	var kodeRestoran = $(this).attr("data-restoran");
+	var urlnya = $(this).attr("data-url");
+	if($("#btnDislike"+kodeReview).hasClass("sudahdiKlik") == false){
+		$("#btnLike" + kodeReview).removeClass('sudahdiKlik');
+		$("#btnDislike" + kodeReview).addClass('sudahdiKlik');
+		$.ajax({
+					url: urlnya,
+					type: "POST",
+					data: {user: kodeUser, review: kodeReview,restoran: kodeRestoran},
+					dataType: "JSON",
+					success: function(response) {
+						document.getElementById("like"+kodeReview).innerHTML=response[0];
+						document.getElementById("dislike"+kodeReview).innerHTML=response[1];
+					}
+		});
+	}
 });
 
 $(".reportReview").on("click",function()
 {
-	alert("reportReview");
+	var kodeReview = $(this).attr("data-review");
+	var kodeUser = $(this).attr("data-user");
+	var url = $(this).attr("data-url");
 });
 
 $(".btnUpdate").on("click",function()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -157,10 +157,10 @@
                      ?>
                   </div>
                   <div class="row">
-                    <?php echo $userRatingJudul?>
+                    <p id="ratingJudul"><?php echo $userRatingJudul?></p>
                   </div>
                   <div class= "row">
-                    <h3><?php echo $userRatingDeskripsi?></h3>
+                    <h3><p id="ratingDeskripsi"><?php echo $userRatingDeskripsi?></p></h3>
                   </div>
                 </h2>
                 <?php
@@ -344,81 +344,95 @@
 
 		<?php
 		$adaMenu=false;
-		//===========MAKANAN=========
+    $temp_jenis_menu = '';
 			if(isset($menu)){
         $ctrRow = 0;
-				echo "<h4>MAKANAN</h4>";
+
         $ctrReview=0;
 				foreach($menu as $m){
-
-					if($m->KODE_JENIS_MENU == 'JM001'){
-						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:30px;'>";
-							echo "<div class='media-left'>";
-              $url = base_url('/vendors/images/menu/default.jpg');
-              if($m->URL_FOTO != ''){
-                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
-              }
-			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
-			<?php
-							echo "</div>";
-						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
-							echo $m->DESKRIPSI_MENU;
-
-
-							echo "<div class='media m-t-2'>";
-              if(isset($review[$m->KODE_MENU])){
-                foreach($review[$m->KODE_MENU] as $r){
-                  echo "<div class='media-left' href='#'>";
-                  if($r->URL_FOTO == ''){
-                    $url = 'default.jpg';
-                  }else $url = $r->URL_FOTO;
-                  $url_full = base_url('/vendors/images/profilepicture/' . $url);
-                    ?>
-                      <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
-                    <?php
-                  echo "</div>";
-                  echo "<div class='media-body'>";
-                  echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
-                  echo '<br/>';
-                  if($kodeuser != '')
-                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
-                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
-                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
-
-                  if($kodeuser == $r->KODE){
-                    echo '<div class="row" style="margin-left : 5px;">';
-                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
-                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Edit </a></span>";
-                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; > Submit </a></span>";
-                    echo '</div>';
-                  }
-                  echo "</div>";
-                  echo "<br/>";
-                  $ctrReview++;
-                }
-              }
-
-              if($kodeuser != ''){
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                echo form_hidden('menu',$m->KODE_MENU);
-                echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              }
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
+          if($temp_jenis_menu != $m->KODE_JENIS_MENU){
+            echo "<hr>";
+            echo "<h4>" . $jenis_menu[$m->KODE_JENIS_MENU] ."</h4>";
+            $temp_jenis_menu = $m->KODE_JENIS_MENU;
+          }
+          $adaMenu=true;
+          echo "<div class='media' style='margin-bottom:30px;'>";
+            echo "<div class='media-left'>";
+            $url = base_url('/vendors/images/menu/default.jpg');
+            if($m->URL_FOTO != ''){
+              $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
             }
+    ?>
+            <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+    <?php
+            echo "</div>";
+            echo "<div class='media-body'>";
+            echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
+            echo $m->DESKRIPSI_MENU;
+
+
+            echo "<div class='media m-t-2'>";
+            if(isset($review[$m->KODE_MENU])){
+              foreach($review[$m->KODE_MENU] as $r){
+                echo "<div class='media-left' href='#'>";
+                if($r->URL_FOTO == ''){
+                  $url = 'default.jpg';
+                }else $url = $r->URL_FOTO;
+                $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                  ?>
+                    <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
+                  <?php
+                echo "</div>";
+                echo "<div class='media-body'>";
+                echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
+                echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
+                echo '<br/>';
+                $jumlah_like = 0;$jumlah_dislike = 0;
+                $like = ""; $dislike = "";$report = "";
+                if(isset($like_review[$r->KODE_REVIEW]['LIKE'])) $jumlah_like = $like_review[$r->KODE_REVIEW]['LIKE'];
+                if(isset($like_review[$r->KODE_REVIEW]['DISLIKE'])) $jumlah_dislike = $like_review[$r->KODE_REVIEW]['DISLIKE'];
+                if(isset($report_review_user[$r->KODE_REVIEW]) && $report_review_user[$r->KODE_REVIEW] != '0') $report = "sudahdiKlik";
+                if(isset($like_review_user[$r->KODE_REVIEW])){
+                  if($like_review_user[$r->KODE_REVIEW] == 1){
+                    $like = "sudahdiKlik";
+                  }else if($like_review_user[$r->KODE_REVIEW] == -1){
+                    $dislike = "sudahdiKlik";
+                  }
+                }
+                if($kodeuser != '')
+                echo '<span id="like' . $r->KODE_REVIEW . '">' . $jumlah_like .'</span><span class="glyphicon glyphicon-thumbs-up likeReview btn ' . $like .'" id="btnLike' . $r->KODE_REVIEW .'" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-restoran="' . $resto->KODE_RESTORAN .'" data-url="'.site_url('fatncurious/likeComment/').'"></span>
+                      <span id="dislike' . $r->KODE_REVIEW . '">' . $jumlah_dislike .'</span><span class="glyphicon glyphicon-thumbs-down dislikeReview btn ' . $dislike .'" id="btnDislike' . $r->KODE_REVIEW .'" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' data-restoran="' . $resto->KODE_RESTORAN .'" data-url="'.site_url('fatncurious/dislikeComment/').'"></span>
+                      <span id="report' . $r->KODE_REVIEW . '" class="glyphicon glyphicon-flag reportReview btn ' . $report .'" data-toggle="modal" data-target="#modalReport" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-restoran="'. $resto->KODE_RESTORAN . '"></span>';
+
+                if($kodeuser == $r->KODE){
+                  echo '<div class="row" style="margin-left : 5px;">';
+                  echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
+                  echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Edit </a></span>";
+                  echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; > Submit </a></span>";
+                  echo '</div>';
+                }
+                echo "</div>";
+                echo "<br/>";
+                $ctrReview++;
+              }
+            }
+
+            if($kodeuser != ''){
+              echo form_open('fatncurious/sortByMenuRestoran');
+              echo "<div class='input-group customInputGroup img-rounded'>";
+              echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+              echo "<span class='input-group-btn'>";
+              echo form_hidden('menu',$m->KODE_MENU);
+              echo form_hidden('resto',$m->KODE_RESTORAN);
+              $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+              echo form_submit($arr);
+              echo "</span>";
+              echo "</div>";
+              echo form_close();
+            }
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
             //gallery
     				echo "<div class='imageGallery R".$ctrRow."'>";
     					echo "<div class='links'>";
@@ -444,232 +458,14 @@
                   if($tidakAdaFoto==true){
                     echo "<h5>Tidak Ada Foto</h5>";
                   }
-
     							echo "</div>";
     						echo "</div>";
     					echo "</div>";
     				echo "</div>";
-
             $ctrRow++;
             //gallery
 				}
-				if($adaMenu==false){
-					echo "<h5>Tidak Ada Menu Makanan</h5>";
-				}
 			}
-
-			//===========MAKANAN=========
-		?>
-
-		<?php
-		$adaMenu=false;
-		//===========MINUMAN=========
-			if(isset($menu)){
-        echo "<hr>";
-				echo "<h4>MINUMAN</h4>";
-        foreach($menu as $m){
-					if($m->KODE_JENIS_MENU == 'JM002'){
-						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:30px;'>";
-							echo "<div class='media-left'>";
-              $url = base_url('/vendors/images/menu/default.jpg');
-              if($m->URL_FOTO != ''){
-                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
-              }
-			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url?>" alt="..." row-id="<?php echo $ctrRow; ?>">
-			<?php
-							echo "</div>";
-						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
-							echo $m->DESKRIPSI_MENU;
-							echo "<div class='media m-t-2'>";
-              if(isset($review[$m->KODE_MENU])){
-                foreach($review[$m->KODE_MENU] as $r){
-                  echo "<div class='media-left' href='#'>";?>
-                    <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
-      <?php
-                  echo "</div>";
-                  echo "<div class='media-body'>";
-                  echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
-                  echo '<br/>';
-                  if($kodeuser != '')
-                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
-                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
-                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
-                  if($kodeuser == $r->KODE){
-                    echo '<div class="row" style="margin-left : 5px;">';
-                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
-                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Edit</a></span>";
-                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; > Submit </a></span>";
-                    echo '</div>';
-                  }
-                  echo "</div>";
-                  echo "<br/>";
-                  $ctrReview++;
-                }
-              }
-              if($kodeuser != ''){
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                echo form_hidden('menu',$m->KODE_MENU);
-                echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              }
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
-            }
-
-            //gallery
-            echo "<div class='imageGallery R".$ctrRow."'>";
-              echo "<div class='links'>";
-                echo "<div class='container-fluid'>";
-                  echo "<div class='row'>";
-                  $ctr=2;
-                  $tidakAdaFoto=true;
-                    foreach($fotoMenu as $f){
-                      if($f->KODE_MENU == $m->KODE_MENU){
-                        echo "<div class='col-sm-3 gambarImageGallery'>";
-                        ?>
-                          <a href="<?php echo base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU.'/'.$ctr.'.jpg');?>">
-                            <img src="<?php echo base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU.'/'.$ctr.'.jpg');?>" class="img-responsive">
-                          </a>
-                        <?php
-                        echo "</div>";
-                        $ctr++;
-                        $tidakAdaFoto=false;
-                      }
-                    }
-                    if($tidakAdaFoto==true){
-                      echo "<h5>Tidak Ada Foto</h5>";
-                    }
-                  echo "</div>";
-                echo "</div>";
-              echo "</div>";
-            echo "</div>";
-
-            $ctrRow++;
-            //gallery
-				}
-				if($adaMenu==false){
-					echo "<h5>Tidak Ada Menu Minuman</h5>";
-				}
-			}
-			//===========MINUMAN=========
-		?>
-
-		<?php
-		$adaMenu=false;
-		//===========SNACK=========
-			if(isset($menu)){
-        echo "<hr>";
-				echo "<h4>SNACK dan Dessert</h4>";
-				foreach($menu as $m){
-
-					if($m->KODE_JENIS_MENU == 'JM003' || $m->KODE_JENIS_MENU == 'JM004'){
-						$adaMenu=true;
-						echo "<div class='media' style='margin-bottom:30px;'>";
-							echo "<div class='media-left'>";
-              $url = base_url('/vendors/images/menu/default.jpg');
-              if($m->URL_FOTO != ''){
-                $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
-              }
-			?>
-							<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
-			<?php
-							echo "</div>";
-						  echo "<div class='media-body'>";
-							echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
-							echo $m->DESKRIPSI_MENU;
-							echo "<div class='media m-t-2'>";
-              if(isset($review[$m->KODE_MENU])){
-                foreach($review[$m->KODE_MENU] as $r){
-                  echo "<div class='media-left' href='#'>";?>
-                    <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
-      <?php
-                  echo "</div>";
-                  echo "<div class='media-body'>";
-                  echo "<h4 class='media-heading'>" . $r->NAMA ."</h4>";
-                  echo "<div id='deskripsi_review".$ctrReview."'>". $r->DESKRIPSI_REVIEW."</div>";
-                  echo '<br/>';
-                  if($kodeuser != '')
-                  echo '<span id="like' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-up likeReview" data-review='. $r->KODE_REVIEW .' data-user="'. $kodeuser . '" data-url="'.site_url('fatncurious/likeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>
-                        <span id="dislike' . $r->KODE_REVIEW . '">0</span><span class="glyphicon glyphicon-thumbs-down dislikeReview" data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . ' style="margin-left:20px;data-url="'.site_url('fatncurious/dislikeComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span><span class="glyphicon glyphicon-ok-circle reviewed" style="margin-left:20px;"></span>
-                        <span class="glyphicon glyphicon-flag reportReview" style="margin-left:20px;"  data-review='. $r->KODE_REVIEW .' data-user='. $kodeuser . 'data-url="'.site_url('fatncurious/reportComment/'.$resto->KODE_RESTORAN .'/' . $kodeuser .'/'.$r->KODE_REVIEW.'').'"></span>';
-                  if($kodeuser == $r->KODE){
-                    echo '<div class="row" style="margin-left : 5px;">';
-                    echo "<span><a class = 'btnDelete' href='".site_url('/fatncurious/deleteComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' id='".$r->KODE_REVIEW."d'>Delete </a></span>";
-                    echo "<span><a class = 'btnUpdate' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' >Edit</a></span>";
-                    echo "<span><a class = 'btnUpdate2' data-toggle='modal' href='#' id='".$r->KODE_REVIEW."u2'  data-val = '".$r->DESKRIPSI_REVIEW."' data-val2='deskripsi_review".$ctrReview."' data-url='".site_url('fatncurious/updateComment/'.$resto->KODE_RESTORAN.'/'.$r->KODE_REVIEW.'')."' style=display:none; >Submit</a></span>";
-                    echo '</div>';
-                  }
-                  echo "</div>";
-                  echo "<br/>";
-                  $ctrReview++;
-                }
-              }
-              if($kodeuser != ''){
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                echo form_hidden('menu',$m->KODE_MENU);
-                echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              }
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
-            }
-
-            //gallery
-            echo "<div class='imageGallery R".$ctrRow."'>";
-              echo "<div class='links'>";
-                echo "<div class='container-fluid'>";
-                  echo "<div class='row'>";
-                  $ctr=2;
-                  $tidakAdaFoto=true;
-                    foreach($fotoMenu as $f){
-                      if($f->KODE_MENU == $m->KODE_MENU){
-                        echo "<div class='col-sm-3 gambarImageGallery'>";
-                        ?>
-                          <a href="<?php echo base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU.'/'.$ctr.'.jpg');?>">
-                            <img src="<?php echo base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU.'/'.$ctr.'.jpg');?>" class="img-responsive">
-                          </a>
-                        <?php
-                        echo "</div>";
-                        $ctr++;
-                        $tidakAdaFoto=false;
-                      }
-                    }
-                    if($tidakAdaFoto==true){
-                      echo "<h5>Tidak Ada Foto</h5>";
-                    }
-                  echo "</div>";
-                echo "</div>";
-              echo "</div>";
-            echo "</div>";
-
-            $ctrRow++;
-            //gallery
-				}
-				if($adaMenu==false){
-					echo "<h5>Tidak Ada Menu Snack atau Dessert</h5>";
-				}
-			}
-			//===========SNACK=========
 		?>
 
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
@@ -733,6 +529,44 @@
 			}
 			//===========Kredit=========
 		?>
+    <div id="modalReport" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Report Review</h4>
+              </div>
+              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                <center>
+                  <div class="media">
+                    <div class="media-body">
+                      <?php echo 'Deskripsi Report : ' . '<br>';
+                      $arr = ['id'=>'txtDeskripsi'];
+                      echo form_textarea($arr);
+                      ?>
+                    </div>
+                  </div>
+              </center>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <?php
+                  //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                  $arr = ['name'=>'hidKodeRestoran','id'=>'kodeRestoranReport','value'=>'','type'=>'hidden'];
+                  echo form_input($arr);
+                  $arr3 = ['name'=>'hidKodeReview','id'=>'kodeReviewReport','value'=>'','type'=>'hidden'];
+                  echo form_input($arr3);
+                  $arr3 = ['id'=>'urlReview','value'=>site_url('fatncurious/reportComment/'),"type"=>'hidden'];
+                  echo form_input($arr3);
+                  $arr3 = ['class'=>'btn btn-primary','id'=>'reportReview','name'=>'btnSubmit','value'=>'Submit'];
+                  echo form_submit($arr3);
+                  ?>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
         <!--Modal -->
         <div id="modalMap" class="modal fade">
         <div class="modal-dialog">
