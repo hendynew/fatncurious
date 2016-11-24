@@ -35,7 +35,13 @@
           <div class="captionRestoran">
             <div class="media">
 				<br/>
-              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
+              <?php
+                if($fotoUser[0]->URL_FOTO == ''){
+                  $url = 'default.jpg';
+                }else $url = $fotoUser[0]->URL_FOTO;
+                $url_full = base_url('/vendors/images/profilepicture/' . $url);
+              ?>
+              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full ?>" alt="Generic placeholder image">
             </div>
               <h1> <?php echo $user->NAMA_USER ;?>
               </h1>
@@ -66,24 +72,13 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
-            <li class="scroll">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              FilterBy <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>" style="padding-top:10px;padding-bottom:10px;">Biggest Promo</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>" style="padding-top:10px;padding-bottom:10px;">Restaurant Names</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>" style="padding-top:10px;padding-bottom:10px;">Menu</a></li>
-              <li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
-              </ul>
-          </li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
       <?php
         if(isset($kodeUser)){
       ?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo base_url('vendors/images/team/2.jpg'); ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
+            <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
@@ -206,58 +201,34 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><center>List Restoran</center></h4>
               </div>
-              <div class="modal-body">
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
-                  </div>
-                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                    <h4 class="media-heading">asd</h4>
-                    <div>
-                      asdasdasdasdsad
+              <?php foreach($restoran as $resto){ ?>
+                <div class="modal-body">
+                  <div class="media">
+                    <div class="media-left">
+                      <?php
+                        if($resto->URL_FOTO_RESTORAN == ''){
+                          $foto = 'RS002.jpg';
+                        }
+                        else{$foto = $resto->URL_FOTO_RESTORAN ;}
+
+                        echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$resto->KODE_RESTORAN).'>';
+                       ?>
+                      <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/restoran/'.$foto);?>" alt="...">
+                      </a>
+                    </div>
+                    <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                      <h4 class="media-heading"><?php echo $resto->NAMA_RESTORAN ;?></h4>
+                      <div>
+                        <?php echo $resto->ALAMAT_RESTORAN;?><br/>
+                        <?php echo $resto->NO_TELEPON_RESTORAN;?><br/>
+                        <?php echo $resto->DESKRIPSI_RESTORAN;?><br/>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="modal-body">
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
-                  </div>
-                  <div class="media-body" >
-                    <h4 class="media-heading">asd</h4>
-                    <div>
-                      asdasdasdasdsad
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
-                  </div>
-                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                    <h4 class="media-heading">asd</h4>
-                    <div>
-                      asdasdasdasdsad
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="media">
-                  <div class="media-left">
-                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
-                  </div>
-                  <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                    <h4 class="media-heading">asd</h4>
-                    <div>
-                      asdasdasdasdsad
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <?php
+              }?>
+
           </div>
         </div>
       </div>

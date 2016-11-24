@@ -7,7 +7,7 @@ class Fatncurious_model_registerLogin extends CI_Model {
 		$this->load->database();
 	}
 
-	public function search($kode){
+	public function searchEmail($kode){
 		$data = $this->db->query("SELECT * FROM user where EMAIL_USER='$kode'");
 		return $data->row();
 	}

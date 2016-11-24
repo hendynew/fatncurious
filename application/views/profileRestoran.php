@@ -51,7 +51,7 @@
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo  ' '.$resto->NO_TELEPON_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo  ' '.$resto->JAM_BUKA_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><?php echo  ' '.$resto->HARI_BUKA_RESTORAN ;?></p>
-              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><button id="btnStatus"  class="btnStatus" type="button" data-url="<?php echo site_url('fatncurious/updateStatusRestoran')?>" data-val=<?php echo $resto->KODE_RESTORAN?> value="<?php echo $resto->STATUS ?>" style="color : red;"><?php  echo  ' '.$resto->STATUS ;?></button></p>
+              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><button id="btnStatus"  class="btnStatus btn-info" type="button" data-url="<?php echo site_url('fatncurious/updateStatusRestoran')?>" data-val=<?php echo $resto->KODE_RESTORAN?> value="<?php echo $resto->STATUS ?>" style="padding:8px;border-radius:8px;margin-left:5px;"><?php  echo  ' '.$resto->STATUS ;?></button></p>
               <!--<p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php // echo  ' '.$resto->STATUS ;?></p>  -->
               <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><?php echo  ' '.$resto->DESKRIPSI_RESTORAN ;?></p>
               <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <a href="#" style="color:lightblue" data-toggle="modal" data-target="#myModal">Click To Edit Profile</a></p>
