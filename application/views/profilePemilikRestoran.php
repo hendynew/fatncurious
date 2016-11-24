@@ -103,6 +103,45 @@
         <li role="presentation" class="active toogleNavBar"><a href="#">Recent Comment</a></li>
         <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalLihatRestoran">Lihat Restoran</a></li>
     </ul>
+    <div class="media-list">
+      <div class="media">
+        <a class="media-left" href="#">
+          <img class="media-object img-rounded gambarRestoran" src="<?php echo base_url('vendors/images/restoran/RS002.jpg') ?>" alt="Generic placeholder image">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading">Nama Restoran + Alamat</h4>
+          <div class="media">
+            <a href="" class="media-left" href="#">
+              <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">Username <span style="float:right"><h6>tanggal</h6></span></h4>
+              <p>Comment</p>
+              <div class="row" style="margin-left:5px;">
+                <span class="glyphicon glyphicon-thumbs-up likeButton" style="margin-left:5px;"></span>
+                <span class="glyphicon glyphicon-thumbs-down dislikeButton" style="margin-left:5px;"></span>
+                <span class="glyphicon glyphicon-send sendButton" style="margin-left:5px;"></span>
+                <span class="glyphicon glyphicon-flag reportButton" style="margin-left:5px;"></span>
+              </div>
+              <?php
+                echo form_open('fatncurious/sortByMenuRestoran');
+                echo "<div class='input-group customInputGroup img-rounded'>";
+                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
+                echo "<span class='input-group-btn'>";
+                //echo form_hidden('menu',$m->KODE_MENU);
+                //echo form_hidden('resto',$m->KODE_RESTORAN);
+                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
+                echo form_submit($arr);
+                echo "</span>";
+                echo "</div>";
+                echo form_close();
+              ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
