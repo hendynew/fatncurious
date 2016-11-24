@@ -25,6 +25,15 @@ class Model_menu extends CI_Model {
 		return $data->result();
 	}
 
+	public function selectJenisMenu(){
+		$hasil = $this->db->get("jenis_menu")->result();
+		$hasil2 = [];
+		foreach($hasil as $h){
+			$hasil2[$h->KODE_JENISMENU] = $h->NAMA_JENISMENU;
+		}
+		return $hasil2;
+	}
+
 	public function buatCombobox(){
 		$data = $this->SELECT();
 		$arrItem = [];
@@ -190,20 +199,6 @@ class Model_menu extends CI_Model {
 		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_menu as rating,user where rating.KODE_MENU='$kode' AND rating.STATUS='1' GROUP BY KODE_MENU")->result();
 		return $hasil;
 	}
-	/*
-	public function COUNT_LIKE($kode){
-		$hasil = $this->db->query("SELECT rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1'")->result();
-		$total = 0;
-		$jumlah = 0;
-		foreach($hasil as $h){
-			$total += $h->RATING;
-			$jumlah++;
-		}
-		$total_rating = $total/$jumlah;
-
-		return floor($total_rating);
-	}
-*/
 	public function COUNT_ALL_LIKE(){
 		$hasil = $this->db->query("SELECT rating.KODE_MENU as KODE,rating.JUMLAH_RATING as 'RATING' from rating_menu as rating where rating.STATUS='1' GROUP BY KODE_MENU")->result();
 		$data = [];
@@ -212,34 +207,6 @@ class Model_menu extends CI_Model {
 		}
 		return $data;
 	}
-/*
-
-	public function LIKE($rate,$user,$menu){
-		$where = [
-			"KODE_USER"=>$user,
-			"KODE_RESTORAN"=>$resto,
-			"STATUS"=>'1'
-		];
-		$this->db->where($where);
-		if($this->db->get('rating_restoran')->result()){
-			$arr = [
-				"KODE_USER"=>$user,
-				"KODE_RESTORAN"=>$resto,
-				"STATUS"=>'1'
-			];
-			$this->db->where($arr);
-			$this->db->update('rating_restoran',["JUMLAH_RATING"=>$rate]);
-		}else{
-			$arr = [
-				"KODE_USER"=>$user,
-				"KODE_RESTORAN"=>$resto,
-				"JUMLAH_RATING"=>$rate,
-				"STATUS"=>'1'
-			];
-			$this->db->insert('rating_restoran',$arr);
-		}
-	}
-*/
 
 public function generate_kode_upload(){
 	$count = $this->db->count_all('upload_foto_menu') + 1;
@@ -257,4 +224,80 @@ public function upload($kodeMenu,$kodeUser,$url){
 	$this->db->insert('upload_foto_menu',$arr);
 
 }
+
+public function count_like($kodeReview,$state){
+	//STATE MENUNJUKKAN 1 => LIKE, -1 => DISLIKE
+	$this->db->where(array('KODE_REVIEW'=>$kodeReview,'STATUS'=>$state));
+	$like = $this->db->count_all_results('like_review_user');
+	return $like;
+}
+
+public function count_all_like_review(){
+	$this->db->where('STATUS!=',0);
+	$hasil = $this->db->get('like_review_user')->result();
+	$hasil2 = [];
+	foreach($hasil as $h){
+		if(!isset($hasil2[$h->KODE_REVIEW]['LIKE'])){
+			$hasil2[$h->KODE_REVIEW]['LIKE'] = 0;
+		}
+		if(!isset($hasil2[$h->KODE_REVIEW]['DISLIKE'])){
+			$hasil2[$h->KODE_REVIEW]['DISLIKE'] = 0;
+		}
+		if($h->STATUS == 1){
+			$hasil2[$h->KODE_REVIEW]['LIKE']++;
+		}
+		else {
+			$hasil2[$h->KODE_REVIEW]['DISLIKE']++;
+		}
+	}
+	return $hasil2;
+}
+
+public function like_review($kodeReview,$kodeUser,$state){
+	$array = [
+			'KODE_REVIEW' => $kodeReview,
+			'KODE_USER' => $kodeUser,
+	];
+	$this->db->where($array);
+	if($this->db->get('like_review_user')->result()){
+		$arr = ['KODE_REVIEW'=>$kodeReview,'KODE_USER'=>$kodeUser];
+		$this->db->where($arr);
+		$this->db->update('like_review_user',['STATUS'=>$state]);
+	}else{
+		$arr = ['KODE_REVIEW'=>$kodeReview,'KODE_USER'=>$kodeUser,'STATUS'=>$state];
+		$this->db->insert('like_review_user',$arr);
+	}
+}
+
+public function select_like_review($kodeUser,$kodeRestoran){
+	//$this->db->where('KODE_USER',$kodeUser);
+	//$hasil = $this->db->get("like_review_user")->result();
+	$hasil = $this->db->query("SELECT lru.KODE_REVIEW as KODE_REVIEW, lru.STATUS as STATUS FROM like_review_user AS lru,restoran as r,review_menu as rm, menu as m where lru.KODE_REVIEW = rm.KODE_REVIEW AND rm.KODE_MENU = m.KODE_MENU AND m.KODE_RESTORAN = r.KODE_RESTORAN AND r.KODE_RESTORAN='$kodeRestoran' AND r.STATUS='1' and lru.STATUS!='0' and m.STATUS='1' and lru.KODE_USER='$kodeUser'")->result();
+	$hasil2 = [];
+	foreach ($hasil as $h) {
+		$hasil2[$h->KODE_REVIEW] = $h->STATUS;
+	}
+	return $hasil2;
+}
+
+public function select_report_review($kodeUser,$kodeRestoran){
+	$hasil = $this->db->query("SELECT lru.KODE_REVIEW as KODE_REVIEW, lru.STATUS as STATUS FROM report_review_menu AS lru,restoran as r,review_menu as rm, menu as m where lru.KODE_REVIEW = rm.KODE_REVIEW AND rm.KODE_MENU = m.KODE_MENU AND m.KODE_RESTORAN = r.KODE_RESTORAN AND r.KODE_RESTORAN='$kodeRestoran' AND r.STATUS='1' and lru.STATUS!='0' and m.STATUS='1' and lru.KODE_USER='$kodeUser'")->result();
+	$hasil2 = [];
+	foreach ($hasil as $h) {
+		$hasil2[$h->KODE_REVIEW] = $h->STATUS;
+	}
+	return $hasil2;
+}
+
+public function report_review($kodeReview,$kodeUser,$deskripsi){
+		$tanggal = date("Y/m/d");
+		$arr = [
+			"KODE_REVIEW"=>$kodeReview,
+			"KODE_USER"=>$kodeUser,
+			"DESKRIPSI"=>$deskripsi,
+			"TANGGAL"=>$tanggal,
+			"STATUS"=>'1'
+		];
+		$this->db->insert("report_review_menu",$arr);
+	}
 }

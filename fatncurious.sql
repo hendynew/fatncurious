@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2016 at 08:59 AM
+-- Generation Time: Nov 24, 2016 at 12:48 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -163,7 +163,7 @@ INSERT INTO `kartu_kredit_user` (`Kode_Kartu_Kredit`, `KODE_USER`, `STATUS`) VAL
 CREATE TABLE IF NOT EXISTS `like_review_user` (
   `KODE_USER` varchar(5) NOT NULL,
   `KODE_REVIEW` varchar(5) NOT NULL,
-  `STATUS` varchar(1) NOT NULL,
+  `STATUS` int(1) NOT NULL,
   PRIMARY KEY (`KODE_USER`,`KODE_REVIEW`),
   KEY `KODE_REVIEW` (`KODE_REVIEW`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -173,12 +173,19 @@ CREATE TABLE IF NOT EXISTS `like_review_user` (
 --
 
 INSERT INTO `like_review_user` (`KODE_USER`, `KODE_REVIEW`, `STATUS`) VALUES
-('US001', 'RE001', '1'),
-('US002', 'RE001', '1'),
-('US008', 'RE003', '1'),
-('US008', 'RE004', '1'),
-('US010', 'RE002', '1'),
-('US010', 'RE005', '1');
+('US001', 'RE001', 1),
+('US002', 'RE001', -1),
+('US008', 'RE003', -1),
+('US008', 'RE004', 1),
+('US010', 'RE002', 1),
+('US010', 'RE005', 0),
+('US012', 'RE002', 1),
+('US012', 'RE006', -1),
+('US012', 'RE010', 1),
+('US012', 'RE011', 1),
+('US012', 'RE012', 1),
+('US013', 'RE006', 1),
+('US013', 'RE011', 1);
 
 -- --------------------------------------------------------
 
@@ -193,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `NAMA_MENU` varchar(20) NOT NULL,
   `DESKRIPSI_MENU` varchar(100) NOT NULL,
   `HARGA_MENU` int(6) NOT NULL,
+  `URL_FOTO` varchar(255) NOT NULL,
   `KETERANGAN_MENU` varchar(50) NOT NULL,
   `STATUS` varchar(1) NOT NULL,
   PRIMARY KEY (`KODE_MENU`),
@@ -204,25 +212,25 @@ CREATE TABLE IF NOT EXISTS `menu` (
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`KODE_MENU`, `KODE_JENIS_MENU`, `KODE_RESTORAN`, `NAMA_MENU`, `DESKRIPSI_MENU`, `HARGA_MENU`, `KETERANGAN_MENU`, `STATUS`) VALUES
-('ME001', 'JM001', 'RS001', 'NACHOS', 'KRIPIK KENTANG RENYAH', 20000, '', '1'),
-('ME002', 'JM001', 'RS001', 'MIE GORENG', 'MIE TELUR AYAM SAYUR BUMBU', 25000, '', '1'),
-('ME003', 'JM003', 'RS001', 'KENTANG GORENG', 'KENTANG YANG GURIH ', 12000, 'SNACK', '1'),
-('ME004', 'JM001', 'RS002', 'SIRLOIN STEAK', 'STEAK DENGAN KENTANG DAN SAYUR', 90000, 'HIDANGAN UTAMA', '1'),
-('ME005', 'JM002', 'RS002', 'ORANGE JUICE', 'JUS JERUK DINGIN DAN SEGAR ', 10000, 'MINUMAN', '1'),
-('ME006', 'JM004', 'RS002', 'VANILLA CHEESSCAKE', 'CHEESSCAKE RASA VANILLA', 26000, 'HIDANGAN PENCUCI MULUT', '1'),
-('ME007', 'JM001', 'RS003', 'NASI AYAM LEMON', 'NASI DENGAN AYAM SAOS LEMON', 20000, 'HIDANGAN UTAMA', '1'),
-('ME008', 'JM002', 'RS003', 'CHRYSANTHIUM TEA', 'MINUM DARI SARI BUNGA KRISANTIUM', 9000, 'MINUMAN', '1'),
-('ME009', 'JM001', 'RS001', 'BURITOS', 'BURRITOS ENAK', 25000, '', '0'),
-('ME010', 'JM001', 'RS003', 'TAMI CAP CAY', 'TAMI DENGAN ISI SAYUR DAN KUAH CAP CAY', 17000, 'HIDANGAN UTAMA', '1'),
-('ME011', 'JM001', 'RS002', 'TENDERLOIN STEAK', 'STEAK TENDERLOIN DENGAN KENTANG ', 120000, 'HIDANGAN UTAMA', '1'),
-('ME012', 'JM002', 'RS002', 'WATERMELON JUICE', 'JUS SEMANGKA YANG SEGAR', 12000, 'MINUMAN', '1'),
-('ME013', 'JM001', 'RS001', 'NASI GORENG ', 'NASI DENGAN AYAM , TELUR , SERTA SOSIS', 22000, 'HIDANGAN UTAMA', '1'),
-('ME014', 'JM002', 'RS005', 'BLUE SEA COCKTAIL ', 'COCKTAIL RASA BLUE PUNCH', 20000, 'MINUMAN', '1'),
-('ME015', 'JM002', 'RS006', 'RADDLER', 'BIR BINTANG RASA LEMON', 18000, 'MINUMAN BERALKOHOL', '1'),
-('ME016', 'JM003', 'RS007', 'TAHU POP CORN', 'TAHU BULAT GORENG', 13000, 'MAKANAN RINGAN', '1'),
-('ME017', 'JM004', 'RS008', 'CARAMEL PUDDING', 'PUDDING DENGAN SAOS CARAMEL', 20000, 'DESSERT', '1'),
-('ME018', 'JM001', 'RS009', 'ROTI CANAI', 'ROTI KHAS TIMUR TENGAH', 15000, 'MAKANAN', '1');
+INSERT INTO `menu` (`KODE_MENU`, `KODE_JENIS_MENU`, `KODE_RESTORAN`, `NAMA_MENU`, `DESKRIPSI_MENU`, `HARGA_MENU`, `URL_FOTO`, `KETERANGAN_MENU`, `STATUS`) VALUES
+('ME001', 'JM001', 'RS001', 'NACHOS', 'KRIPIK KENTANG RENYAH', 20000, '1.jpg', '', '1'),
+('ME002', 'JM001', 'RS001', 'MIE GORENG', 'MIE TELUR AYAM SAYUR BUMBU', 25000, '1.jpg', '', '1'),
+('ME003', 'JM003', 'RS001', 'KENTANG GORENG', 'KENTANG YANG GURIH ', 12000, '1.jpg', 'SNACK', '1'),
+('ME004', 'JM001', 'RS002', 'SIRLOIN STEAK', 'STEAK DENGAN KENTANG DAN SAYUR', 90000, '1.jpg', 'HIDANGAN UTAMA', '1'),
+('ME005', 'JM002', 'RS002', 'ORANGE JUICE', 'JUS JERUK DINGIN DAN SEGAR ', 10000, '', 'MINUMAN', '1'),
+('ME006', 'JM004', 'RS002', 'VANILLA CHEESSCAKE', 'CHEESSCAKE RASA VANILLA', 26000, '1.jpg', 'HIDANGAN PENCUCI MULUT', '1'),
+('ME007', 'JM001', 'RS003', 'NASI AYAM LEMON', 'NASI DENGAN AYAM SAOS LEMON', 20000, '1.jpg', 'HIDANGAN UTAMA', '1'),
+('ME008', 'JM002', 'RS003', 'CHRYSANTHIUM TEA', 'MINUM DARI SARI BUNGA KRISANTIUM', 9000, '1.jpg', 'MINUMAN', '1'),
+('ME009', 'JM001', 'RS001', 'BURITOS', 'BURRITOS ENAK', 25000, '1.jpg', '', '0'),
+('ME010', 'JM001', 'RS003', 'TAMI CAP CAY', 'TAMI DENGAN ISI SAYUR DAN KUAH CAP CAY', 17000, '1.jpg', 'HIDANGAN UTAMA', '1'),
+('ME011', 'JM001', 'RS002', 'TENDERLOIN STEAK', 'STEAK TENDERLOIN DENGAN KENTANG ', 120000, '1.jpg', 'HIDANGAN UTAMA', '1'),
+('ME012', 'JM002', 'RS002', 'WATERMELON JUICE', 'JUS SEMANGKA YANG SEGAR', 12000, '1.jpg', 'MINUMAN', '1'),
+('ME013', 'JM001', 'RS001', 'NASI GORENG ', 'NASI DENGAN AYAM , TELUR , SERTA SOSIS', 22000, '1.jpg', 'HIDANGAN UTAMA', '1'),
+('ME014', 'JM002', 'RS005', 'BLUE SEA COCKTAIL ', 'COCKTAIL RASA BLUE PUNCH', 20000, '1.jpg', 'MINUMAN', '1'),
+('ME015', 'JM002', 'RS006', 'RADDLER', 'BIR BINTANG RASA LEMON', 18000, '1.jpg', 'MINUMAN BERALKOHOL', '1'),
+('ME016', 'JM003', 'RS007', 'TAHU POP CORN', 'TAHU BULAT GORENG', 13000, '1.jpg', 'MAKANAN RINGAN', '1'),
+('ME017', 'JM004', 'RS008', 'CARAMEL PUDDING', 'PUDDING DENGAN SAOS CARAMEL', 20000, '1.jpg', 'DESSERT', '1'),
+('ME018', 'JM001', 'RS009', 'ROTI CANAI', 'ROTI KHAS TIMUR TENGAH', 15000, '1.jpg', 'MAKANAN', '1');
 
 -- --------------------------------------------------------
 
@@ -346,6 +354,8 @@ CREATE TABLE IF NOT EXISTS `rating_restoran` (
 --
 
 INSERT INTO `rating_restoran` (`KODE_USER`, `KODE_RESTORAN`, `TANGGAL`, `JUDUL`, `DESKRIPSI`, `JUMLAH_LIKE`, `JUMLAH_RATING`, `STATUS`) VALUES
+('US002', 'RS006', '2016-11-14', 'Jason', 'Elian', 0, 3, '1'),
+('US002', 'RS009', '2016-11-14', 'haha', 'baru 3', 0, 3, '1'),
 ('US003', 'RS001', '2016-11-14', '', '', 0, 5, '1'),
 ('US003', 'RS002', '2016-11-14', 'Mantap gan!', 'Mantap restorannya, dingin pula hehe', 0, 3, '1'),
 ('US003', 'RS003', '2016-11-14', '', '', 0, 2, '1'),
@@ -355,7 +365,10 @@ INSERT INTO `rating_restoran` (`KODE_USER`, `KODE_RESTORAN`, `TANGGAL`, `JUDUL`,
 ('US007', 'RS007', '2016-11-14', '', '', 0, 5, '1'),
 ('US008', 'RS008', '2016-11-14', '', '', 0, 5, '1'),
 ('US009', 'RS009', '2016-11-14', '', '', 0, 5, '1'),
-('US011', 'RS009', '2016-11-14', '', '', 0, 5, '1');
+('US011', 'RS009', '2016-11-14', '', '', 0, 5, '1'),
+('US012', 'RS002', '2016-11-23', 'Boncafe emang tidak usah diragukan lagi!', 'Saya biasanya makan sih biasa, biasa aja. Tapi semenjak saya makan disini, saya jadi sadar akan pentingnya kehidupan di dunia dan akhirat.', 0, 5, '1'),
+('US012', 'RS009', '2016-11-15', 'Halo', 'Ini comment Hendy ganteng ', 0, 3, '1'),
+('US013', 'RS009', '2016-11-14', 'teststs', 'hahaha', 0, 5, '1');
 
 -- --------------------------------------------------------
 
@@ -416,6 +429,29 @@ INSERT INTO `report_restoran` (`KODE_REPORT_RESTORAN`, `TANGGAL_REPORT`, `WAKTU_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `report_review_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `report_review_menu` (
+  `KODE_REVIEW` varchar(5) NOT NULL,
+  `KODE_USER` varchar(5) NOT NULL,
+  `DESKRIPSI` varchar(100) NOT NULL,
+  `TANGGAL` date NOT NULL,
+  `STATUS` varchar(1) NOT NULL,
+  PRIMARY KEY (`KODE_REVIEW`,`KODE_USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `report_review_menu`
+--
+
+INSERT INTO `report_review_menu` (`KODE_REVIEW`, `KODE_USER`, `DESKRIPSI`, `TANGGAL`, `STATUS`) VALUES
+('RE002', 'US012', 'asdsad', '2016-11-23', '1'),
+('RE010', 'US012', 'test', '2016-11-23', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `report_user`
 --
 
@@ -471,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `restoran` (
 
 INSERT INTO `restoran` (`KODE_RESTORAN`, `KODE_USER`, `NAMA_RESTORAN`, `ALAMAT_RESTORAN`, `NO_TELEPON_RESTORAN`, `JAM_BUKA_RESTORAN`, `HARI_BUKA_RESTORAN`, `STATUS_RESTORAN`, `DESKRIPSI_RESTORAN`, `JUMLAH_PERINGATAN_RESTORAN`, `URL_FOTO_RESTORAN`, `KETERANGAN_RESTORAN`, `STATUS`) VALUES
 ('RS001', 'US003', 'RESTOGUA', 'JALAN NGAGEL JAYA UTARA NO 23 SURABAYA', 31223453, '10:00:00', 'SENIN-SABTU', 0, 'RESTOGUA LENGKAP ENAK DAN HARGA TERJANGKAU', 0, '', '', '1'),
-('RS002', 'US003', 'BONKAFE', 'JALAN KERTAJAYA NO 40 SURABAYA', 31493775, '09:30:00', 'SENIN-SABTU', 0, 'BONKAFE RESTORANT DENGAN MENU WESTERN ', 0, '', 'RESTORANT WESTERN ', '1'),
+('RS002', 'US003', 'BONKAFE', 'JALAN KERTAJAYA NO 40 SURABAYA', 31493775, '09:30:00', 'SENIN-SABTU', 0, 'BONKAFE RESTORANT DENGAN MENU WESTERN ', 0, 'RS002.jpg', 'RESTORANT WESTERN ', '1'),
 ('RS003', 'US003', 'MING IMPERIAL', 'JALAN JEMURSARI I NO 12', 34463478, '09:00:00', 'SENIN-MINGGU', 0, 'MAKANAN CHINESE YANG ENAK', 0, '', 'CHINESE FOOD', '1'),
 ('RS004', 'US003', 'KFC', 'BONNET SURABAYA', 3114022, '08:00:00', 'SENIN-MINGGU', 1, 'JAGONYA AYAM!!', 0, '', '', '1'),
 ('RS005', 'US010', 'MADAGASCAR', 'JALAN MADAGASCAR 11/AC', 87855421, '10:00:00', 'SENIN-SABTU', 1, 'MAKANAN KHAS HUTAN', 0, '', '', '1'),
@@ -510,7 +546,12 @@ INSERT INTO `review_menu` (`KODE_REVIEW`, `KODE_USER`, `KODE_MENU`, `DESKRIPSI_R
 ('RE005', 'US006', 'ME012', 'RASANYA DETAIL BANGET, BIJINYA AJA SAMPE KERASA', '2016-09-30', 2, '', '1'),
 ('RE006', 'US003', 'ME018', 'asd', '2016-11-08', 0, '', '1'),
 ('RE007', 'US001', 'ME001', 'asd', '2016-11-08', 0, '', '1'),
-('RE008', 'US001', 'ME002', 'asd', '2016-11-08', 0, '', '1');
+('RE008', 'US001', 'ME002', 'asd', '2016-11-08', 0, '', '1'),
+('RE009', 'US002', 'ME015', '', '2016-11-14', 0, '', '1'),
+('RE010', 'US012', 'ME004', 'sirloinnya mantap jaya gan. Sumpah enaksssssss', '2016-11-16', 0, '', '1'),
+('RE011', 'US012', 'ME018', 'haha goood then brosss', '2016-11-17', 0, '', '1'),
+('RE012', 'US012', 'ME005', 'wew kok ngeri geney', '2016-11-20', 0, '', '1'),
+('RE013', 'US012', 'ME011', 'cct', '2016-11-23', 0, '', '1');
 
 -- --------------------------------------------------------
 
@@ -644,11 +685,7 @@ CREATE TABLE IF NOT EXISTS `upload_foto_menu` (
 --
 
 INSERT INTO `upload_foto_menu` (`KODE_UPLOAD`, `KODE_USER`, `KODE_MENU`, `URL_UPLOAD`, `KETERANGAN`, `STATUS`) VALUES
-('UF001', 'US001', 'ME003', 'http://www.kulinersehat.com/wp-content/uploads/2015/05/69.-Cara-Mudah-Membuat-Kentang-Goreng-Renyah-di-Rumah.jpg', '', 1),
-('UF002', 'US002', 'ME002', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMWFhUXFxgYFRcWGBYXGBgXFxcXGBgVHRgYHyghGholHRcVIjEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGi8lICUvLy0tLS8tLS0tLS8tLS0tLy0tLS0tLS8tLS0vL', '', 1),
-('UF003', 'US001', 'ME005', 'http://64d0eb3f22a9185f5cb8-590e49066ce4f732c5888ef7fbead455.r89.cf3.rackcdn.com/Orange_Juice_OJ1.jpg', '', 1),
-('UF004', 'US003', 'ME007', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQEBUTExEWFhUXFxoaGBcYGR0aHRofGBkeFx0VGxcgHyogGh4lGxgaIT0hJSorLjouFx8zODMtNygtMCsBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrK', '', 1),
-('UF005', 'US009', 'ME003', '1.jpg', '', 1);
+('UF001', 'US012', 'ME004', '11.jpg', '', 1);
 
 -- --------------------------------------------------------
 
@@ -683,7 +720,7 @@ INSERT INTO `user` (`KODE_USER`, `KODE_JENISUSER`, `NAMA_USER`, `ALAMAT_USER`, `
 ('US001', 'JU002', 'ARDI UNTUNG', 'JL. KEPALA GADING 20', '891113641', '1996-04-11', '2016-10-14', '2016-10-18', 60115, 'untungsayaardi@gmail', '0', 0, '', '', '1'),
 ('US002', 'JU002', 'HENDY ZAG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-15', '2016-10-18', 78001, 'zipzap@gmail.com', '1', 0, '', '', '1'),
 ('US003', 'JU003', 'Jason Elian', 'jl Kepanjen no 108', '1111', '2016-10-12', '2016-10-16', '2016-10-18', 874651, 'jason.alien@gmail.com', '0', 0, '', '', '1'),
-('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-10-16', '2016-10-20', 0, 'administrator', 'administrator', 0, '', '', '1'),
+('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-10-16', '2016-11-15', 0, 'administrator', 'administrator', 0, '', '', '1'),
 ('US005', 'JU002', 'HENDY ZAGG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-17', '0000-00-00', 78001, 'zipzapa@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 0, '', 'test', '1'),
 ('US006', 'JU004', 'GREGORIAN', 'JL. KALIJUDAN 144', '08785300', '1996-01-30', '2016-10-25', '0000-00-00', 60113, 'gregorian@gmail.com', '123', 0, '', '', '1'),
 ('US007', 'JU005', 'KELVIANTO', 'JL. DR SOETOMO IIIA', '08155049', '1996-11-11', '2016-10-17', '0000-00-00', 60112, 'kelvianto@yahoo.com', '321', 0, '', '', '1'),
@@ -691,7 +728,7 @@ INSERT INTO `user` (`KODE_USER`, `KODE_JENISUSER`, `NAMA_USER`, `ALAMAT_USER`, `
 ('US009', 'JU001', 'DAVID', 'JL. PLOSO TIMUR IVA/3', '3895301', '1995-12-10', '2016-10-19', '0000-00-00', 60115, 'david555@gmail.com', '222', 0, '', '', '1'),
 ('US010', 'JU003', 'KING JULIAN', 'JL. MADAGASCAR 96', '7783540', '1996-07-09', '2016-05-16', '0000-00-00', 60119, 'iliketomoveit@gmail.com', '111', 0, '', '', '1'),
 ('US011', 'JU002', 'cobacoba', ' ', '0123123123', '2016-11-22', '0000-00-00', '0000-00-00', 0, 'a@a.com', '1', 0, '', '', '1'),
-('US012', 'JU002', 'Hendy Lukas', ' ', '082332515552', '2016-11-16', '0000-00-00', '0000-00-00', 0, 'hendylukas68@gmail.com', 'lukas123', 0, '', '', '1'),
+('US012', 'JU002', 'Hendy Lukas', ' ', '082332515552', '2016-11-16', '0000-00-00', '0000-00-00', 0, 'hendylukas68@gmail.com', 'lukas123', 0, 'US012.jpg', '', '1'),
 ('US013', 'JU002', 'hendy lukassssse', ' ', '082332515552', '2016-11-11', '0000-00-00', '0000-00-00', 0, 'hendylukas69@gmail.com', 'lukas123', 0, '', '', '1');
 
 --

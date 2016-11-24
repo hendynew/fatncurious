@@ -1199,6 +1199,14 @@ ul.address {
   height:20px;
 }
 
+.btn{
+  cursor: pointer;
+}
+
+.sudahdiKlik{
+  color: #03f;
+  cursor: not-allowed;
+}
 .displayPictureNotifikasi
 {
   width:30px;

@@ -140,32 +140,53 @@
 		echo "<div class='media warnaFilterByGanjil img-rounded'>";
 			echo "<div class='media-left'>";
 				echo "<a href='#'>";
-	?>
-				<img class="media-object img-circle displayPictureComment" src="<?php echo base_url('/vendors/images/menu/nasi goreng/2.jpg');?>" alt="...">
+        $url = base_url('/vendors/images/menu/default.jpg');
+        if($r->URL_FOTO != ''){
+          $url = base_url('/vendors/images/menu/'.$r->KODE_RESTORAN.'/'.$r->KODE_MENU . '/' . $r->URL_FOTO);
+        }
+        ?>
+        <img class="media-object displayPicture displayPictureComment"  src="<?php echo $url;?>" alt="..." row-id="">
+
 	<?php
 				echo "</a>";
 			echo "</div>";
 			echo "<div class='media-body jarakMedia'>";
 
 				echo "<h4 class='media-heading jarakMedia'>".$r->NAMA_MENU." - ".'<a href = '.site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN).'>'.$r->NAMA_RESTORAN."</a>"."<br/>";
+        echo "<h4 class='jarakMedia'>";
         $ada = false;
-        foreach($rating as $key=>$val){
-          if($key == $r->KODE_MENU)
-          {
+        foreach($rating as $key2=>$value){
+          if($key2 == $r->KODE_MENU){
             $ada = true;
-            echo "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> ". $val ."</h4>";
+            $counter = 0;
+            for($i = 0; $i < 5; $i++){
+              if($counter < $value)
+                echo '<span class="glyphicon glyphicon-star"></span>';
+              else
+                echo '<span class="glyphicon glyphicon-star-empty"></span>';
+              $counter++;
+            }
           }
         }
         if(!$ada)
-          echo "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span> 0 </h4>";
+        {
+          for($i = 0; $i < 5; $i++){
+            echo '<span class="glyphicon glyphicon-star-empty"></span>';
+          }
+        }
+        echo "</h4>";
 				echo "<p class='jarakMedia'>".$r->DESKRIPSI_MENU.'.'."</p>";
 
           foreach($review as $key=>$val){
             if($review[$key]['KODE_MENU'] == $r->KODE_MENU){
               echo "<div class='media m-t-2'>";
               echo "<div class='media-left' href='#'>";
-    	?>
-    					<img class="media-object displayPictureComment img-circle jarakMedia" style="height:50px;width:50px;" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
+              if($review[$key]['URL_FOTO'] == ''){
+                $url = 'default.jpg';
+              }else $url = $r->URL_FOTO;
+              $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                ?>
+                  <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
     	<?php
     					echo "</div>";
               echo "<div class='media-body'>";
