@@ -13,7 +13,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 	}
 
 	public function selectRestoByUser($kode){
-		return $data = $this->db->query("SELECT KODE_RESTORAN FROM restoran where KODE_USER='$kode'")->result();
+		return $data = $this->db->query("SELECT * FROM restoran where KODE_USER='$kode'")->result();
 		//print_r ($data);
 		//return $data->result();
 	}

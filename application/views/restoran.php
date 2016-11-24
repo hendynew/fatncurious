@@ -125,6 +125,7 @@
     <div class = "container navbarSpace" style="background-color:#fafafa">
         <div>
           <?php
+          $kode = $resto->KODE_RESTORAN;
             if($kodeuser != ''){
               ?>
     			<center>
@@ -209,7 +210,6 @@
 
                             $arr = ['name'=>'valueBintang','id'=>"hidBintang",'value'=>"",'type'=>'hidden'];
                             echo form_input($arr);
-                            $kode = $resto->KODE_RESTORAN;
                             $arr2 = ['name'=>'kodeRestoran','value'=>$kode,'type'=>'hidden'];
                             echo form_input($arr2);
                           ?>
@@ -490,7 +490,6 @@
 
 
 		<?php
-		$adaMenu=false;
 		//===========Kredit=========
 			if(isset($kartu)){
 				echo "<h4>Kartu Kredit</h4>";

@@ -72,6 +72,12 @@ class Fatncurious_model_menu extends CI_Model {
 		return $data->result();
 	}
 
+	public function countMenuByResto($resto,$jenisMenu1)
+	{
+		$data = $this->db->query("SELECT count(menu.KODE_JENIS_MENU) FROM menu , restoran WHERE restoran.KODE_RESTORAN = menu.KODE_RESTORAN AND menu.KODE_RESTORAN = '$resto' and menu.KODE_JENIS_MENU = '$jenisMenu1' and menu.STATUS='1' order by menu.KODE_JENIS_MENU");
+		return $data->result();
+	}
+
 	public function buatCombobox(){
 		$data = $this->selectMenuByResto('menu','RS001');
 		$arrItem = [];

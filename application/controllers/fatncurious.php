@@ -27,7 +27,7 @@ class Fatncurious extends CI_Controller {
 			$this->form_validation->set_rules('txtEmailRegister','Email','callback_cekRegisterKosong');
 			if($this->form_validation->run())
 			{
-				$this->form_validation->set_rules('txtEmailLogin','Email','callback_cekEmailAdaRegister');
+				$this->form_validation->set_rules('txtEmailRegister','Email','callback_cekEmailAdaRegister');
 				if($this->form_validation->run())
 				{
 
@@ -83,8 +83,7 @@ class Fatncurious extends CI_Controller {
 		}
 	}
 	public function cekEmailAdaRegister($email){
-		$passwordd = $this->input->post('txtEmailRegister');
-		$user = $this->fatncurious_model_registerLogin->search($email);
+		$user = $this->fatncurious_model_registerLogin->searchEmail($email);
 		$nemu=false;
 
 		if($user)
@@ -117,7 +116,7 @@ class Fatncurious extends CI_Controller {
 				{
 					$user = $this->fatncurious_model_user->selectUserByEmail($this->input->post('txtEmailLogin'));
 					$this->session->set_userdata('userYangLogin',$user);
-					redirect("fatncurious/index/login_Berhasil");
+					redirect("fatncurious/profilUser");
 				}
 				else
 				{
@@ -149,10 +148,10 @@ class Fatncurious extends CI_Controller {
 
 	public function cekEmailAdaLogin($email){
 		$passwordd = $this->input->post('txtPasswordLogin');
-		$emaill = $this->fatncurious_model_registerLogin->search($email);
+		$emaill = $this->fatncurious_model_registerLogin->searchEmail($email);
 		$nemu=false;
 
-		if($email)
+		if($emaill)
 		{
 			$nemu=true;
 		}
@@ -312,26 +311,60 @@ class Fatncurious extends CI_Controller {
 		}
 	}
 
-	public function profilUser()	{
+	public function profilPemilikRestoran()	{
 		if($this->session->userdata('userYangLogin')){
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
-		}
-		if($this->session->userdata('userYangLogin')){
 			$this->load->model('model_user');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+
+			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
+		}
+		if($this->session->userdata('userYangLogin')){
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+			//echo $kodeUser;
 			$this->load->library('upload');
 			$config = array(
 				'upload_path' => './vendors/images/profilepicture/',
 				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
 				'overwrite' => TRUE,
 				'max_size' => "1000KB",
-				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
+				'file_name' => $this->session->userdata('userYangLogin')
 			);
 			$this->upload->initialize($config);
-			$this->load->view('profileUser',$data);
+			$this->load->view('profilePemilikRestoran',$data);
+		}
+
+	}
+
+	public function profilUser()	{
+		if($this->session->userdata('userYangLogin')){
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+		}
+		if($this->session->userdata('userYangLogin')){
+			if($this->session->userdata('userYangLogin')->KODE_JENISUSER == 'JU003'){
+				//echo "1";
+				redirect('fatncurious/profilPemilikRestoran');
+			}
+			else{
+				$this->load->model('model_user');
+				$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+				$fotoUser= $this->model_user->SEARCH($kodeUser);
+				$data['fotoUser'] = $fotoUser;
+				$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+				$this->load->library('upload');
+				$config = array(
+					'upload_path' => './vendors/images/profilepicture/',
+					'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+					'overwrite' => TRUE,
+					'max_size' => "1000KB",
+					'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
+				);
+				$this->upload->initialize($config);
+				$this->load->view('profileUser',$data);
+			}
 		}
 
 	}
@@ -1242,31 +1275,6 @@ class Fatncurious extends CI_Controller {
 		$this->load->view('filterByPromo',$data);
 	}
 
-	public function profilPemilikRestoran()	{
-		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
-			$this->load->model('model_user');
-			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-			$fotoUser= $this->model_user->SEARCH($kodeUser);
-			$data['fotoUser'] = $fotoUser;
-		}
-		if($this->session->userdata('userYangLogin')){
-			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
-			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
-			//echo $kodeUser;
-			$this->load->library('upload');
-			$config = array(
-				'upload_path' => './vendors/images/profilepicture/',
-				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-				'overwrite' => TRUE,
-				'max_size' => "1000KB",
-				'file_name' => $this->session->userdata('userYangLogin')
-			);
-			$this->upload->initialize($config);
-			$this->load->view('profilePemilikRestoran',$data);
-		}
-
-	}
 	//================Search===================
 
 }

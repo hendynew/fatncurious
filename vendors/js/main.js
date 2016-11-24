@@ -249,6 +249,11 @@ $(".shareButton").on('click',function()
 	alert('shareButton');
 });
 
+$(".sendButton").on('click',function()
+{
+	alert('sendButton');
+});
+
 $('#modalRating').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var recipient = button.data('whatever'); // Extract info from data-* attributes
