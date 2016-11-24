@@ -78,6 +78,43 @@
       ?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;">3</sup></sup></span>
+          </a>
+          <ul class="dropdown-menu" style="max-height: calc(50vh - 210px);overflow-y: auto;>
+            <li class="media">
+              <div class="media-left">
+              <a href="#"  style="padding:0px;">
+                <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+              </a>
+              </div>
+              <div class="media-body">
+                <div class="media-heading">asdasdasdasdasdasdsddasd</div>
+              </div>
+            </li>
+            <li class="media">
+              <div class="media-left">
+              <a href="#"  style="padding:0px;">
+                <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+              </a>
+              </div>
+              <div class="media-body">
+                <div class="media-heading">asdasdasdasdasdasdsddasd</div>
+              </div>
+            </li>
+            <li class="media">
+              <div class="media-left">
+              <a href="#"  style="padding:0px;">
+                <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+              </a>
+              </div>
+              <div class="media-body">
+                <div class="media-heading">asdasdasdasdasdasdsddasd</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="scroll">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -106,7 +143,7 @@
         <div class="media-body">
           <h4 class="media-heading">Nama Restoran + Alamat</h4>
           <div class="media">
-            <a href="" class="media-left" href="#">
+            <a class="media-left" href="#">
               <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
             </a>
             <div class="media-body">
