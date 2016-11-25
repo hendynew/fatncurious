@@ -21,7 +21,7 @@
     <script src="js/respond.min.js"></script>
   <![endif]-->
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>-->
   <link rel="shortcut icon" href="<?php echo base_url('/vendors/images/favicon.ico');?>">
   <link rel="stylesheet" href="<?php echo base_url('/vendors/css/blueimp-gallery.min.css');?>">
 
@@ -149,19 +149,18 @@
       </div>
     </div>
 <!-- Untuk Edit Profil Restoran -->
-
-    <h2>Sorted By :</h2>
     <div class = "container navbarSpace" style="background-color:#fafafa">
-        <div>
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="<?php echo $active1.' ';?> toogleNavBar"><a href="">Recent Comment</a></li>
-                <li role="presentation" class="<?php echo $active2.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByPromoProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Promo</a></li>
-                <li role="presentation" class="<?php echo $active3.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByMenuProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Menu</a></li>
-                <li role="presentation" class="<?php echo $active4.' ';?> toogleNavBar"><a href="#">Lihat Review Restoran</a></li>
-                <li role="presentation" class="<?php echo $active5.' ';?> toogleNavBar"><a href="#">Report</a></li>
-                 <li role="presentation" style="float:right" class="toogleNavBar"><a href="">Lihat Foto Terbaru</a></li>
-            </ul>
-        </div>
+      <div>
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="<?php echo $active1.' ';?> toogleNavBar"><a href="">Recent Comment</a></li>
+          <li role="presentation" class="<?php echo $active2.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByPromoProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Promo</a></li>
+          <li role="presentation" class="<?php echo $active3.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByMenuProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Menu</a></li>
+          <li role="presentation" class="<?php echo $active4.' ';?> toogleNavBar"><a href="#">Lihat Review Restoran</a></li>
+          <li role="presentation" class="<?php echo $active5.' ';?> toogleNavBar"><a href="#">Report</a></li>
+          <li role="presentation" class="<?php echo $active5.' ';?> toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalInsert">Insert</a></li>
+           <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle='modal' data-target='#'>Lihat Foto Terbaru</a></li>
+        </ul>
+      </div>
         <div class="media">
 		<?php //sorted by Promo ?>
 		<?php
@@ -173,7 +172,7 @@
 		<?php
 				echo "</div>";
 				echo "<div class='media-body'>";
-					echo "<h4 class='media-heading'>".$p->NAMA_PROMO."</h4>";
+					echo "<h4 class='media-heading'>".$p->NAMA_PROMO."<a class='btn btn-danger confirmationPromo' data-toggle='confirmation' style='float:right;' data-kodepromo='".$p->KODE_PROMO."'>Delete</a><a href='#' data-toggle='modal' class='btn btn-primary' data-target='#modalUpdatePromo' style='float:right; margin-right:10px;' data-namaPromo='".$p->NAMA_PROMO."' data-kodePromo='".$p->KODE_PROMO."' data-deskripsiPromo='".$p->DESKRIPSI_PROMO."' data-masaBerlaku='".$p->MASABERLAKU_PROMO."' data-persentasePromo='".$p->PERSENTASE_PROMO."' data-keteranganPromo='".$p->KETERANGAN_PROMO."'>Update</a></h4>";
 					echo $p->DESKRIPSI_PROMO;
 					echo "<div class='media m-t-2'>";
 						echo "<div class='media-left' href='#'>";
@@ -205,7 +204,7 @@
 		<?php
 				echo "</div>";
 				echo "<div class='media-body'>";
-					echo "<h4 class='media-heading'>".$p->NAMA_MENU."</h4>";
+					echo "<h4 class='media-heading'>".$p->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$p->KODE_MENU."' data-koderestoran='".$p->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$p->NAMA_MENU."' data-kode='".$p->KODE_MENU."' data-kodeResto='".$p->KODE_RESTORAN."' data-deskripsi='".$p->DESKRIPSI_MENU."'>Update</a></h4>";
 					echo $p->DESKRIPSI_MENU;
 					echo "<div class='media m-t-2'>";
 						echo "<div class='media-left' href='#'>";
@@ -269,13 +268,106 @@
         <a class="play-pause"></a>
         <ol class="indicator"></ol>
     </div>
+  <div id="modalUpdate" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Update </h4>
+              </div>
+              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                <center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>
+                <?php $this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;'])); ?>
+                <?php $this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;'])); ?>
+                <?php echo $this->table->generate(); ?>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <?php
+                  //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                  $arr = ['name'=>'hidKodeRestoran','id'=>'kodeRestoranReport','value'=>'','type'=>'hidden'];
+                  echo form_input($arr);
+                  $arr3 = ['name'=>'hidKodeReview','id'=>'kodeReviewReport','value'=>'','type'=>'hidden'];
+                  echo form_input($arr3);
+                  $arr3 = ['id'=>'urlReview','value'=>site_url('fatncurious/reportComment/'),"type"=>'hidden'];
+                  echo form_input($arr3);
+                  $arr3 = ['class'=>'btn btn-primary','id'=>'reportReview','name'=>'btnSubmit','value'=>'Submit'];
+                  echo form_submit($arr3);
+                  ?>
+              </div>
+          </div>
+      </div>
+  </div>
 
-
+  <div id="modalUpdatePromo" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Update </h4>
+            </div>
+            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>
+              <?php $this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;'])); ?>
+              <?php $this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;'])); ?>
+              <?php $this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;'])); ?>
+              <?php $this->table->add_row('Presentase Promo',form_input('txtPresentasePromo',"",['id'=>'persentasePromo','style'=>'margin-left:20px;'])); ?>
+              <?php $this->table->add_row('Keterangan Promo',form_input('txtKeteranganPromo',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;'])); ?>
+              <?php echo $this->table->generate(); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <?php
+                //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                $arr = ['name'=>'hidKodeRestoran','id'=>'kodeRestoranReport','value'=>'','type'=>'hidden'];
+                echo form_input($arr);
+                $arr3 = ['name'=>'hidKodeReview','id'=>'kodeReviewReport','value'=>'','type'=>'hidden'];
+                echo form_input($arr3);
+                $arr3 = ['id'=>'urlReview','value'=>site_url('fatncurious/reportComment/'),"type"=>'hidden'];
+                echo form_input($arr3);
+                $arr3 = ['class'=>'btn btn-primary','id'=>'reportReview','name'=>'btnSubmit','value'=>'Submit'];
+                echo form_submit($arr3);
+                ?>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div id="modalInsert" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Insert</h4>
+            </div>
+            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>
+              <?php echo form_radio('rbJenisMenu','Promo','',['class'=>'jenisMenu','data-url'=>site_url('fatncurious/tampilkanFormInsertPromo')]).'Promo'; ?>
+              <?php echo form_radio('rbJenisMenu','Menu','',['class'=>'jenisMenu','style'=>'margin-left:20px','data-url'=>site_url('fatncurious/tampilkanFormInsertMenu')]).'Menu'; ?>
+              <div class="isiForm">
+              asdasdasd
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <?php
+                //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                $arr = ['name'=>'hidKodeRestoran','id'=>'kodeRestoranReport','value'=>'','type'=>'hidden'];
+                echo form_input($arr);
+                $arr3 = ['name'=>'hidKodeReview','id'=>'kodeReviewReport','value'=>'','type'=>'hidden'];
+                echo form_input($arr3);
+                $arr3 = ['id'=>'urlReview','value'=>site_url('fatncurious/reportComment/'),"type"=>'hidden'];
+                echo form_input($arr3);
+                $arr3 = ['class'=>'btn btn-primary','id'=>'reportReview','name'=>'btnSubmit','value'=>'Submit'];
+                echo form_submit($arr3);
+                ?>
+            </div>
+        </div>
+    </div>
+  </div>
 
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap.min.js');?>"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.inview.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/wow.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/mousescroll.js');?>"></script>
@@ -283,7 +375,71 @@
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-
   <script src="<?php echo base_url('/vendors/js/blueimp-gallery.min.js');?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/tooltip.js') ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('/vendors/js/bootstrap-confirmation.js') ?>"></script>
+  <script>
+    $('.confirmationPromo').confirmation({
+    rootSelector: '[data-toggle=confirmation]',
+    container: 'body',
+    title:"Are you sure want to delete this Promo ? ",
+    popout:true,
+    buttons: [
+      {
+        class: 'btn btn-primary',
+        icon: 'glyphicon glyphicon-ok',
+        onClick: function() {
+          alert($(this).attr('data-kodepromo'));
+        }
+      },
+      {
+        class: 'btn btn-default',
+        icon: 'glyphicon glyphicon-remove'
+      }
+    ]
+    });
+    $('.confirmationMenu').confirmation({
+    rootSelector: '[data-toggle=confirmation]',
+    container: 'body',
+    title:"Are you sure want to delete this Menu ? ",
+    popout:true,
+    buttons: [
+      {
+        class: 'btn btn-primary',
+        icon: 'glyphicon glyphicon-ok',
+        onClick: function() {
+          alert($(this).attr('data-kodemenu')+" | "+$(this).attr('data-koderestoran'));
+        }
+      },
+      {
+        class: 'btn btn-default',
+        icon: 'glyphicon glyphicon-remove'
+      }
+    ]
+    });
+    $(".jenisMenu").on("click",function()
+    {
+      $jenisMenu = $(this).val();
+      var url = $(this).attr('data-url');
+      if($jenisMenu == "Promo")
+      {
+        $.post(url,
+        function(result){
+            //alert(result);
+            $(".isiForm").text(result);
+            alert('success');
+        });
+      }
+      else
+      {
+        $.post(url,
+        function(result){
+            //alert(result);
+            $(".isiForm").text(result);
+            alert('success');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
