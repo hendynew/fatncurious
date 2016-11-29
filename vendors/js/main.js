@@ -443,5 +443,43 @@ $(".btnStatus").on("click",function()
 		document.getElementById(id).value=result;
 		document.getElementById(id).innerHTML = result;
 	});
+});
 
+$('#modalUpdate').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget);
+	var menu = button.data('menu');
+	var kodeMenu = button.data('kodeMenu');
+	var kodeResto = button.data('kodeResto');
+	var deskripsiMenu = button.data('deskripsi');
+
+	var modal = $(this);
+	modal.find('.modal-title').text("Update Menu " + menu );
+	//alert($('#txtMenuu').val());
+	modal.find('#txtMenu').val( menu );
+
+	modal.find('#deskripsiMenu').val( deskripsiMenu );
+	//$("#hidKodeMenu").attr("value",kodeMenu);
+	//$("#hidKodeRestoran").attr("value",kodeRestoran);
+});
+
+$('#modalUpdatePromo').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget);
+	var promo = button.data('namapromo');
+	var kodePromo = button.data('kodepromo');
+	var deskripsiPromo = button.data('deskripsipromo');
+	var masaBerlaku = button.data('masaberlaku');
+	var persentasePromo = button.data('persentasepromo');
+	var keteranganPromo = button.data('keteranganpromo');
+
+	var modal = $(this);
+	modal.find('.modal-title').text("Update Promo " + promo );
+	//alert($('#txtMenuu').val());
+	modal.find('#txtPromo').val( promo );
+
+	modal.find('#deskripsiPromo').val( deskripsiPromo );
+	modal.find('#masaBerlaku').val( masaBerlaku );
+	modal.find('#persentasePromo').val( persentasePromo );
+	modal.find('#keteranganPromo').val( keteranganPromo );
+	//$("#hidKodeMenu").attr("value",kodeMenu);
+	//$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
