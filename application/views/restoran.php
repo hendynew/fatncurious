@@ -496,8 +496,12 @@
 				foreach($kartu as $k){
 					echo "<div class='media'>";
 						echo "<div class='media-left'>";
+            if($k->URL_FOTO_KARTU_KREDIT == ''){
+              $url = 'default.jpg';
+            }else $url = $k->URL_FOTO_KARTU_KREDIT;
+            $url_full = base_url('/vendors/images/kredit/' . $url);
 			?>
-						<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo base_url('/vendors/images/menu/nasi goreng/1.jpg');?>" alt="...">
+						<img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url_full ;?>" alt="...">
 			<?php
 						echo "</div>";
 					echo "<div class='media-body'>";

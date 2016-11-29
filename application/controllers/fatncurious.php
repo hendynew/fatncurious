@@ -608,14 +608,14 @@ class Fatncurious extends CI_Controller {
 		}
 
 		$config = array();
-		$config['base_url'] = site_url('fatncurious/PaginationFilterByKartu');
+		$config['base_url'] = site_url('fatncurious/filterByKartu');
 		$config["per_page"] = 5;
 		$config["uri_segment"] = 3;
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link']=false;
 		$config['last_link']=false;
-		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/PaginationFilterByKartu" data-ci-pagination-page="2"><strong>';
+		$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/filterByKartu" data-ci-pagination-page="2"><strong>';
 		$config['cur_tag_close'] = '</strong></a></li>';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -640,9 +640,9 @@ class Fatncurious extends CI_Controller {
 			$data['fotoUser'] = $fotoUser;
 		}
 
-		$this->load->model('Model_menu');
-		$data['review'] = $this->Model_menu->SELECT_ALL_REVIEW();
-		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
+		$this->load->model('model_menu');
+		$data['review'] = $this->model_menu->SELECT_ALL_REVIEW();
+		$data['rating'] = $this->model_menu->COUNT_ALL_LIKE();
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/filterByMenu');
 		$config["per_page"] = 5;

@@ -166,6 +166,7 @@ class Model_menu extends CI_Model {
 			$hasil2[$h->KODE_REVIEW]['KODE_MENU'] = $h->KODE_MENU;
 			$hasil2[$h->KODE_REVIEW]['KODE_USER'] = $h->KODE_USER;
 			$hasil2[$h->KODE_REVIEW]['NAMA_USER'] = $h->NAMA_USER;
+			$hasil2[$h->KODE_REVIEW]['URL_FOTO'] = $h->URL_FOTO;
 			$hasil2[$h->KODE_REVIEW]['DESKRIPSI'] = $h->DESKRIPSI;
 			$hasil2[$h->KODE_REVIEW]['TANGGAL'] = $h->TANGGAL;
 			$hasil2[$h->KODE_REVIEW]['LIKE'] = $h->LIKE;
