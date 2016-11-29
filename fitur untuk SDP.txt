@@ -18,7 +18,7 @@ V	* Bisa melihat jumlah peringatan yang diberikan oleh admin kepada restoran ter
 	* interface berbeda dengan user.
 	* memasukkan promo, menu dan foto menu tersebut tetapi foto tersebut akan diganti ketika ada user yang mengupload foto makanan tersebut melalui persetujuan admin.
 V	* dapat melakukan status buka/tutup restoran tersebut dengan mudah. ->tinggal Tampilan
-	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment dan like tersebut.
+V	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment dan like tersebut.
 	* report jika comment mengandung SARA ataupun tidak layak untuk dipublikasikan.
 	* pemilik restoran hanya bisa mengakses halaman milik restoran tersebut.
 	* pemilik restoran bisa melihat interface user dari promo atau menu yang dimasukkan melalui form.

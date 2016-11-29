@@ -506,26 +506,10 @@
 						echo "</div>";
 					echo "<div class='media-body'>";
 						echo "<h4 class='media-heading'>".$k->KARTU."</h4>";
-						echo "Deskripsi : ".$k->DESKRIPSI_PROMO."<br/>";
+						echo "Nama Promo : ".$k->NAMA_PROMO."<br/>";
+            echo "Deskripsi : ".$k->DESKRIPSI_PROMO."<br/>";
 						echo "Persentase : ".$k->PERSENTASE_PROMO."<br/>";
-						echo "<div class='media m-t-2'>";
-							echo "<div class='media-left' href='#'>";
-			?>
-							<img class="media-object displayPictureComment img-circle" src="<?php echo base_url('/vendors/images/team/1.jpg');?>" alt="Generic placeholder image">
-			<?php
-							echo "</div>";
-							echo "<div class='media-body'>";
-								echo "<h4 class='media-heading'>Michelle Withney</h4>";
-								echo "Promo Termurahh.....";
-							echo "</div>";
-						echo "</div>";
-						echo "<br/>";
-						echo "<div class='input-group customInputGroup img-rounded'>";
-							echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..'>";
-							echo "<span class='input-group-btn'>";
-								echo "<button class='btn btn-default img-rounded' type='button'>Go!</button>";
-							echo "</span>";
-						echo "</div>";
+            echo "Masa Berlaku : ".$k->MASABERLAKU_PROMO."<br/>";
 					echo "</div>";
 					echo "</div>";
 				}

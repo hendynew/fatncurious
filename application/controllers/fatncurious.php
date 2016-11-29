@@ -313,16 +313,14 @@ class Fatncurious extends CI_Controller {
 
 	public function profilPemilikRestoran()	{
 		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+
 			$this->load->model('model_user');
+			$this->load->model('fatncurious_model_user');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
-
-			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
-		}
-		if($this->session->userdata('userYangLogin')){
-			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			//$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
 			//echo $kodeUser;
 			$this->load->library('upload');
@@ -334,6 +332,32 @@ class Fatncurious extends CI_Controller {
 				'file_name' => $this->session->userdata('userYangLogin')
 			);
 			$this->upload->initialize($config);
+
+			$this->load->model('fatncurious_model_restaurant');
+			//$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,5,0);
+
+			$config = array();
+			$config['base_url'] = site_url('fatncurious/profilPemilikRestoran');
+			$config["per_page"] = 5;
+			$config["uri_segment"] = 3;
+			$config['full_tag_open'] = '<ul class="pagination">';
+			$config['full_tag_close'] = '</ul>';
+			$config['first_link']=false;
+			$config['last_link']=false;
+			$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/profilPemilikRestoran" data-ci-pagination-page="2"><strong>';
+			$config['cur_tag_close'] = '</strong></a></li>';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';
+			$config['next_tag_open'] = '<li>';
+			$config['next_tag_close'] = '</li>';
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,null,null));
+			$this->pagination->initialize($config);
+			$data['links'] = $this->pagination->create_links();
+			$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
+			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,5,$page);
 			$this->load->view('profilePemilikRestoran',$data);
 		}
 
@@ -369,6 +393,38 @@ class Fatncurious extends CI_Controller {
 
 	}
 
+	public function profilUserKlik($kode)	{
+		$this->load->model('model_user');
+		$data['pemilik'] = 'y';
+			if($this->session->userdata('userYangLogin')){
+				$data['kodeUser'] = $this->session->userdata('userYangLogin');
+				$kodeuser = $this->session->userdata('userYangLogin')->KODE_USER;
+				$fotoUserYangLogin= $this->model_user->SEARCH($kodeuser);
+				$data['fotoUserYangLogin'] = $fotoUserYangLogin;
+				$jenisUser = $this->fatncurious_model_user->selectJenisUserByKode($kodeuser);
+			}
+			if($jenisUser->KODE_JENISUSER == 'JU003'){
+				$data['pemilik'] = 'y';
+			}
+			else{
+				$data['pemilik'] = 'n';
+			}
+			$kodeUser = $kode;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
+			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+			$this->load->library('upload');
+			$config = array(
+				'upload_path' => './vendors/images/profilepicture/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
+			);
+			$this->upload->initialize($config);
+			$this->load->view('lihatProfilUserLain',$data);
+	}
+
 	public function likeComment(){
 		$kodeRestoran = $_POST['restoran'];
 		$kodeUser = $_POST['user'];
@@ -394,7 +450,8 @@ class Fatncurious extends CI_Controller {
 	public function deleteComment($kodeResto,$kodeReview){
 		$this->load->model('model_menu');
 		$this->model_menu->delete_review($kodeReview);
-		echo $this->model_menu->count_report($kodeReview);
+		//echo $this->model_menu->count_report($kodeReview);
+		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
 	}
 
 	public function updateComment($kodeResto,$kodeReview){
