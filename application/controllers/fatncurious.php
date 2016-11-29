@@ -1334,4 +1334,26 @@ class Fatncurious extends CI_Controller {
 
 	//================Search===================
 
+	public function tampilkanFormInsertPromo()
+	{
+		$this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;']));
+		$this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;']));
+		$this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;']));
+		$this->table->add_row('Presentase Promo',form_input('txtPresentasePromo',"",['id'=>'persentasePromo','style'=>'margin-left:20px;']));
+		$this->table->add_row('Keterangan Promo',form_input('txtKeteranganPromo',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;']));
+		echo $this->table->generate();
+
+	}
+
+	public function tampilkanFormInsertMenu()
+	{
+		$this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;']));
+		$this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;']));
+		$this->table->add_row('Harga Menu',form_input('txtHargaMenu',"",['id'=>'hargaMenu','style'=>'margin-left:20px;']));
+		$this->table->add_row('Keterangan',form_input('txtKeterangan',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;']));
+		echo $this->table->generate();
+	}
+
 }
+
+
