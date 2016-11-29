@@ -183,7 +183,7 @@
               echo "<div class='media-left' href='#'>";
               if($review[$key]['URL_FOTO'] == ''){
                 $url = 'default.jpg';
-              }else $url = $r->URL_FOTO;
+              }else $url = $review[$key]['URL_FOTO'];
               $url_full = base_url('/vendors/images/profilepicture/' . $url);
                 ?>
                   <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full?>" alt="Generic placeholder image">
