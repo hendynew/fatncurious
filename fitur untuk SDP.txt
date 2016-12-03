@@ -3,7 +3,7 @@ V	* search untuk mencari rumah makan atau restoran yang diinginkan.
 V	* search untuk promo yang diinginkan.
 V	* filter berdasarkan promo terbesar, harga dan lainnya.
 V	* foto makanan yang diupload oleh user.
-	* comment dan like pada restoran maupun makanan. ->restoran belum
+V	* comment dan like pada restoran maupun makanan. ->restoran belum
 V	* log in untuk comment, like dan upload foto.
 V	* menampilkan jam buka dan tutup restoran atau rumah makan secara live-time.
 V	* bisa melihat lokasi restoran tersebut melalui google maps.

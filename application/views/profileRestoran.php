@@ -391,12 +391,58 @@
                 <h4 class="modal-title">Insert</h4>
             </div>
             <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-              <center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>
-              <?php echo form_radio('rbJenisMenu','Promo','',['class'=>'jenisMenu','data-url'=>site_url('fatncurious/tampilkanFormInsertPromo')]).'Promo'; ?>
+              <center>
+                <img src="..." style="height:100px;height:100px;" class="img-rounded"><br/>
+                <form action="<?php echo site_url('fatncurious/insert'); ?>" method="post">
+                 <input type="file" name="pic" accept="image/*">
+              </center>
+              <?php echo form_radio('rbJenisMenu','Promo','checked',['class'=>'jenisMenu','data-url'=>site_url('fatncurious/tampilkanFormInsertPromo')]).'Promo'; ?>
               <?php echo form_radio('rbJenisMenu','Menu','',['class'=>'jenisMenu','style'=>'margin-left:20px','data-url'=>site_url('fatncurious/tampilkanFormInsertMenu')]).'Menu'; ?>
-              <div class="isiForm">
-              asdasdasd
+              <div class="formInsertPromo" style="display:inherit">
+                <table>
+                  <tr>
+                    <td>Nama Promo:</td>
+                    <td><input type="text" name="txtPromo" value="" style="margin-left:20px;"></td>
+                  </tr>       
+                  <tr>
+                    <td>Deskripsi Promo:</td>
+                    <td><input type="text" name="txtDeskripsiPromo" value="" style="margin-left:20px;"></td>
+                  </tr> 
+                  <tr>
+                    <td>Masa Berlaku:</td>
+                    <td><input type="text" name="txtMasaBerlaku" value="" style="margin-left:20px;"></td>
+                  </tr> 
+                  <tr>
+                    <td>Persentase Promo:</td>
+                    <td><input type="text" name="txtPersentasePromo" value="" style="margin-left:20px;"></td>
+                  </tr>  
+                  <tr>
+                    <td>Keterangan Promo:</td>
+                    <td><input type="text" name="txtKeteranganPromo" value="" style="margin-left:20px;"></td>
+                  </tr>            
+                </table>
               </div>
+              <div class="formInsertMenu" style="display:none;">
+                <table>
+                  <tr>
+                    <td>Nama Menu:</td>
+                    <td><input type="text" name="txtMenu" value="" style="margin-left:20px;"></td>
+                  </tr>       
+                  <tr>
+                    <td>Deskripsi Menu:</td>
+                    <td><input type="text" name="txtDeskripsiMenu" value="" style="margin-left:20px;"></td>
+                  </tr> 
+                  <tr>
+                    <td>Harga Menu:</td>
+                    <td><input type="text" name="txtHargaMenu" value="" style="margin-left:20px;"></td>
+                  </tr> 
+                  <tr>
+                    <td>Keterangan Menu:</td>
+                    <td><input type="text" name="txtKeteranganMenu" value="" style="margin-left:20px;"></td>
+                  </tr>            
+                </table>
+              </div>
+              
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -411,6 +457,7 @@
                 $arr3 = ['class'=>'btn btn-primary','id'=>'reportReview','name'=>'btnSubmit','value'=>'Submit'];
                 echo form_submit($arr3);
                 ?>
+                </form>
             </div>
         </div>
     </div>
@@ -491,29 +538,23 @@
       }
     ]
     });
+    
     $(".jenisMenu").on("click",function()
     {
       $jenisMenu = $(this).val();
-      var url = $(this).attr('data-url');
       if($jenisMenu == "Promo")
       {
-        $.post(url,
-        function(result){
-            //alert(result);
-            $(".isiForm").text(result);
-            alert('success');
-        });
+        $(".formInsertPromo").css("display","inherit");
+        $(".formInsertMenu").css("display","none");
       }
       else
       {
-        $.post(url,
-        function(result){
-            //alert(result);
-            $(".isiForm").text(result);
-            alert('success');
-        });
+        $(".formInsertPromo").css("display","none");
+        $(".formInsertMenu").css("display","inherit");
+        
       }
     });
+
   </script>
 </body>
 </html>
