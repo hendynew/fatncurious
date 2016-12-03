@@ -451,6 +451,12 @@ $('#modalUpdate').on('show.bs.modal', function (event) {
 	var kodeMenu = button.data('kode');
 	var kodeResto = button.data('koderesto');
 	var deskripsiMenu = button.data('deskripsi');
+	var fotoMenu = button.data('fotomenu');
+	var url = 'http://localhost/fatncurious/vendors/images/menu/'+kodeResto+'/'+kodeMenu+'/';
+	if(fotoMenu=='' || fotoMenu==null || fotoMenu==' '){
+		var url = 'http://localhost/fatncurious/vendors/images/menu/';
+		fotoMenu='default.jpg';
+	}
 
 	var modal = $(this);
 	//alert(kodeMenu);
@@ -459,6 +465,8 @@ $('#modalUpdate').on('show.bs.modal', function (event) {
 	modal.find('#txtMenu').val( menu );
 	modal.find('#hKodeMenu').val( kodeMenu );
 	modal.find('#hKodeRestoran').val( kodeResto );
+	modal.find('#hFotoMenu').val( fotoMenu );
+	modal.find('#fotoMenu').attr('src' ,url+fotoMenu );
 
 	modal.find('#deskripsiMenu').val( deskripsiMenu );
 	//$("#hidKodeMenu").attr("value",kodeMenu);
@@ -476,6 +484,11 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	var kodeResto = button.data('koderesto');
 	var fotoPromo = button.data('fotopromo');
 
+	var url = 'http://localhost/fatncurious/vendors/images/promo/';
+	if(fotoPromo=='' || fotoPromo==null || fotoPromo==' '){
+		fotoPromo='default.jpg';
+	}
+
 	var modal = $(this);
 	modal.find('.modal-title').text("Update Promo " + promo );
 	//alert($('#txtMenuu').val());
@@ -485,6 +498,7 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	modal.find('#hKodeRestoran').val( kodeResto );
 	modal.find('#hKodePromo').val( kodePromo );
 	modal.find('#hFotoPromo').val( fotoPromo );
+	modal.find('#fotoPromo').attr('src' ,url+fotoPromo);
 	modal.find('#masaBerlaku').val( masaBerlaku );
 	modal.find('#persentasePromo').val( persentasePromo );
 	modal.find('#keteranganPromo').val( keteranganPromo );
