@@ -117,6 +117,15 @@ class Model_menu extends CI_Model {
 		$this->db->query($data);
 	}
 
+	public function updateFotoPromo($kode,$foto){
+		$where = 'KODE_MENU="' . $kode .'"';
+		$menu = array(
+				'URL_FOTO' => $foto
+		);
+		$data = $this->db->update_string('menu',$menu,$where);
+		$this->db->query($data);
+	}
+
 
 	public function SELECT_ALL_REVIEW_MENU(){
 		//$temp = $this->db->where('STATUS','1')->get('review_menu')->result();

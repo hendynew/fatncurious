@@ -342,6 +342,7 @@ class Fatncurious extends CI_Controller {
 			$this->pagination->initialize($config);
 			$data['links'] = $this->pagination->create_links();
 			$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
+			$data['menu'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
 			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,5,$page);
 			$this->load->view('profilePemilikRestoran',$data);
 		}
@@ -474,6 +475,7 @@ class Fatncurious extends CI_Controller {
 			$kodeResto = $this->input->post('hidKodeRestoran');
 			$namaMenu = $this->input->post('txtMenu');
 			$deskripsiMenu = $this->input->post('txtDeskripsiMenu');
+			$fotoMenu = $this->input->post('hidFotoMenu');
 
 			$config = array(
 				'upload_path' => './vendors/images/menu/'.$kodeResto.'/'.$kodeMenu.'/',
@@ -484,7 +486,14 @@ class Fatncurious extends CI_Controller {
 			);
 			$this->upload->initialize($config);
 			if($this->upload->do_upload('foto')){
-				$url = $this->upload->data('file_name');
+				if($fotoMenu=='' || $fotoMenu==null || $fotoMenu==' ' ){
+					echo '1';
+					$this->model_menu->updateFotoPromo($kodeMenu,$this->upload->data('file_name'));
+				}
+				else{
+					echo '2';
+						$this->upload->data('file_name');
+				}
 			}
 
 			$this->model_menu->updateMenu($kodeMenu,$namaMenu,$deskripsiMenu);

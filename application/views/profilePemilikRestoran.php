@@ -156,21 +156,39 @@
                 <h4 class="media-heading"><?php echo $r->NAMA_RESTORAN .'-'.$r->ALAMAT_RESTORAN ;?></h4>
                 <?php
                 $adaComment=false;
-                    foreach($review as $rr){
-                      if($rr->NAMA_RESTORAN == $r->NAMA_RESTORAN){
-                        $adaComment=true;
+                //print_r($review);
+                $ctrRow = 0;
+                $ctrReview=0;
+                  foreach($review as $rr){
+                    if($rr->NAMA_RESTORAN == $r->NAMA_RESTORAN){
+                      $adaComment=true;
                 ?>
                 <div class="media">
-                  <a class="media-left" href="<?php echo site_url('fatncurious/profilUserKlik/'.$rr->KODE_USER.'');?>">
-                    <?php
+                <?php
+                  echo "<div class='media-left'>";
+                  $url = base_url('/vendors/images/menu/default.jpg');
+                  if($rr->URL_FOTO != ''){
+                    $url = base_url('/vendors/images/menu/'.$rr->KODE_RESTORAN.'/'.$rr->KODE_MENU . '/' . $rr->URL_FOTO);
+                  }
+                ?>
+                  <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+                <?php
+                  echo "</div>";
+                  echo "<div class='media-body'>";
+      					echo "<h4 class='media-heading'>".$rr->NAMA_MENU."</h4>";
+                echo $rr->DESKRIPSI_MENU;
+                ?>
+                      <div class="media">
+                        <a class="media-left" href="<?php echo site_url('fatncurious/profilUserKlik/'.$rr->KODE_USER.'');?>">
+                          <?php
 
-                      if($rr->URL_FOTO_USER == ''){
-                        $url = 'default.jpg';
-                      }else $url = $rr->URL_FOTO_USER;
-                      $url_full = base_url('/vendors/images/profilepicture/' . $url);
-                    ?>
-                    <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
-                  </a>
+                            if($rr->URL_FOTO_USER == ''){
+                              $url = 'default.jpg';
+                            }else $url = $rr->URL_FOTO_USER;
+                            $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                          ?>
+                          <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                        </a>
 
                           <div class="media-body">
                             <h4 class="media-heading"><?php echo $rr->NAMA_USER ;?> <span style="float:right"><h6><?php echo $rr->TANGGAL_REVIEW ;?></h6></span></h4>
@@ -197,7 +215,9 @@
                               */
                             ?>
                           </div>
+                          </div>
                         </div>
+                  </div>
                   <?php
                         }
                       }

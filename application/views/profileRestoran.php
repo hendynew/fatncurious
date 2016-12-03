@@ -203,7 +203,7 @@
     <?php
             echo "</div>";
             echo "<div class='media-body'>";
-					echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$m->KODE_MENU."' data-url='".site_url('/fatncurious/deleteMenu/'.$m->KODE_MENU.'')."' data-koderestoran='".$m->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$m->NAMA_MENU."' data-kode='".$m->KODE_MENU."' data-kodeResto='".$m->KODE_RESTORAN."' data-deskripsi='".$m->DESKRIPSI_MENU."'>Update</a></h4>";
+					echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$m->KODE_MENU."' data-url='".site_url('/fatncurious/deleteMenu/'.$m->KODE_MENU.'')."' data-koderestoran='".$m->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$m->NAMA_MENU."' data-kode='".$m->KODE_MENU."' data-fotoMenu='".$m->URL_FOTO."' data-kodeResto='".$m->KODE_RESTORAN."' data-deskripsi='".$m->DESKRIPSI_MENU."'>Update</a></h4>";
           echo $m->DESKRIPSI_MENU;
 
 
@@ -322,7 +322,7 @@
               </div>
               <?php echo form_open_multipart('fatncurious/updateMenu')?>
               <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                <!--<center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>-->
+                <center><img id='fotoMenu' src="..." style="height:100px;height:100px;" class="img-rounded"></center>
                 <?php $this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;'])); ?>
                 <?php $this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;'])); ?>
                 <?php $this->table->add_row('Upload Foto Menu',form_upload(array("name"=>"foto"))); ?>
@@ -335,6 +335,8 @@
                   $arr = ['name'=>'hidKodeRestoran','id'=>'hKodeRestoran','value'=>'','type'=>'hidden'];
                   echo form_input($arr);
                   $arr3 = ['name'=>'hidKodeMenu','id'=>'hKodeMenu','value'=>'','type'=>'hidden'];
+                  echo form_input($arr3);
+                  $arr3 = ['name'=>'hidFotoMenu','id'=>'hFotoMenu','value'=>'','type'=>'hidden'];
                   echo form_input($arr3);
                   $arr4 = ['class'=>'btn btn-primary','id'=>'submitMenu','name'=>'btnSubmit','value'=>'Submit'];
                   echo form_submit($arr4);
@@ -354,7 +356,7 @@
             </div>
             <?php echo form_open_multipart('fatncurious/updatePromo')?>
             <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-              <!--<center><img src="..." style="height:100px;height:100px;" class="img-rounded"></center>-->
+              <center><img id='fotoPromo' src="..." style="height:100px;height:100px;" class="img-rounded"></center>
               <?php $this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;'])); ?>
               <?php $this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;'])); ?>
               <?php $this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;'])); ?>
