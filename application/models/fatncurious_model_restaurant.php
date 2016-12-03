@@ -149,7 +149,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 	public function selectBiggestPromo($var)
 	{
 
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'",'promo.*'));
+		$this->db->select(array("restoran.*",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
 		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');

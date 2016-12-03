@@ -5,7 +5,7 @@ V	* filter berdasarkan promo terbesar, harga dan lainnya.
 V	* foto makanan yang diupload oleh user.
 	* comment dan like pada restoran maupun makanan. ->restoran belum
 V	* log in untuk comment, like dan upload foto.
-	* menampilkan jam buka dan tutup restoran atau rumah makan secara live-time.
+V	* menampilkan jam buka dan tutup restoran atau rumah makan secara live-time.
 V	* bisa melihat lokasi restoran tersebut melalui google maps.
 V	* bisa mengetahui nomor telepon restoran yang diinginkan.
 V	* Jarak dari posisi kita ke rumah makan yang diinginkan.#optional/kalau bisa.
@@ -16,7 +16,7 @@ V	* Bisa melihat jumlah peringatan yang diberikan oleh admin kepada restoran ter
 
  - fitur untuk pemilik restoran : 
 	* interface berbeda dengan user.
-	* memasukkan promo, menu dan foto menu tersebut tetapi foto tersebut akan diganti ketika ada user yang mengupload foto makanan tersebut melalui persetujuan admin.
+V	* memasukkan promo, menu dan foto menu tersebut tetapi foto tersebut akan diganti ketika ada user yang mengupload foto makanan tersebut melalui persetujuan admin.
 V	* dapat melakukan status buka/tutup restoran tersebut dengan mudah. ->tinggal Tampilan
 V	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment dan like tersebut.
 	* report jika comment mengandung SARA ataupun tidak layak untuk dipublikasikan.
@@ -24,7 +24,7 @@ V	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment 
 	* pemilik restoran bisa melihat interface user dari promo atau menu yang dimasukkan melalui form.
 	* bisa membalas comment milik user.
 	* bisa mendapat peringatan oleh jika ada data yang tidak cocok.
-!	* bisa memasukkan deskripsi tentang restoran tersebut. ->Tinggal Tampilan
+V	* bisa memasukkan deskripsi tentang restoran tersebut. ->Tinggal Tampilan
 
 
 CREATE TABLE IF NOT EXISTS `kartu_kredit` (
