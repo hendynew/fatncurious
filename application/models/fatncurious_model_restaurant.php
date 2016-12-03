@@ -28,6 +28,17 @@ class Fatncurious_model_restaurant extends CI_Model {
 		//return $data->result();
 	}
 
+	public function selectSemuaMenu($kodeUser){
+		$this->db->select(array('menu.*','restoran.*'));
+		$this->db->from('menu');
+		$this->db->join('restoran','restoran.KODE_RESTORAN = menu.KODE_RESTORAN');
+		$this->db->where('restoran.KODE_USER',$kodeUser);
+		$this->db->order_by('restoran.KODE_RESTORAN','asc');
+		return $this->db->get()->result();
+		//print_r ($data);
+		//return $data->result();
+	}
+
 	public function searchRestoran($limit,$start,$kataSearch,$namaResto,$alamatResto)
 	{
 		$na=false;

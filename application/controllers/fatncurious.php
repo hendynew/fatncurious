@@ -342,7 +342,7 @@ class Fatncurious extends CI_Controller {
 			$this->pagination->initialize($config);
 			$data['links'] = $this->pagination->create_links();
 			$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
-			$data['menu'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
+			$data['menu'] = $this->fatncurious_model_restaurant->selectSemuaMenu($kodeUser);
 			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,5,$page);
 			$this->load->view('profilePemilikRestoran',$data);
 		}
@@ -408,7 +408,13 @@ class Fatncurious extends CI_Controller {
 				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
 			);
 			$this->upload->initialize($config);
-			$this->load->view('lihatProfilUserLain',$data);
+			if($data['pemilik'] == 'y'){
+				redirect('fatncurious/profilPemilikRestoran');
+			}
+			else{
+				$this->load->view('lihatProfilUserLain',$data);
+			}
+
 	}
 
 	public function likeComment(){

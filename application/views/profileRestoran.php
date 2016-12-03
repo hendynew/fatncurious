@@ -179,9 +179,6 @@
         echo "</div>";
 			}
 		}
-    else{
-      echo "<h4>Tidak ada Promo</h4>";
-    }
 		?>
 		<?php //sorted by Promo ?>
 
@@ -405,23 +402,23 @@
                   <tr>
                     <td>Nama Promo:</td>
                     <td><input type="text" name="txtPromo" value="" style="margin-left:20px;"></td>
-                  </tr>       
+                  </tr>
                   <tr>
                     <td>Deskripsi Promo:</td>
                     <td><input type="text" name="txtDeskripsiPromo" value="" style="margin-left:20px;"></td>
-                  </tr> 
+                  </tr>
                   <tr>
                     <td>Masa Berlaku:</td>
                     <td><input type="text" name="txtMasaBerlaku" value="" style="margin-left:20px;"></td>
-                  </tr> 
+                  </tr>
                   <tr>
                     <td>Persentase Promo:</td>
                     <td><input type="text" name="txtPersentasePromo" value="" style="margin-left:20px;"></td>
-                  </tr>  
+                  </tr>
                   <tr>
                     <td>Keterangan Promo:</td>
                     <td><input type="text" name="txtKeteranganPromo" value="" style="margin-left:20px;"></td>
-                  </tr>            
+                  </tr>
                 </table>
               </div>
               <div class="formInsertMenu" style="display:none;">
@@ -429,22 +426,22 @@
                   <tr>
                     <td>Nama Menu:</td>
                     <td><input type="text" name="txtMenu" value="" style="margin-left:20px;"></td>
-                  </tr>       
+                  </tr>
                   <tr>
                     <td>Deskripsi Menu:</td>
                     <td><input type="text" name="txtDeskripsiMenu" value="" style="margin-left:20px;"></td>
-                  </tr> 
+                  </tr>
                   <tr>
                     <td>Harga Menu:</td>
                     <td><input type="text" name="txtHargaMenu" value="" style="margin-left:20px;"></td>
-                  </tr> 
+                  </tr>
                   <tr>
                     <td>Keterangan Menu:</td>
                     <td><input type="text" name="txtKeteranganMenu" value="" style="margin-left:20px;"></td>
-                  </tr>            
+                  </tr>
                 </table>
               </div>
-              
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -540,7 +537,7 @@
       }
     ]
     });
-    
+
     $(".jenisMenu").on("click",function()
     {
       $jenisMenu = $(this).val();
@@ -553,7 +550,7 @@
       {
         $(".formInsertPromo").css("display","none");
         $(".formInsertMenu").css("display","inherit");
-        
+
       }
     });
 
