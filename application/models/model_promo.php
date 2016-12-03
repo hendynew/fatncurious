@@ -97,6 +97,28 @@ class Model_promo extends CI_Model {
 		$this->db->query($data);
 	}
 
+	public function updatePromo($kode,$nama,$promo,$masaBerlaku,$persentase,$ket){
+		$where = 'KODE_PROMO="' . $kode .'"';
+		$promo = array(
+			'KODE_PROMO' => $kode,
+			'NAMA_PROMO' => $nama,
+			'DESKRIPSI_PROMO' => $promo,
+			'MASABERLAKU_PROMO' => $masaBerlaku,
+			'PERSENTASE_PROMO' => $persentase,
+			'KETERANGAN_PROMO' => $ket,
+		);
+		$data = $this->db->update_string('promo',$promo,$where);
+		$this->db->query($data);
+	}
+	public function updateFotoPromo($kode,$foto){
+		$where = 'KODE_PROMO="' . $kode .'"';
+		$promo = array(
+				'FOTO_PROMO' => $foto
+		);
+		$data = $this->db->update_string('promo',$promo,$where);
+		$this->db->query($data);
+	}
+
 	public function SELECT_KARTU($kode){
 		$hasil = $this->db->query("SELECT kk.KODE_KARTU_KREDIT as 'KODE',kk.NAMA_KARTU_KREDIT as 'NAMA',r.KODE_RESTORAN as 'KODE_RESTORAN',r.NAMA_RESTORAN as 'NAMA_RESTORAN' from kartu_kredit as kk, promo_restoran as pr, sponsor_promo as sp,restoran as r where sp.KODE_PROMO='$kode' AND sp.KODE_KARTU_KREDIT=kk.KODE_KARTU_KREDIT AND pr.KODE_PROMO = '$kode' AND pr.KODE_RESTORAN=r.KODE_RESTORAN group by kk.KODE_KARTU_KREDIT")->result();
 		return $hasil;

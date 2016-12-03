@@ -448,14 +448,17 @@ $(".btnStatus").on("click",function()
 $('#modalUpdate').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget);
 	var menu = button.data('menu');
-	var kodeMenu = button.data('kodeMenu');
-	var kodeResto = button.data('kodeResto');
+	var kodeMenu = button.data('kode');
+	var kodeResto = button.data('koderesto');
 	var deskripsiMenu = button.data('deskripsi');
 
 	var modal = $(this);
+	//alert(kodeMenu);
 	modal.find('.modal-title').text("Update Menu " + menu );
 	//alert($('#txtMenuu').val());
 	modal.find('#txtMenu').val( menu );
+	modal.find('#hKodeMenu').val( kodeMenu );
+	modal.find('#hKodeRestoran').val( kodeResto );
 
 	modal.find('#deskripsiMenu').val( deskripsiMenu );
 	//$("#hidKodeMenu").attr("value",kodeMenu);
@@ -470,6 +473,8 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	var masaBerlaku = button.data('masaberlaku');
 	var persentasePromo = button.data('persentasepromo');
 	var keteranganPromo = button.data('keteranganpromo');
+	var kodeResto = button.data('koderesto');
+	var fotoPromo = button.data('fotopromo');
 
 	var modal = $(this);
 	modal.find('.modal-title').text("Update Promo " + promo );
@@ -477,6 +482,9 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	modal.find('#txtPromo').val( promo );
 
 	modal.find('#deskripsiPromo').val( deskripsiPromo );
+	modal.find('#hKodeRestoran').val( kodeResto );
+	modal.find('#hKodePromo').val( kodePromo );
+	modal.find('#hFotoPromo').val( fotoPromo );
 	modal.find('#masaBerlaku').val( masaBerlaku );
 	modal.find('#persentasePromo').val( persentasePromo );
 	modal.find('#keteranganPromo').val( keteranganPromo );

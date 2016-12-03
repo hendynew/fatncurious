@@ -221,22 +221,7 @@ class Fatncurious extends CI_Controller {
 			}
 			$jenisUser = $this->fatncurious_model_user->selectJenisUserByKode($kodeUser);
 			if($jenisUser->KODE_JENISUSER == 'JU003' && $pemilik==true){
-				$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
-				$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
-				$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
-				$data['active1'] = '';
-				$data['active2'] = '';
-				$data['active3'] = 'active';
-				$data['active4'] = '';
-				$data['active5'] = '';
-				if($data['resto']->STATUS_RESTORAN == 0){
-					$data['resto']->STATUS = 'Tutup';
-				}
-				else if($data['resto']->STATUS_RESTORAN == 1){
-					$data['resto']->STATUS = 'Buka';
-				}
-				//echo 'masuk 1';
-				$this->load->view('profileRestoran',$data);
+				redirect('fatncurious/sortByMenuProfilRestoran/'.$kode);
 			}
 			else{
 				$data['promo'] = $this->fatncurious_model_restaurant->selectBiggestPromo($kode);
@@ -313,16 +298,14 @@ class Fatncurious extends CI_Controller {
 
 	public function profilPemilikRestoran()	{
 		if($this->session->userdata('userYangLogin')){
-			$data['kodeUser'] = $this->session->userdata('userYangLogin');
+
 			$this->load->model('model_user');
+			$this->load->model('fatncurious_model_user');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
-
-			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
-		}
-		if($this->session->userdata('userYangLogin')){
-			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			//$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
 			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
 			//echo $kodeUser;
 			$this->load->library('upload');
@@ -334,6 +317,32 @@ class Fatncurious extends CI_Controller {
 				'file_name' => $this->session->userdata('userYangLogin')
 			);
 			$this->upload->initialize($config);
+
+			$this->load->model('fatncurious_model_restaurant');
+			//$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,5,0);
+
+			$config = array();
+			$config['base_url'] = site_url('fatncurious/profilPemilikRestoran');
+			$config["per_page"] = 5;
+			$config["uri_segment"] = 3;
+			$config['full_tag_open'] = '<ul class="pagination">';
+			$config['full_tag_close'] = '</ul>';
+			$config['first_link']=false;
+			$config['last_link']=false;
+			$config['cur_tag_open'] = '<li> <a href="http://localhost/fatncurious/index.php/fatncurious/profilPemilikRestoran" data-ci-pagination-page="2"><strong>';
+			$config['cur_tag_close'] = '</strong></a></li>';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';
+			$config['next_tag_open'] = '<li>';
+			$config['next_tag_close'] = '</li>';
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$config['total_rows'] = sizeof($this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,null,null));
+			$this->pagination->initialize($config);
+			$data['links'] = $this->pagination->create_links();
+			$data['review'] = $this->fatncurious_model_restaurant->selectReviewRestoran($kodeUser,null,null);
+			$data['restoran'] = $this->fatncurious_model_restaurant->selectRestoByUserLimit($kodeUser,5,$page);
 			$this->load->view('profilePemilikRestoran',$data);
 		}
 
@@ -369,6 +378,38 @@ class Fatncurious extends CI_Controller {
 
 	}
 
+	public function profilUserKlik($kode)	{
+		$this->load->model('model_user');
+		$data['pemilik'] = 'y';
+			if($this->session->userdata('userYangLogin')){
+				$data['kodeUser'] = $this->session->userdata('userYangLogin');
+				$kodeuser = $this->session->userdata('userYangLogin')->KODE_USER;
+				$fotoUserYangLogin= $this->model_user->SEARCH($kodeuser);
+				$data['fotoUserYangLogin'] = $fotoUserYangLogin;
+				$jenisUser = $this->fatncurious_model_user->selectJenisUserByKode($kodeuser);
+			}
+			if($jenisUser->KODE_JENISUSER == 'JU003'){
+				$data['pemilik'] = 'y';
+			}
+			else{
+				$data['pemilik'] = 'n';
+			}
+			$kodeUser = $kode;
+			$fotoUser= $this->model_user->SEARCH($kodeUser);
+			$data['fotoUser'] = $fotoUser;
+			$data['user'] = $this->fatncurious_model_user->SEARCH($kodeUser);
+			$this->load->library('upload');
+			$config = array(
+				'upload_path' => './vendors/images/profilepicture/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
+			);
+			$this->upload->initialize($config);
+			$this->load->view('lihatProfilUserLain',$data);
+	}
+
 	public function likeComment(){
 		$kodeRestoran = $_POST['restoran'];
 		$kodeUser = $_POST['user'];
@@ -394,7 +435,8 @@ class Fatncurious extends CI_Controller {
 	public function deleteComment($kodeResto,$kodeReview){
 		$this->load->model('model_menu');
 		$this->model_menu->delete_review($kodeReview);
-		echo $this->model_menu->count_report($kodeReview);
+		//echo $this->model_menu->count_report($kodeReview);
+		redirect("fatncurious/sortByMenuRestoran/$kodeResto");
 	}
 
 	public function updateComment($kodeResto,$kodeReview){
@@ -413,6 +455,41 @@ class Fatncurious extends CI_Controller {
 		$deskripsi = $_POST['deskripsiReport'];
 		$this->model_menu->report_review($review,$user,$deskripsi);
 		//redirect('fatncurious/sortByMenuRestoran/' . $restoran);
+	}
+
+	public function deleteMenu($kodeMenu){
+		$this->load->model('model_menu');
+		$this->model_menu->DELETE($kodeMenu);
+		echo "berhasil Delete";
+		//echo $this->model_menu->count_report($kodeReview);
+		//redirect("fatncurious/sortByMenuProfilRestoran/$kodeResto");
+	}
+
+	public function updateMenu(){
+		if($this->input->post('btnSubmit')){
+			$this->load->model('model_menu');
+			$this->load->library('upload');
+			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+			$kodeMenu = $this->input->post('hidKodeMenu');
+			$kodeResto = $this->input->post('hidKodeRestoran');
+			$namaMenu = $this->input->post('txtMenu');
+			$deskripsiMenu = $this->input->post('txtDeskripsiMenu');
+
+			$config = array(
+				'upload_path' => './vendors/images/menu/'.$kodeResto.'/'.$kodeMenu.'/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => '1.jpg'
+			);
+			$this->upload->initialize($config);
+			if($this->upload->do_upload('foto')){
+				$url = $this->upload->data('file_name');
+			}
+
+			$this->model_menu->updateMenu($kodeMenu,$namaMenu,$deskripsiMenu);
+			redirect("fatncurious/sortByMenuProfilRestoran/$kodeResto");
+		}
 	}
 
 	public function updateStatusRestoran(){
@@ -458,6 +535,51 @@ class Fatncurious extends CI_Controller {
 
 	}
 
+	public function deletePromo($kodePromo){
+		$this->load->model('fatncurious_model_promo');
+		$this->fatncurious_model_promo->DELETE($kodePromo);
+		echo "berhasil Delete";
+		//echo $this->model_menu->count_report($kodeReview);
+		//redirect("fatncurious/sortByMenuProfilRestoran/$kodeResto");
+	}
+
+	public function updatePromo(){
+		if($this->input->post('btnSubmitPromo')){
+			$this->load->model('model_promo');
+			$this->load->library('upload');
+			//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+			$kodeResto = $this->input->post('hidKodeRestoran');
+			$kodePromo = $this->input->post('hidKodePromo');
+			$fotoPromo = $this->input->post('hidFotoPromo');
+
+			$namaPromo = $this->input->post('txtPromo');
+			$deskripsiPromo = $this->input->post('txtDeskripsiPromo');
+			$masaBerlakuPromo = $this->input->post('txtMasaBerlaku');
+			$persentasePromo = $this->input->post('txtPersentasePromo');
+			$keteranganPromo = $this->input->post('txtKeteranganPromo');
+
+			$config = array(
+				'upload_path' => './vendors/images/promo/',
+				'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
+				'overwrite' => TRUE,
+				'max_size' => "1000KB",
+				'file_name' => $kodePromo.'.jpg'
+			);
+			$this->upload->initialize($config);
+			if($this->upload->do_upload('foto')){
+				if($fotoPromo=='' || $fotoPromo==null || $fotoPromo==' ' ){
+					echo '1';
+					$this->model_promo->updateFotoPromo($kodePromo,$this->upload->data('file_name'));
+				}
+				else{
+					echo '2';
+						$this->upload->data('file_name');
+				}
+			}
+			$this->model_promo->updatePromo($kodePromo,$namaPromo,$deskripsiPromo,$masaBerlakuPromo,$persentasePromo,$keteranganPromo);
+			redirect("fatncurious/sortByPromoProfilRestoran/$kodeResto");
+		}
+	}
 
 	public function gantiPassProfilUser(){
 		if($this->session->userdata('userYangLogin')){
@@ -705,6 +827,7 @@ class Fatncurious extends CI_Controller {
 		}
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
 		$data['resto'] = $this->fatncurious_model_restaurant->selectRestoByKlik($kode);
+		$data['fotoMenu'] = $this->fatncurious_model_restaurant->getFotoMenuResto($kode);
 		$data['active1'] = '';
 		$data['active2'] = '';
 		$data['active3'] = 'active';
@@ -720,6 +843,7 @@ class Fatncurious extends CI_Controller {
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
 		$data['menu'] = $this->fatncurious_model_menu->selectMenuByResto($kode);
+		$data['kodeuser'] = $kodeUser;
 		$this->load->model('Model_menu');
 		foreach($data['menu'] as $d){
 			$temp = $this->Model_menu->SELECT_REVIEW($d->KODE_MENU);
@@ -1277,8 +1401,7 @@ class Fatncurious extends CI_Controller {
 
 	//================Search===================
 
-	public function tampilkanFormInsertPromo()
-	{
+	public function tampilkanFormInsertPromo(){
 		$this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;']));
 		$this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;']));
 		$this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;']));
@@ -1288,8 +1411,7 @@ class Fatncurious extends CI_Controller {
 
 	}
 
-	public function tampilkanFormInsertMenu()
-	{
+	public function tampilkanFormInsertMenu(){
 		$this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;']));
 		$this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;']));
 		$this->table->add_row('Harga Menu',form_input('txtHargaMenu',"",['id'=>'hargaMenu','style'=>'margin-left:20px;']));
@@ -1298,5 +1420,3 @@ class Fatncurious extends CI_Controller {
 	}
 
 }
-
-
