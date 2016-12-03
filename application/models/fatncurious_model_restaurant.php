@@ -18,6 +18,16 @@ class Fatncurious_model_restaurant extends CI_Model {
 		//return $data->result();
 	}
 
+	public function selectRestoByUserLimit($kode,$limit,$start){
+		$this->db->limit($limit,$start);
+		$this->db->select('*');
+		$this->db->from('restoran');
+		$this->db->where('KODE_USER',$kode);
+		return $this->db->get()->result();
+		//print_r ($data);
+		//return $data->result();
+	}
+
 	public function searchRestoran($limit,$start,$kataSearch,$namaResto,$alamatResto)
 	{
 		$na=false;
@@ -139,7 +149,7 @@ class Fatncurious_model_restaurant extends CI_Model {
 	public function selectBiggestPromo($var)
 	{
 
-		$this->db->select(array("restoran.nama_restoran as 'RESTORAN'",'promo.*'));
+		$this->db->select(array("restoran.*",'promo.*'));
 		$this->db->from('promo');
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
 		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
@@ -174,6 +184,22 @@ class Fatncurious_model_restaurant extends CI_Model {
 		$this->db->join('promo_restoran','promo.kode_promo = promo_restoran.kode_promo');
 		$this->db->join('restoran','promo_restoran.kode_restoran = restoran.kode_restoran');
 		$this->db->order_by('promo.PERSENTASE_PROMO','desc');
+		$data = $this->db->get();
+		return $data->result();
+	}
+
+	public function selectReviewRestoran($kodeUser,$limit,$start)
+	{
+		$this->db->limit($limit,$start);
+		$this->db->select(array("review_menu.*","restoran.*","user.NAMA_USER as 'NAMA_USER'","user.URL_FOTO as 'URL_FOTO_USER'","user.KODE_USER as 'KODE_USER'","menu.*"));
+		$this->db->distinct();
+		$this->db->from('review_menu');
+		$this->db->join('menu','menu.KODE_MENU = review_menu.KODE_MENU');
+		$this->db->join('restoran','restoran.KODE_RESTORAN = menu.KODE_RESTORAN');
+		$this->db->join('user','user.KODE_USER = review_menu.KODE_USER');
+		$this->db->where('restoran.KODE_USER', $kodeUser);
+		$this->db->order_by('restoran.KODE_RESTORAN','asc');
+		$this->db->order_by('TANGGAL_REVIEW','desc');
 		$data = $this->db->get();
 		return $data->result();
 	}
