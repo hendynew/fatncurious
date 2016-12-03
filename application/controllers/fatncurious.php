@@ -1417,7 +1417,6 @@ class Fatncurious extends CI_Controller {
 		$this->table->add_row('Presentase Promo',form_input('txtPresentasePromo',"",['id'=>'persentasePromo','style'=>'margin-left:20px;']));
 		$this->table->add_row('Keterangan Promo',form_input('txtKeteranganPromo',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;']));
 		echo $this->table->generate();
-
 	}
 
 	public function tampilkanFormInsertMenu(){
@@ -1426,6 +1425,18 @@ class Fatncurious extends CI_Controller {
 		$this->table->add_row('Harga Menu',form_input('txtHargaMenu',"",['id'=>'hargaMenu','style'=>'margin-left:20px;']));
 		$this->table->add_row('Keterangan',form_input('txtKeterangan',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;']));
 		echo $this->table->generate();
+	}
+
+	public function insert()
+	{
+		if($this->input->post('rbJenisMenu')=='Promo')
+		{
+			echo 'promo';
+		}
+		else
+		{
+			echo 'menu';
+		}
 	}
 
 }
