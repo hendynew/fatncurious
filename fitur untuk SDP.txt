@@ -15,7 +15,7 @@ V	* Bisa melihat jumlah peringatan yang diberikan oleh admin kepada restoran ter
 	
 
  - fitur untuk pemilik restoran : 
-	* interface berbeda dengan user.
+V	* interface berbeda dengan user.
 V	* memasukkan promo, menu dan foto menu tersebut tetapi foto tersebut akan diganti ketika ada user yang mengupload foto makanan tersebut melalui persetujuan admin.
 V	* dapat melakukan status buka/tutup restoran tersebut dengan mudah. ->tinggal Tampilan
 V	* bisa melihat comment dan like dari user tetapi tidak bisa mengganti comment dan like tersebut.
@@ -73,3 +73,5 @@ INSERT INTO `kartu_kredit` (`KODE_KARTU_KREDIT`, `NAMA_KARTU_KREDIT`, `ALAMAT_KA
 
 ('KKK10', 'BUKOPIN', 'JALAN BIKINI UP SURABAYA', '031777666', 'untungbukopin.co.id', '', '', '1');
 
+
+CREATE TABLE `fatncurious`.`notifikasi` ( `KODE_NOTIFIKASI` VARCHAR(5) NOT NULL AUTO_INCREMENT , `KODE_PENGIRIM_NOTIFIKASI` VARCHAR(5) NOT NULL , `KODE_PENERIMA_NOTIFIKASI` VARCHAR(5) NOT NULL , `TANGGAL` DATE NOT NULL , `ISI` VARCHAR(255) NOT NULL , `STATUS` VARCHAR(1) NOT NULL , `KETERANGAN` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;

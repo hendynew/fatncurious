@@ -476,19 +476,7 @@
         <a class="close">×</a>
         <a class="play-pause"></a>
         <ol class="indicator"></ol>
-        <div class="menuGallery">
-          <span class="glyphicon glyphicon-thumbs-up likeButton" aria-hidden="true">5</span>
-          <span class="glyphicon glyphicon-thumbs-down dislikeButton" aria-hidden="true">5</span>
-          <span class="glyphicon glyphicon-flag reportButton" aria-hidden="true">3</span>
-          <span class="dropup">
-          <span class="glyphicon glyphicon-share-alt shareButton" aria-hidden="true">
-          </span>
-        </span>
-        </div>
-        <
     </div>
-
-
 		<?php
 		//===========Kredit=========
 			if(isset($kartu)){
