@@ -32,10 +32,16 @@
   <header id="home">
       <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
+        <?php
+          if($resto->URL_FOTO_RESTORAN == ''){
+            $url = 'default.jpg';
+          }else $url = $resto->URL_FOTO_RESTORAN;
+          $url_full = base_url('/vendors/images/restoran/' . $url);
+        ?>
         <div class="item active" style="background-image: url(<?php echo base_url('/vendors/images/Background/Wallpapers-fruit-flowers-black-background-hd-desktop-wallpapers.jpg');?>)">
           <div class="captionRestoran">
             <div class="media">
-              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>" alt="Generic placeholder image">
+              <img class="media-object displayPicture img-circle  letakMediaRestoran" src="<?php echo $url_full;?>" alt="Generic placeholder image">
             </div>
               <h1><span> <?php echo $resto->NAMA_RESTORAN ;?> </span>
                   <h2 style="margin-top:-30px;color:#fff"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -106,6 +112,7 @@
   </header><!--/#home-->
 
       <!-- Untuk Edit Profil Restoran -->
+      <?php//print_r($resto);?>
   <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
@@ -116,7 +123,14 @@
             <h4 class="modal-title"><center>Profile Restoran</center></h4>
           </div>
           <div class="modal-body">
-
+            <?php
+              if($resto->URL_FOTO_RESTORAN == ''){
+                $url = 'default.jpg';
+              }else $url = $resto->URL_FOTO_RESTORAN;
+              $url_full = base_url('/vendors/images/restoran/' . $url);
+            ?>
+        <center><img id='fotoMenu' src=<?php echo $url_full;?> style="height:100px;height:100px;" class="img-rounded"></center>
+        <?php $this->table->add_row('Upload Foto Restoran',form_upload(array("name"=>"foto"))); ?>
         <?php $this->table->add_row('Nama Restoran',form_input('txtRestoran',$resto->NAMA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
         <?php $this->table->add_row('Alamat Restoran',form_input('txtAlamat',$resto->ALAMAT_RESTORAN,['style'=>'margin-left:20px;'])); ?>
         <?php $this->table->add_row('Telepon',form_input('txtTelepon',$resto->NO_TELEPON_RESTORAN,['style'=>'margin-left:20px;'])); ?>
@@ -138,22 +152,22 @@
       </div>
     </div>
 <!-- Untuk Edit Profil Restoran -->
+
     <div class = "container navbarSpace" style="background-color:#fafafa">
       <div>
+        <h4>SORTED BY :</h4>
         <ul class="nav nav-tabs">
-          <li role="presentation" class="<?php echo $active1.' ';?> toogleNavBar"><a href="">Recent Comment</a></li>
           <li role="presentation" class="<?php echo $active2.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByPromoProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Promo</a></li>
           <li role="presentation" class="<?php echo $active3.' ';?> toogleNavBar"><a href="<?php echo site_url('/fatncurious/sortByMenuProfilRestoran/'.$resto->KODE_RESTORAN.'') ?>">Menu</a></li>
-          <li role="presentation" class="<?php echo $active4.' ';?> toogleNavBar"><a href="#">Lihat Review Restoran</a></li>
-          <li role="presentation" class="<?php echo $active5.' ';?> toogleNavBar"><a href="#">Report</a></li>
-          <li role="presentation" class="<?php echo $active5.' ';?> toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalInsert">Insert</a></li>
-           <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle='modal' data-target='#'>Lihat Foto Terbaru</a></li>
+          <li role="presentation" class="<?php echo $active6.' ';?> toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalInsert">Insert</a></li>
+          <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReport">Lihat Report Restoran</a></li>
+          <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalReview">Lihat Review Restoran</a></li>
         </ul>
       </div>
         <div class="media">
-		<?php //sorted by Promo ?>
 		<?php
     //print_r($promo);
+    //print_r($review_restoran);
 		if(isset($promo)){
 			foreach($promo as $p){
         echo "<div class='media' id=".$p->KODE_PROMO." style='margin-bottom:30px;'>";
@@ -344,6 +358,98 @@
       </div>
   </div>
 
+  <div id="modalReview" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN;?></h4>
+          </div>
+          <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+            <?php foreach($review_restoran as $rr){ ?>
+            <div class="media">
+              <a class="media-left" href="#">
+                <?php
+                $url = base_url('/vendors/images/profilepicture/default.jpg');
+                if($rr->URL_FOTO != ''){
+                  $url = base_url('/vendors/images/profilepicture/'. $rr->URL_FOTO);
+                }
+                ?>
+                <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL ;?></h6></span></h4>
+                <h4>
+                  <?php
+                    $counter = 0;
+                    for($i = 0; $i < 5; $i++){
+                      if($counter < $rr->RATING){
+                        echo '<span class="glyphicon glyphicon-star"></span>';
+                      }
+                      else{
+                        echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                      }
+                      $counter++;
+                    }
+                   ?>
+                </h4>
+                <strong><?php echo $rr->JUDUL ?> </strong><br/>
+                <?php echo $rr->DESKRIPSI ?>
+                <h4>
+                <span class="glyphicon glyphicon-thumbs-up"><?php echo $rr->LIKE ; ?></span>
+              </h4>
+              </div>
+            </div>
+            <hr>
+            <?php } ?>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div id="modalReport" class="modal fade">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Report Restoran <?php echo $resto->NAMA_RESTORAN;?></h4>
+        </div>
+        <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+          <?php// echo print_r($report_restoran);?>
+          <?php foreach($report_restoran as $rr){ ?>
+          <div class="media">
+            <a class="media-left" href="#">
+              <?php
+              $url = base_url('/vendors/images/profilepicture/default.jpg');
+              if($rr->URL_FOTO != ''){
+                $url = base_url('/vendors/images/profilepicture/'. $rr->URL_FOTO);
+              }
+              ?>
+              <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL.','. $rr->WAKTU ;?></h6></span></h4>
+              <strong><?php echo $rr->ALASAN ?> </strong><br/>
+            </div>
+          </div>
+          <hr>
+          <?php } ?>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+
+
   <div id="modalUpdatePromo" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -391,9 +497,9 @@
             </div>
             <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
               <center>
-                <img src="..." style="height:100px;height:100px;" class="img-rounded"><br/>
-                <form action="<?php echo site_url('fatncurious/insert'); ?>" method="post">
-                 <input type="file" name="pic" accept="image/*">
+                <!--<img src="..." style="height:100px;height:100px;" class="img-rounded"><br/>-->
+                <form action="<?php echo site_url('fatncurious/insert'); ?>" method="post" enctype="multipart/form-data">
+                 <input type="file" name="foto" accept="image/*">
               </center>
               <?php echo form_radio('rbJenisMenu','Promo','checked',['class'=>'jenisMenu','data-url'=>site_url('fatncurious/tampilkanFormInsertPromo')]).'Promo'; ?>
               <?php echo form_radio('rbJenisMenu','Menu','',['class'=>'jenisMenu','style'=>'margin-left:20px','data-url'=>site_url('fatncurious/tampilkanFormInsertMenu')]).'Menu'; ?>
@@ -409,7 +515,7 @@
                   </tr>
                   <tr>
                     <td>Masa Berlaku:</td>
-                    <td><input type="text" name="txtMasaBerlaku" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtMasaBerlaku" value="YYYY-MM-DD" style="margin-left:20px;"></td>
                   </tr>
                   <tr>
                     <td>Persentase Promo:</td>
@@ -426,6 +532,17 @@
                   <tr>
                     <td>Nama Menu:</td>
                     <td><input type="text" name="txtMenu" value="" style="margin-left:20px;"></td>
+                  </tr>
+                  <tr>
+                    <td>Jenis Menu:</td>
+                    <td>
+                      <select name='ddJenisMenu' style="margin-left:20px;">
+                        <option value='JM001' selected>MAKANAN</option>
+                        <option value='JM002'>MINUMAN</option>
+                        <option value='JM003'>SNACK</option>
+                        <option value='JM004'>DESSERT</option>
+                      </select>
+                  </td>
                   </tr>
                   <tr>
                     <td>Deskripsi Menu:</td>
@@ -447,7 +564,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <?php
                 //<button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
-                $arr = ['name'=>'hidKodeRestoran','id'=>'kodeRestoranReport','value'=>'','type'=>'hidden'];
+                $arr = ['name'=>'hidKodeRestoran','id'=>'hKodeRestoran','value'=>$resto->KODE_RESTORAN,'type'=>'hidden'];
                 echo form_input($arr);
                 $arr3 = ['name'=>'hidKodeReview','id'=>'kodeReviewReport','value'=>'','type'=>'hidden'];
                 echo form_input($arr3);
