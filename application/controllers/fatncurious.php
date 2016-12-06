@@ -381,7 +381,7 @@ class Fatncurious extends CI_Controller {
 
 	public function profilUserKlik($kode)	{
 		$this->load->model('model_user');
-		$data['pemilik'] = 'y';
+		$data['pemilik'] = 'n';
 			if($this->session->userdata('userYangLogin')){
 				$data['kodeUser'] = $this->session->userdata('userYangLogin');
 				$kodeuser = $this->session->userdata('userYangLogin')->KODE_USER;
@@ -389,7 +389,8 @@ class Fatncurious extends CI_Controller {
 				$data['fotoUserYangLogin'] = $fotoUserYangLogin;
 				$jenisUser = $this->fatncurious_model_user->selectJenisUserByKode($kodeuser);
 			}
-			if($jenisUser->KODE_JENISUSER == 'JU003'){
+			$jenisUserYangDilihat = $this->fatncurious_model_user->selectJenisUserByKode($kode);
+			if($jenisUserYangDilihat->KODE_JENISUSER == 'JU003'){
 				$data['pemilik'] = 'y';
 			}
 			else{

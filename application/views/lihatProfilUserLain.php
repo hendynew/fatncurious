@@ -117,6 +117,7 @@
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><?php echo $user->NOR_TELEPON_USER ;?> </p>
               <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><?php echo $user->EMAIL_USER ;?>  </p>
               <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo $user->JUMLAH_REPORT_USER ;?></p>
+              <p><a href="#" class="btn btn-danger" style="border-radius:8px;">Report This User</a></p>
           </div>
         </div>
       </div>
