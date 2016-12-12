@@ -321,6 +321,17 @@
                 <div class="clearfix"></div>
               </div>
             </div>
+            <?php
+
+              foreach($last_register as $key=>$val){
+                $time = strtotime($key);
+                $newformat = date('Y,m,d',$time);
+                echo "[gd($newformat),$val],";
+              }
+              $tes = strtotime(date("Y-m-d")  . ' -5 day');
+              $tes = date("Y-m-d",strtotime(date("Y-m-d")  . ' -4 day'));
+              echo date("d",strtotime($tes));
+             ?>
 
           </div>
           <br />
@@ -378,10 +389,10 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url() ?>build/js/custom.min.js"></script>
-
     <!-- Flot -->
     <script>
       $(document).ready(function() {
+
         var data1 = [
           <?php
             foreach($last_register as $key=>$val){
@@ -391,17 +402,8 @@
             }
            ?>
         ];
-        var data2 = [
-          <?php
-            foreach($last_login as $key=>$val){
-              $time = strtotime($key);
-              $newformat = date('Y,m,d',$time);
-              echo "[gd($newformat),$val],";
-            }
-           ?>
-        ];
         $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
-          data1,data2
+          data1
         ], {
           series: {
             lines: {

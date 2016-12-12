@@ -23,21 +23,8 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav links">
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Tables <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a href="#">User </a></li>
-                            <li role="presentation"><a href="#">Restaurant </a></li>
-                            <li role="presentation"><a href="#">Credit Card</a></li>
-                            <li role="presentation"><a href="#">Promo </a></li>
-                            <li role="presentation"><a href="#">Menu </a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Review <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a href="#">Restaurant </a></li>
-                            <li role="presentation"><a href="#">Menu </a></li>
-                        </ul>
-                    </li>
+                    <li class="active" role="presentation"><a href="#">Table </a></li>
+                    <li role="presentation"><a href="#"> Review</a></li>
                     <li role="presentation">
                         <a href="#" class="custom-navbar"> </a>
                     </li>
@@ -57,26 +44,8 @@
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 ">
-          <div class="table-responsive">
-              <?php
-              $this->table->set_heading('Kode Jenis User', 'Nama','Alamat','Telepon','Tanggal Lahir','Kode Pos','Email','Jumlah Report','Keterangan','Action');
-              $tmp = array('table_open'=>'<table class="table table-striped jambo_table" id="example" style="color:black">','heading_row_start'=>'<th class="column-title">','row_start'=>'<tr class="odd pointer"><td></td>','row_alt_start'=> '<tr class="even pointer"><td></td>');
-              $this->table->set_template($tmp);
-              if(sizeof($filter) == 0){
-                foreach($arrObj as $r){
-                  $this->table->add_row($r->KODE_JENISUSER, $r->NAMA_USER,$r->ALAMAT_USER,$r->NOR_TELEPON_USER,$r->TANGGAL_LAHIR_USER,$r->KODE_POS_USER,$r->EMAIL_USER,$r->JUMLAH_REPORT_USER,$r->KETERANGAN_USER, anchor('master_user/detail/user/'.$r->KODE_USER,'Detail'));
-                }
-              }else{
-                foreach($filter as $r){
-                  $this->table->add_row($r->KODE_JENISUSER, $r->NAMA_USER,$r->ALAMAT_USER,$r->NOR_TELEPON_USER,$r->TANGGAL_LAHIR_USER,$r->KODE_POS_USER,$r->EMAIL_USER,$r->JUMLAH_REPORT_USER,$r->KETERANGAN_USER, anchor('master_user/detail/user/'.$r->KODE_USER,'Detail'));
-                }
-              }
-
-              echo $this->table->generate();
-              ?>
-          </div>
+        <div class="table-responsive">
+            
         </div>
       </div>
         <div class="row">
@@ -116,7 +85,6 @@
     <script src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url() ?>build/js/jquery.dataTables.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#example').DataTable( {

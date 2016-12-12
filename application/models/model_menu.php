@@ -255,6 +255,13 @@ public function count_all_like_review(){
 	return $hasil2;
 }
 
+
+	public function select_pemilik_review($kode){
+		$this->db->where("KODE_REVIEW",$kode);
+		$this->db->select("KODE_USER");
+		return $this->db->get("review_menu")->result_row();
+	}
+
 public function like_review($kodeReview,$kodeUser,$state){
 	$array = [
 			'KODE_REVIEW' => $kodeReview,

@@ -34,7 +34,7 @@ class Model_notifikasi extends CI_Model {
 	}
 
 	public function DELETE($kode){
-		$this->db->where('$KODE_NOTIFIKASI',$kode);
+		$this->db->where('KODE_NOTIFIKASI',$kode);
 		$this->db->update('notifikasi',array('status'=>'0'));
 	}
 
