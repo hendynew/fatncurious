@@ -153,71 +153,6 @@
                     <li><a href="master/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -321,16 +256,16 @@
                 <div class="clearfix"></div>
               </div>
             </div>
-            <?php
-
-              foreach($last_register as $key=>$val){
+            <?php/*
+            $tes = 5;
+            foreach($last_register as $key=>$val){
+              $tes--;
+              if($tes <= 0){
                 $time = strtotime($key);
                 $newformat = date('Y,m,d',$time);
                 echo "[gd($newformat),$val],";
               }
-              $tes = strtotime(date("Y-m-d")  . ' -5 day');
-              $tes = date("Y-m-d",strtotime(date("Y-m-d")  . ' -4 day'));
-              echo date("d",strtotime($tes));
+            }*/
              ?>
 
           </div>
@@ -340,9 +275,6 @@
 
         <!-- footer content -->
         <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->
@@ -395,10 +327,14 @@
 
         var data1 = [
           <?php
+            $tes = 5;
             foreach($last_register as $key=>$val){
-              $time = strtotime($key);
-              $newformat = date('Y,m,d',$time);
-              echo "[gd($newformat),$val],";
+              $tes--;
+              if($tes <= 0){
+                $time = strtotime($key);
+                $newformat = date('Y,m,d',$time);
+                echo "[gd($newformat),$val],";
+              }
             }
            ?>
         ];

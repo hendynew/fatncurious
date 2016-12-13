@@ -64,7 +64,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
+          <a class="navbar-brand" href="<?php echo site_url('fatncurious/profilPemilikRestoran');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
@@ -183,10 +183,10 @@
                   $url_full = base_url('/vendors/images/restoran/' . $url);
                 ?>
                 <img class="media-object img-rounded gambarRestoran" src="<?php echo $url_full ?>" alt="Generic placeholder image">
-              </a>
+
               <div class="media-body">
                 <h4 class="media-heading"><?php echo $r->NAMA_RESTORAN .'-'.$r->ALAMAT_RESTORAN ;?></h4>
-
+                </a>
                 <?php
                 $ctrRow = 0;
 
@@ -206,7 +206,7 @@
             <?php
                     echo "</div>";
                     echo "<div class='media-body'>";
-                  echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$m->KODE_MENU."' data-url='".site_url('/fatncurious/deleteMenu/'.$m->KODE_MENU.'')."' data-koderestoran='".$m->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$m->NAMA_MENU."' data-kode='".$m->KODE_MENU."' data-fotoMenu='".$m->URL_FOTO."' data-kodeResto='".$m->KODE_RESTORAN."' data-deskripsi='".$m->DESKRIPSI_MENU."'>Update</a></h4>";
+                  echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
                   echo $m->DESKRIPSI_MENU;
 
 
@@ -320,7 +320,6 @@
         </div>
       </div>
     </div>
-
   <div id="modalLihatRestoran" class="modal fade" role="dialog">
     <div class="modal-dialog">
     <!-- Modal content-->
@@ -353,7 +352,7 @@
            </div><!--div mediaBody bawah-->
         </div>
         <hr/>
-        
+
   <?php
   }?>
   </div>

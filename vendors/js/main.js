@@ -207,6 +207,7 @@ $('#reportReview').on('click', function () {
 });
 
 $(".likeReview").on("click",function(){
+
 	var kodeReview = $(this).attr("data-review");
 	var kodeUser = $(this).attr("data-user");
 	var kodeRestoran = $(this).attr("data-restoran");
@@ -222,7 +223,7 @@ $(".likeReview").on("click",function(){
 					success: function(response) {
 						document.getElementById("like"+kodeReview).innerHTML=response[0];
 						document.getElementById("dislike"+kodeReview).innerHTML=response[1];
-					}
+					},
 		});
 	}
 });

@@ -74,7 +74,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
+          <a class="navbar-brand" href="<?php echo site_url('fatncurious/profilPemilikRestoran');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>

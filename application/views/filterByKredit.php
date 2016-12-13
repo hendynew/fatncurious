@@ -203,7 +203,7 @@
           if($r->URL_FOTO_KARTU_KREDIT == ''){
             $url = 'default.jpg';
           }else $url = $r->URL_FOTO_KARTU_KREDIT;
-          $url_full = base_url('/vendors/images/restoran/' . $url);
+          $url_full = base_url('/vendors/images/kredit/' . $url);
 	?>
 						<img class='media-object img-circle gambarRestoran' src='<?php echo $url_full;?>' alt='...'>
 	<?php

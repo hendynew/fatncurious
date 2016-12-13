@@ -31,7 +31,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <?php echo form_open("master/login");?>
               <h1>Master Login</h1>
               <div>
                 <?php echo form_open('login'); $username='administrator';$password='administrator';
