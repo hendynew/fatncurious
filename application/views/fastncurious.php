@@ -139,7 +139,7 @@
 
     <section id="contact">
     <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms"></div>
-    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);">
+    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);" >
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -150,24 +150,24 @@
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">
           <div class="row">
             <div class="col-sm-6">
-              <form id="main-contact-form" name="contact-form" method="post" action="#">
+              <form id="main-contact-form" name="contact-form" method="post" action="<?php echo site_url('fatncurious/sendEmail') ?>">
                 <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" name="name" class="form-control" placeholder="Name" required="required">
+                      <input type="text" name="name" class="form-control" placeholder="Name" required="required" id="tbName" style="color:#fff;">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required">
+                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required" id="tbEmail" style="color:#fff;">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required" id="tbSubject" style="color:#fff;">
                 </div>
                 <div class="form-group">
-                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
+                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required" style="color:#fff;"></textarea>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn-submit">Send Now</button>

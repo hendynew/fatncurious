@@ -2,8 +2,9 @@ jQuery(function($) {
 
 	$(window).load(function(){
         	$('main-nav').addClass('berubah');
-	});
 
+	});
+	
 	//#main-slider
 	var slideHeight = $(window).height();
 	$('#home-slider .item').css('height',slideHeight);
@@ -14,33 +15,50 @@ jQuery(function($) {
 
 	//Scroll Menu
 	$(window).on('scroll', function(){
-        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()!="FilterBy")
-        {
-            if( $(window).scrollTop()>slideHeight ){
-            $('.img-responsive').addClass('perubahanUkuran');
-						$('.main-nav').addClass('navbar-fixed-top berubah');
-            $('.navbar-right > li').addClass('berubah');
+	        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()!="FilterBy")
+	        {
+	            if( $(window).scrollTop()>slideHeight ){
+	            $('.img-responsive').addClass('perubahanUkuran');
+							$('.main-nav').addClass('navbar-fixed-top berubah');
+	            $('.navbar-right > li').addClass('berubah');
 
-            } else {
+	            } else {
 
-                $('.img-responsive').removeClass('perubahanUkuran');
-                $('.main-nav').removeClass('navbar-fixed-top berubah');
-                $('.navbar-right > li').removeClass('berubah');
-            }
-        }
+	                $('.img-responsive').removeClass('perubahanUkuran');
+	                $('.main-nav').removeClass('navbar-fixed-top berubah');
+	                $('.navbar-right > li').removeClass('berubah');
+	            }
+	        }
 	});
+
 
 	// Contact form
 	var form = $('#main-contact-form');
 	form.submit(function(event){
 		event.preventDefault();
 		var form_status = $('<div class="form_status"></div>');
-		$.ajax({
-			url: $(this).attr('action'),
+		/*$.ajax({
+			url: $("#main-contact-form").attr('action'),
+			nama : 'asd',
+			beforeSend: function(){
+				//form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
+			}
+		}).done(function(data){
+			alert(data);
+			//form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
+		});*/
+		$.post($("#main-contact-form").attr('action'),
+		{
+			name : $("#tbName").val(),
+			email : $("#tbEmail").val(),
+			subject : $("#tbSubject").val(),
+			message : $("#message").val(),
 			beforeSend: function(){
 				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
 			}
-		}).done(function(data){
+		},function(result)
+		{
+			//alert(result);
 			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
 		});
 	});
