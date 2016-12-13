@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2016 at 12:48 PM
+-- Generation Time: Dec 13, 2016 at 07:15 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `kartu_kredit` (
   `ALAMAT_KARTU_KREDIT` varchar(100) NOT NULL,
   `NOMOR_TELEPON_KARTU_KREDIT` varchar(12) NOT NULL,
   `WEBSITE_KARTU_KREDIT` varchar(50) NOT NULL,
+  `URL_FOTO_KARTU_KREDIT` varchar(255) NOT NULL,
   `KETERANGAN_KARTU_KREDIT` varchar(100) NOT NULL,
   `STATUS` varchar(1) NOT NULL,
   PRIMARY KEY (`KODE_KARTU_KREDIT`)
@@ -112,17 +113,17 @@ CREATE TABLE IF NOT EXISTS `kartu_kredit` (
 -- Dumping data for table `kartu_kredit`
 --
 
-INSERT INTO `kartu_kredit` (`KODE_KARTU_KREDIT`, `NAMA_KARTU_KREDIT`, `ALAMAT_KARTU_KREDIT`, `NOMOR_TELEPON_KARTU_KREDIT`, `WEBSITE_KARTU_KREDIT`, `KETERANGAN_KARTU_KREDIT`, `STATUS`) VALUES
-('KKK01', 'BCA', 'JALAN VETERAN NO1 SURABAYA', '031123123', 'www.bca.co.id', '', '1'),
-('KKK02', 'MANDIRI', 'JALAN DHARMAHUSADA 3/IV SURABAYA', '031123456', 'www.mandiri.co.id', '', '1'),
-('KKK03', 'BNI', 'JALAN PUCANG ANOM SURABAYA', '0315055018', 'ibank.bni.co.id', '', '1'),
-('KKK04', 'DANAMON', 'JALAN KERTAJAYA 10 141A SURABAYA', '0315031411', 'danamon.co.id', '', '1'),
-('KKK05', 'BRI', 'JALAN DHARMAWANGSA 3A  SURABAYA', '0315016477', 'bri.co.id', '', '1'),
-('KKK06', 'MEGA', 'JALAN KIRI KANAN 22C/II SURABAYA', '031530511', 'megabank.co.id', '', '1'),
-('KKK07', 'BERSAMA', 'JALAN SUKOHARJO 22C/II SURABAYA', '0313890535', 'bersamapastibisa.co.id', '', '1'),
-('KKK08', 'CIMB', 'JALAN PASAR BUNGA VA SURABAYA', '0313679870', 'cimbniaga.com', '', '1'),
-('KKK09', 'SINARMAS', 'JALAN GATOT SUBROTO 5F/III SURABAYA', '031709780', 'sinarmas.co.id', '', '1'),
-('KKK10', 'BUKOPIN', 'JALAN BIKINI UP SURABAYA', '031777666', 'untungbukopin.co.id', '', '1');
+INSERT INTO `kartu_kredit` (`KODE_KARTU_KREDIT`, `NAMA_KARTU_KREDIT`, `ALAMAT_KARTU_KREDIT`, `NOMOR_TELEPON_KARTU_KREDIT`, `WEBSITE_KARTU_KREDIT`, `URL_FOTO_KARTU_KREDIT`, `KETERANGAN_KARTU_KREDIT`, `STATUS`) VALUES
+('KKK01', 'BCA', 'JALAN VETERAN NO1 SURABAYA', '031123123', 'www.bca.co.id', 'bca.jpg', '', '1'),
+('KKK02', 'MANDIRI', 'JALAN DHARMAHUSADA 3/IV SURABAYA', '031123456', 'www.mandiri.co.id', 'mandiri.jpg', '', '1'),
+('KKK03', 'BNI', 'JALAN PUCANG ANOM SURABAYA', '0315055018', 'ibank.bni.co.id', 'bni.jpg', '', '1'),
+('KKK04', 'DANAMON', 'JALAN KERTAJAYA 10 141A SURABAYA', '0315031411', 'danamon.co.id', 'danamon.jpg', '', '1'),
+('KKK05', 'BRI', 'JALAN DHARMAWANGSA 3A  SURABAYA', '0315016477', 'bri.co.id', '', '', '1'),
+('KKK06', 'MEGA', 'JALAN KIRI KANAN 22C/II SURABAYA', '031530511', 'megabank.co.id', '', '', '1'),
+('KKK07', 'BERSAMA', 'JALAN SUKOHARJO 22C/II SURABAYA', '0313890535', 'bersamapastibisa.co.id', '', '', '1'),
+('KKK08', 'CIMB', 'JALAN PASAR BUNGA VA SURABAYA', '0313679870', 'cimbniaga.com', '', '', '1'),
+('KKK09', 'SINARMAS', 'JALAN GATOT SUBROTO 5F/III SURABAYA', '031709780', 'sinarmas.co.id', '', '', '1'),
+('KKK10', 'BUKOPIN', 'JALAN BIKINI UP SURABAYA', '031777666', 'untungbukopin.co.id', '', '', '1');
 
 -- --------------------------------------------------------
 
@@ -181,6 +182,7 @@ INSERT INTO `like_review_user` (`KODE_USER`, `KODE_REVIEW`, `STATUS`) VALUES
 ('US010', 'RE005', 0),
 ('US012', 'RE002', 1),
 ('US012', 'RE006', -1),
+('US012', 'RE007', 1),
 ('US012', 'RE010', 1),
 ('US012', 'RE011', 1),
 ('US012', 'RE012', 1),
@@ -231,6 +233,21 @@ INSERT INTO `menu` (`KODE_MENU`, `KODE_JENIS_MENU`, `KODE_RESTORAN`, `NAMA_MENU`
 ('ME016', 'JM003', 'RS007', 'TAHU POP CORN', 'TAHU BULAT GORENG', 13000, '1.jpg', 'MAKANAN RINGAN', '1'),
 ('ME017', 'JM004', 'RS008', 'CARAMEL PUDDING', 'PUDDING DENGAN SAOS CARAMEL', 20000, '1.jpg', 'DESSERT', '1'),
 ('ME018', 'JM001', 'RS009', 'ROTI CANAI', 'ROTI KHAS TIMUR TENGAH', 15000, '1.jpg', 'MAKANAN', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifikasi`
+--
+
+CREATE TABLE IF NOT EXISTS `notifikasi` (
+  `KODE_NOTIFIKASI` varchar(5) NOT NULL,
+  `KODE_USER` varchar(5) NOT NULL,
+  `ISI` varchar(255) NOT NULL,
+  `URL` varchar(255) NOT NULL,
+  `STATUS` varchar(1) NOT NULL,
+  PRIMARY KEY (`KODE_NOTIFIKASI`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -447,6 +464,7 @@ CREATE TABLE IF NOT EXISTS `report_review_menu` (
 
 INSERT INTO `report_review_menu` (`KODE_REVIEW`, `KODE_USER`, `DESKRIPSI`, `TANGGAL`, `STATUS`) VALUES
 ('RE002', 'US012', 'asdsad', '2016-11-23', '1'),
+('RE007', 'US012', 'ngawur', '2016-12-13', '1'),
 ('RE010', 'US012', 'test', '2016-11-23', '1');
 
 -- --------------------------------------------------------
@@ -551,7 +569,16 @@ INSERT INTO `review_menu` (`KODE_REVIEW`, `KODE_USER`, `KODE_MENU`, `DESKRIPSI_R
 ('RE010', 'US012', 'ME004', 'sirloinnya mantap jaya gan. Sumpah enaksssssss', '2016-11-16', 0, '', '1'),
 ('RE011', 'US012', 'ME018', 'haha goood then brosss', '2016-11-17', 0, '', '1'),
 ('RE012', 'US012', 'ME005', 'wew kok ngeri geney', '2016-11-20', 0, '', '1'),
-('RE013', 'US012', 'ME011', 'cct', '2016-11-23', 0, '', '1');
+('RE013', 'US012', 'ME011', 'cct', '2016-11-23', 0, '', '1'),
+('RE014', 'US012', 'ME001', 'testse', '2016-12-13', 0, '', '1'),
+('RE015', 'US003', 'ME001', '@Hendy Lukas wow!', '2016-12-13', 0, '', '0'),
+('RE016', 'US003', 'ME001', 'tes', '2016-12-13', 0, '', '0'),
+('RE017', 'US003', 'ME001', 'tes', '2016-12-13', 0, '', '0'),
+('RE018', 'US003', 'ME001', '@Hendy Lukas haha', '2016-12-13', 0, '', '0'),
+('RE019', 'US003', 'ME001', 'testing bro', '2016-12-13', 0, '', '0'),
+('RE020', 'US003', 'ME001', 'testes', '2016-12-13', 0, '', '0'),
+('RE021', 'US003', 'ME001', 'testes', '2016-12-13', 0, '', '0'),
+('RE022', 'US003', 'ME001', 'haha', '2016-12-13', 0, '', '0');
 
 -- --------------------------------------------------------
 
@@ -717,19 +744,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`KODE_USER`, `KODE_JENISUSER`, `NAMA_USER`, `ALAMAT_USER`, `NOR_TELEPON_USER`, `TANGGAL_LAHIR_USER`, `TANGGAL_REGISTER_USER`, `TANGGAL_LOGIN_USER`, `KODE_POS_USER`, `EMAIL_USER`, `PASSWORD`, `JUMLAH_REPORT_USER`, `URL_FOTO`, `KETERANGAN_USER`, `STATUS`) VALUES
-('US001', 'JU002', 'ARDI UNTUNG', 'JL. KEPALA GADING 20', '891113641', '1996-04-11', '2016-10-14', '2016-10-18', 60115, 'untungsayaardi@gmail', '0', 0, '', '', '1'),
-('US002', 'JU002', 'HENDY ZAG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-15', '2016-10-18', 78001, 'zipzap@gmail.com', '1', 0, '', '', '1'),
-('US003', 'JU003', 'Jason Elian', 'jl Kepanjen no 108', '1111', '2016-10-12', '2016-10-16', '2016-10-18', 874651, 'jason.alien@gmail.com', '0', 0, '', '', '1'),
-('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-10-16', '2016-11-15', 0, 'administrator', 'administrator', 0, '', '', '1'),
-('US005', 'JU002', 'HENDY ZAGG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-10-17', '0000-00-00', 78001, 'zipzapa@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 0, '', 'test', '1'),
-('US006', 'JU004', 'GREGORIAN', 'JL. KALIJUDAN 144', '08785300', '1996-01-30', '2016-10-25', '0000-00-00', 60113, 'gregorian@gmail.com', '123', 0, '', '', '1'),
-('US007', 'JU005', 'KELVIANTO', 'JL. DR SOETOMO IIIA', '08155049', '1996-11-11', '2016-10-17', '0000-00-00', 60112, 'kelvianto@yahoo.com', '321', 0, '', '', '1'),
-('US008', 'JU004', 'MICHAEL RUSADI', 'JL. DR ARIFRAHMAND 74C', '08149931', '1996-08-01', '2016-10-22', '0000-00-00', 60116, 'mican@yahoo.com', '333', 0, '', '', '1'),
-('US009', 'JU001', 'DAVID', 'JL. PLOSO TIMUR IVA/3', '3895301', '1995-12-10', '2016-10-19', '0000-00-00', 60115, 'david555@gmail.com', '222', 0, '', '', '1'),
-('US010', 'JU003', 'KING JULIAN', 'JL. MADAGASCAR 96', '7783540', '1996-07-09', '2016-05-16', '0000-00-00', 60119, 'iliketomoveit@gmail.com', '111', 0, '', '', '1'),
-('US011', 'JU002', 'cobacoba', ' ', '0123123123', '2016-11-22', '0000-00-00', '0000-00-00', 0, 'a@a.com', '1', 0, '', '', '1'),
-('US012', 'JU002', 'Hendy Lukas', ' ', '082332515552', '2016-11-16', '0000-00-00', '0000-00-00', 0, 'hendylukas68@gmail.com', 'lukas123', 0, 'US012.jpg', '', '1'),
-('US013', 'JU002', 'hendy lukassssse', ' ', '082332515552', '2016-11-11', '0000-00-00', '0000-00-00', 0, 'hendylukas69@gmail.com', 'lukas123', 0, '', '', '1');
+('US001', 'JU002', 'ARDI UNTUNG', 'JL. KEPALA GADING 20', '891113641', '1996-04-11', '2016-12-13', '2016-12-09', 60115, 'untungsayaardi@gmail', '0', 0, '', '', '1'),
+('US002', 'JU002', 'HENDY ZAG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-12-12', '2016-12-13', 78001, 'zipzap@gmail.com', '1', 0, '', '', '1'),
+('US003', 'JU003', 'Jason Elian', 'jl Kepanjen no 108', '1111', '2016-10-12', '2016-12-11', '2016-12-11', 874651, 'jason.alien@gmail.com', '0', 0, '', '', '1'),
+('US004', 'JU001', 'ADMINISTRATOR', '', '', '0000-00-00', '2016-12-10', '2016-12-13', 0, 'administrator', 'administrator', 0, '', '', '1'),
+('US005', 'JU002', 'HENDY ZAGG', 'JL. PANTAI GADING NOMOR 99', '87851333', '1995-04-11', '2016-12-13', '2016-12-13', 78001, 'zipzapa@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 0, '', 'test', '1'),
+('US006', 'JU004', 'GREGORIAN', 'JL. KALIJUDAN 144', '08785300', '1996-01-30', '2016-12-12', '2016-12-13', 60113, 'gregorian@gmail.com', '123', 0, '', '', '1'),
+('US007', 'JU005', 'KELVIANTO', 'JL. DR SOETOMO IIIA', '08155049', '1996-11-11', '2016-10-17', '2016-12-13', 60112, 'kelvianto@yahoo.com', '321', 0, '', '', '1'),
+('US008', 'JU004', 'MICHAEL RUSADI', 'JL. DR ARIFRAHMAND 74C', '08149931', '1996-08-01', '2016-12-12', '2016-12-13', 60116, 'mican@yahoo.com', '333', 0, '', '', '1'),
+('US009', 'JU001', 'DAVID', 'JL. PLOSO TIMUR IVA/3', '3895301', '1995-12-10', '2016-12-13', '2016-12-13', 60115, 'david555@gmail.com', '222', 0, '', '', '1'),
+('US010', 'JU003', 'KING JULIAN', 'JL. MADAGASCAR 96', '7783540', '1996-07-09', '2016-12-13', '2016-12-13', 60119, 'iliketomoveit@gmail.com', '111', 0, '', '', '1'),
+('US011', 'JU002', 'cobacoba', ' ', '0123123123', '2016-11-22', '2016-12-13', '2016-12-10', 0, 'a@a.com', '1', 0, '', '', '1'),
+('US012', 'JU002', 'Hendy Lukas', ' ', '082332515552', '2016-11-16', '2016-12-13', '2016-12-11', 0, 'hendylukas68@gmail.com', 'lukas123', 0, 'US012.jpg', '', '1'),
+('US013', 'JU002', 'hendy lukassssse', ' ', '082332515552', '2016-11-11', '2016-12-13', '2016-12-12', 0, 'hendylukas69@gmail.com', 'lukas123', 0, '', '', '1');
 
 --
 -- Constraints for dumped tables
