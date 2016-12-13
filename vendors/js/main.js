@@ -15,12 +15,13 @@ jQuery(function($) {
 
 	//Scroll Menu
 	$(window).on('scroll', function(){
-	        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()!="FilterBy")
+	        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()=="Restoran")
 	        {
 	            if( $(window).scrollTop()>slideHeight ){
 	            $('.img-responsive').addClass('perubahanUkuran');
-							$('.main-nav').addClass('navbar-fixed-top berubah');
-	            $('.navbar-right > li').addClass('berubah');
+		  $('.main-nav').addClass('navbar-fixed-top');
+		  if($("#asd").html()!="Restoran") $('.main-nav').addClass('berubah');
+		   $('.navbar-right > li').addClass('berubah');
 
 	            } else {
 
@@ -363,3 +364,7 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	//$("#hidKodeMenu").attr("value",kodeMenu);
 	//$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
+
+$('.loginRegister').find('form').click(function (e) {
+        e.stopPropagation();
+      });
