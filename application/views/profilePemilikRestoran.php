@@ -64,13 +64,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
+          <a class="navbar-brand" href="<?php echo site_url('fatncurious/profilPemilikRestoran');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
+            <li class="scroll"><a href="<?php echo site_url('fatncurious/profilPemilikRestoran') ?>">Home</a></li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
       <?php
@@ -151,10 +151,10 @@
                   $url_full = base_url('/vendors/images/restoran/' . $url);
                 ?>
                 <img class="media-object img-rounded gambarRestoran" src="<?php echo $url_full ?>" alt="Generic placeholder image">
-              </a>
+
               <div class="media-body">
                 <h4 class="media-heading"><?php echo $r->NAMA_RESTORAN .'-'.$r->ALAMAT_RESTORAN ;?></h4>
-
+                </a>
                 <?php
                 $ctrRow = 0;
 
@@ -313,7 +313,7 @@
                       </a>
                     </div>
                     <div class="media-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                      <h4 class="media-heading"><?php echo $resto->NAMA_RESTORAN ;?></h4>
+                      <?php echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$resto->KODE_RESTORAN).'>';?><h4 class="media-heading"><?php echo $resto->NAMA_RESTORAN ;?></h4></a>
                       <div>
                         <?php echo $resto->ALAMAT_RESTORAN;?><br/>
                         <?php echo $resto->NO_TELEPON_RESTORAN;?><br/>

@@ -247,7 +247,7 @@
                     <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
                 </div>
                 <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                  <?php foreach($review_restoran as $rr){ ?>
+                  <?php if(isset($review_restoran)){foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
                       <?php
@@ -279,7 +279,7 @@
                     </div>
                   </div>
                   <hr>
-                  <?php } ?>
+                  <?php }}else echo "Tidak ada review." ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -367,6 +367,7 @@
     <?php
             echo "</div>";
             echo "<div class='media-body'>";
+            if($kodeuser != '')
             echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
             echo $m->DESKRIPSI_MENU;
 

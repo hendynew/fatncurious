@@ -74,13 +74,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
+          <a class="navbar-brand" href="<?php echo site_url('fatncurious/profilPemilikRestoran');?>">
             <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/profilUser') ?>">Home</a></li>
+            <li class="scroll"><a href="<?php echo site_url('fatncurious/profilPemilikRestoran') ?>">Home</a></li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
 			<?php

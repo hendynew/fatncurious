@@ -24,13 +24,13 @@ class Model_notifikasi extends CI_Model {
 	public function INSERT($user,$isi,$url){
 		$kode = $this->generateKode();
 		$user = array(
-			'KODE_NOTIFIKASI'=>$kode
+			'KODE_NOTIFIKASI'=>$kode,
 			'KODE_USER' => $user,
 			'ISI' => $isi,
 			'URL' => $url,
 			'STATUS' => '1'
 		);
-		$this->db->insert('notifikasi');
+		$this->db->insert('notifikasi',$user);
 	}
 
 	public function DELETE($kode){
@@ -48,6 +48,26 @@ class Model_notifikasi extends CI_Model {
 		);
 		$data = $this->db->update_string('notifikasi',$user,$where);
 		$this->db->query($data);
+	}
+
+	public function insertMention($user,$mentionUser,$isi,$url){
+		$this->load->model("model_user");
+		$temp = $this->model_user->cek($mentionUser);
+		$nama = $this->model_user->NAME($user)->NAMA_USER;
+		if($temp){
+			foreach($temp as $t){
+				$kode = $this->generateKode();
+				$kodeUser = $t->KODE_USER;
+				$array = array(
+					'KODE_NOTIFIKASI'=>$kode,
+					'KODE_USER' => $kodeUser,
+					'ISI' => $nama . " mentioned you in a comment '" . $isi . "'",
+					'URL' => $url,
+					'STATUS' => '1'
+				);
+				$this->db->insert('notifikasi',$array);
+			}
+		}
 	}
 
 }

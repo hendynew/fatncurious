@@ -16,6 +16,10 @@ class Model_user extends CI_Model {
 		return $data->result();
 	}
 
+	public function NAME($kode){
+		return $this->db->query("SELECT NAMA_USER FROM user where KODE_USER='$kode' AND STATUS='1'")->row();
+	}
+
 	public function SEARCH($kode){
 		$data = $this->db->query("SELECT * FROM user where KODE_USER='$kode' AND STATUS='1'");
 		return $data->result();
@@ -209,5 +213,9 @@ class Model_user extends CI_Model {
 
 
 		return $hasil;
+	}
+
+	public function cek($user){
+		return $this->db->query("SELECT KODE_USER FROM USER WHERE REPLACE(NAMA_USER,' ','') LIKE ('%" . $user . "%')")->result();
 	}
 }
