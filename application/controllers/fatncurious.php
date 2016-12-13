@@ -17,6 +17,7 @@ class Fatncurious extends CI_Controller {
 		$this->load->helper('cookie');
 		$this->load->library('session');
 		$this->load->library('pagination');
+		$this->load->library('email');
 	}
 	//==========REGISTER============
 	public function register(){
@@ -1540,32 +1541,29 @@ class Fatncurious extends CI_Controller {
 			//echo $kodeMenu.' '.$kodeResto.' '.$namaMenu.' '.$jenisMenu.' '.$deskripsiMenu.' '.$hargaMenu.' '.$keteranganMenu.' '.$fotoMenu;
 		}
 	}
-
-	public function email(){
-		$this->load->library('email');
-
-		$config = Array(
-			 'protocol' => 'smtp',
-			 'smtp_host' => 'ssl://smtp.googlemail.com',
-			 'smtp_port' => 465,
-			 'smtp_user' => 'notification.fatncurious@gmail.com',
-			 'smtp_pass' => 'notificationfatncurious',
-			 'mailtype'  => 'html',
-			 'charset'   => 'utf-8'
-		);
-
+	public function sendEmail(){
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com'; //change this
+		$config['smtp_port'] = '465';
+		$config['smtp_user'] = 'fat.curious@gmail.com'; //change this
+		$config['smtp_pass'] = 'resbjspxnfpehkzy'; //change this
+		$config['mailtype'] = 'html';
+		$config['charset'] = 'iso-8859-1';
+		$config['wordwrap'] = TRUE;
+		$config['newline'] = "\r\n"; //use double quotes to comply with RFC 822 standard
 		$this->email->initialize($config);
 
-		$this->email->from('notification.fatncurious@gmail.com', 'Admin Notification');
-		$this->email->to('hendylukas68@gmail.com');
+		//$this->email->set_newline('\n\r');
 
-		$this->email->subject('Email Test');
-		$this->email->message('Testing the email class.');
-
-		$this->email->send();
-
-		echo $this->email->print_debugger();
-
+		$this->email->from($_POST['email'],$_POST['name']);
+		$this->email->to('fat.curious@gmail.com');
+		$this->email->subject($_POST['subject']);
+		$this->email->message($_POST['message']);
+		if($this->email->send()){
+			echo 'Your email has been send';
+		}
+		else{
+			show_error($this->email->print_debugger());
+		}
 	}
-
 }

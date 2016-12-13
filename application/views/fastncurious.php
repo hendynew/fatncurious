@@ -62,7 +62,6 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll">
     				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					FilterBy <span class="caret"></span>
@@ -74,7 +73,7 @@
     					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
     				  </ul>
     			</li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
+            <li class="scroll"><a href="#contact">Contact Us</a></li>
 			<?php
 				if(isset($kodeUser)){
 			?>
@@ -137,9 +136,9 @@
     </div><!--/#main-nav-->
     </header><!--/#home-->
 
+    <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms" style="margin-top:40px;"></div>
     <section id="contact">
-    <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms"></div>
-    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);">
+    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);" >
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -150,25 +149,24 @@
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">
           <div class="row">
             <div class="col-sm-6">
-              <!--form id="main-contact-form" name="contact-form" method="post" action="#"></!-->
-              <?php echo form_open('fatncurious/email')?>
+              <form id="main-contact-form" name="contact-form" method="post" action="<?php echo site_url('fatncurious/sendEmail') ?>">
                 <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" name="name" class="form-control" placeholder="Name" required="required">
+                      <input type="text" name="name" class="form-control" placeholder="Name" required="required" id="tbName" style="color:#fff;">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required">
+                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required" id="tbEmail" style="color:#fff;">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required" id="tbSubject" style="color:#fff;">
                 </div>
                 <div class="form-group">
-                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
+                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required" style="color:#fff;"></textarea>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn-submit">Send Now</button>
