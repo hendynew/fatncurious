@@ -945,7 +945,7 @@ class Fatncurious extends CI_Controller {
 			$user = $this->session->userdata("userYangLogin")->KODE_USER;
 			$menu = $this->input->post('menu');
 			$resto = $this->input->post('resto');
-			//$this->model_menu->REVIEW($user,$menu,$review);
+			$this->model_menu->REVIEW($user,$menu,$review);
 			$this->load->model("Model_notifikasi");
 			$mystring = $review;
 			preg_match_all("/\B@[a-zA-z0-9]+/i",$mystring,$mentions);
