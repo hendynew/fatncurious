@@ -17,6 +17,7 @@ class Fatncurious extends CI_Controller {
 		$this->load->helper('cookie');
 		$this->load->library('session');
 		$this->load->library('pagination');
+		$this->load->library('email');
 	}
 	//==========REGISTER============
 	public function register(){
@@ -1532,5 +1533,29 @@ class Fatncurious extends CI_Controller {
 			//echo $kodeMenu.' '.$kodeResto.' '.$namaMenu.' '.$jenisMenu.' '.$deskripsiMenu.' '.$hargaMenu.' '.$keteranganMenu.' '.$fotoMenu;
 		}
 	}
+	public function sendEmail(){
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com'; //change this
+		$config['smtp_port'] = '465';
+		$config['smtp_user'] = 'fat.curious@gmail.com'; //change this
+		$config['smtp_pass'] = 'resbjspxnfpehkzy'; //change this
+		$config['mailtype'] = 'html';
+		$config['charset'] = 'iso-8859-1';
+		$config['wordwrap'] = TRUE;
+		$config['newline'] = "\r\n"; //use double quotes to comply with RFC 822 standard
+		$this->email->initialize($config);
 
+		//$this->email->set_newline('\n\r');
+
+		$this->email->from($_POST['email'],$_POST['name']);
+		$this->email->to('fat.curious@gmail.com');
+		$this->email->subject($_POST['subject']);
+		$this->email->message($_POST['message']);
+		if($this->email->send()){
+			echo 'Your email has been send';
+		}
+		else{
+			show_error($this->email->print_debugger());
+		}
+	}
 }
