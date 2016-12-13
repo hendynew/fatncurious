@@ -25,9 +25,14 @@
     <style>
         body
         {
-            background-image: url('<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>');
+            background-image: url("<?php echo base_url('/vendors/images/Background/337094-zero.jpg');?>");
             background-size: cover;
             background-repeat: no-repeat;
+        }
+        .outputJarak
+        {
+          font-size:2em;
+          color:gold;
         }
     </style>
 </head><!--/head-->
@@ -159,7 +164,7 @@
       $ctrKartu=0;
       $simpanKredit='';
 			echo "<div class='media warnaFilterByGanjil img-rounded'>";
-        echo '<p id="jarak'.$ctr++.'">Jarak = Undefined</p>';
+       // echo '<p id="jarak'.$ctr++.'" class="outputJarak">Jarak = Tidak Terjangkau</p>';
 				echo "<div class='media-left'>";
 					echo '<a href = '.site_url('/fatncurious/profilRestoran/'.$key).'>';
           if($resto[$key]['URL_FOTO_RESTORAN'] == ''){
@@ -171,7 +176,7 @@
 						<?php
 				echo "</div>";
 				echo "<div class='media-body jarakMedia'>";
-					echo "<h3 class='media-heading jarakMedia'>".$r['NAMA_RESTORAN'].', '.$r['ALAMAT_RESTORAN']."</h3>";
+					echo "<h3 class='media-heading jarakMedia'>".$r['NAMA_RESTORAN'].', '.$r['ALAMAT_RESTORAN']." <h4 id='jarak".$ctr++."' class='outputJarak'>Jarak = Tidak Terjangkau</h4></h3>";
           echo "</a>";
 					echo "<h4 class='jarakMedia'>";
           foreach($rating as $key2=>$value){
@@ -348,8 +353,9 @@
                 if(results[j].status!='ZERO_RESULTS')
                 {
 
-                  $('#jarak'+j).text(originList[i] + ' to ' + destinationList[j] +
-                    ': ' + results[j].distance.text + ' in ' +
+                  $('#jarak'+j).text(
+                    //originList[i] + ' to ' + destinationList[j] +': ' + 
+                    results[j].distance.text + ' in ' +
                     results[j].duration.text);
                 }
             }
