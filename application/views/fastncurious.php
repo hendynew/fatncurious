@@ -56,9 +56,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-              <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
-            </a>
+              <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
@@ -145,13 +143,8 @@
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-<<<<<<< HEAD
-            <h2>Contact Us</h2>
-
-=======
             <h2 style="color:#fff;">Contact Us</h2>
             <p>Get support by phone or chat, set up a repair, or make a Genius Bar </p>
->>>>>>> refs/remotes/origin/develop2
           </div>
         </div>
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">

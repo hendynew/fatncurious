@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
