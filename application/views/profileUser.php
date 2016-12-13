@@ -79,7 +79,40 @@
         </li>
       <?php
         }
+        else{
       ?>
+          <li class="scroll">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Register/Login
+            </a>
+            <ul class="dropdown-menu loginRegister">
+              <?php echo form_open('fatncurious/login');?>
+            <!--<form accept-charset="UTF-8" action="fatncurious/login" method="post"> -->
+              <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" >
+                <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
+              </div>
+                <fieldset class='textbox'>
+                  <label id='js-username' style="padding:5px;">
+                    <span>Username</span>
+                    <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
+                  </label>
+                  <label id='password' style="padding:5px;">
+                    <span>Passwort</span>
+                    <input id="userpassword" name="txtPasswordLogin" type="password" />
+                  </label>
+                </fieldset>
+                <fieldset class='subchk' style="padding:5px;">
+                  <?php
+                    $array=['name'=>'btnLogin','value'=>'Login'];
+                    echo form_submit($array);
+                  ?>
+                </fieldset>
+                <?php echo form_close();?>
+              <!-- </form> -->
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 5px;">Register</a>
+            <ul>
+          </li>
+        <?php } ?>
           </ul>
         </div>
       </div>
@@ -118,21 +151,20 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Profile User</center></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/1.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
 
-				<?php $this->table->add_row('Nama User',form_input('txtRestoran',$user->NAMA_USER,['style'=>'margin-left:20px;'])); ?>
-				<?php $this->table->add_row('Alamat',form_input('txtJalan',$user->ALAMAT_USER,['style'=>'margin-left:20px;'])); ?>
-				<?php $this->table->add_row('Nomor Telepon',form_input('txtNoTelp',$user->NOR_TELEPON_USER,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Upload Profile Foto',form_upload('foto')); ?>
+				<?php $this->table->add_row('Nama User',form_input('txtRestoran',$user->NAMA_USER,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+				<?php $this->table->add_row('Alamat',form_input('txtJalan',$user->ALAMAT_USER,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+				<?php $this->table->add_row('Nomor Telepon',form_input('txtNoTelp',$user->NOR_TELEPON_USER,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+                    <?php $this->table->add_row('Upload Profile Foto',form_upload('foto','',['style'=>'margin-left:20px;'])); ?>
 				<?php echo $this->table->generate(); ?>
+                      <?php
+                      //echo "<button type='submit' class='submit btn-default' >Submit</button>";
+                      $arr = ['name'=>'btnSubmit','class'=>'submit btn-submit','value'=>'Submit'];
+                      echo form_submit($arr);
+                    ?>
           </div>
           <div class="modal-footer">
-            <?php
-				//echo "<button type='submit' class='submit btn-default' >Submit</button>";
-        $arr = ['name'=>'btnSubmit','class'=>'submit btn-default','value'=>'Submit'];
-        echo form_submit($arr);
-			?>
-            <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
 		<?php echo form_close(); ?>
         </div>
@@ -148,21 +180,85 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Ganti Password</center></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/SFONDO-COCKTAIL-016.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
 
-				<?php $this->table->add_row('Old Password',form_password('txtOldPassword','',['style'=>'margin-left:20px;'])); ?>
-				<?php $this->table->add_row('New Password',form_password('txtNewPassword','',['style'=>'margin-left:20px;'])); ?>
-				<?php $this->table->add_row('Confirmation New Password',form_password('txtConfirmNewPassword','',['style'=>'margin-left:20px;'])); ?>
+				<?php $this->table->add_row('Old Password',form_password('txtOldPassword','',['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+				<?php $this->table->add_row('New Password',form_password('txtNewPassword','',['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+				<?php $this->table->add_row('Confirmation New Password',form_password('txtConfirmNewPassword','',['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
 				<?php echo $this->table->generate(); ?>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="submit btn-default" >Submit</button>
+            <button type="submit" class="submit btn-primary" >Submit</button>
             <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
 		<?php echo form_close(); ?>
         </div>
       </div>
     </div>
+    
+<div id="modalRegister" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <?php echo form_open_multipart('fatncurious/register'); ?>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><center>Register</center></h4>
+          </div>
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
+            <?php echo form_open('fatncurious/register');?>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <?php
+                $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <?php
+                $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNama"> Nama</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputDTPicker">Tanggal Lahir</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNoTelp"> No Telp</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+                ?>
+              </div>
+              <?php
+                $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register','style'=>'color:white'];
+                echo form_submit($array);
+                //<button type="submit" class="btn btn-info">Register</button>
+                ?>
+                <?php
+                echo form_close();
+              ?>
+          </div>
+      </div>
+    </div>
+  </div>
 
   <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>">
   </script>
