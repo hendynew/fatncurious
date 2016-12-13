@@ -54,7 +54,6 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll">
     				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					FilterBy <span class="caret"></span>
@@ -66,7 +65,7 @@
     					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
     				  </ul>
     			</li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
+            <li class="scroll"><a href="<?php echo site_url('fatncurious/index#contact') ?>">Contact Us</a></li>
 			<?php
 				if(isset($kodeUser)){
 			?>
