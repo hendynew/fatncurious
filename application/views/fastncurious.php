@@ -37,9 +37,9 @@
 
     <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
-        <div class="item active" style="background-image: url('<?php echo base_url('/vendors/images/slider/1.jpg');?>')">
+        <div class="item active" style="background-image: url('<?php echo base_url('/vendors/images/restoran/resto2.jpg');?>')">
           <div class="caption">
-            <h1 class="animated fadeInLeftBig">Fat 'N<span> Curious </span>  </h1>
+            <img class="logo" src="<?php echo base_url('/vendors/images/logo(putih).png');?>">
             <p class="animated fadeInRightBig">Promotion  And Restaurant Search Engine Only.
             <p class = "animated fadeInRightBig textFilterBy"> Filter By : </p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>">Biggest Promo</a>
@@ -152,7 +152,9 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+            <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
+              <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+            </a>
           </a>
         </div>
         <div class="collapse navbar-collapse">
@@ -235,12 +237,12 @@
 
     <section id="contact">
     <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms"></div>
-    <div id="contact-us" class="parallax">
+    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);">
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
             <h2>Contact Us</h2>
-            <p>Get support by phone or chat, set up a repair, or make a Genius Bar </p>
+
           </div>
         </div>
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">
@@ -328,7 +330,7 @@
                     <div class="form-group">
                       <label for="exampleInputDTPicker">Tanggal Lahir</label>
       				<?php
-      				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'YYYY-MM-DD','name'=>'txtTglRegister'];
+      				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister'];
       				  echo form_input($array);
       				  //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
       				?>
