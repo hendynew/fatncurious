@@ -363,3 +363,7 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	//$("#hidKodeMenu").attr("value",kodeMenu);
 	//$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
+
+$('.loginRegister').find('form').click(function (e) {
+        e.stopPropagation();
+      });

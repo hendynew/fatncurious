@@ -108,16 +108,16 @@
                 <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
               </div>
                 <fieldset class='textbox'>
-                  <label id='js-username'>
+                  <label id='js-username' style="padding:5px;">
                     <span>Username</span>
                     <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
                   </label>
-                  <label id='password'>
+                  <label id='password' style="padding:5px;">
                     <span>Passwort</span>
                     <input id="userpassword" name="txtPasswordLogin" type="password" />
                   </label>
                 </fieldset>
-                <fieldset class='subchk'>
+                <fieldset class='subchk' style="padding:5px;">
                   <?php
                     $array=['name'=>'btnLogin','value'=>'Login'];
                     echo form_submit($array);
@@ -125,7 +125,7 @@
                 </fieldset>
                 <?php echo form_close();?>
               <!-- </form> -->
-              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 0;">Register</a>
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 5px;">Register</a>
             <ul>
           </li>
         <?php }
@@ -190,71 +190,68 @@
     </div>
   </section><!--/#contact-->
   <div id="modalRegister" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-		<?php echo form_open_multipart('fatncurious/register'); ?>
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <?php echo form_open_multipart('fatncurious/register'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Register</center></h4>
           </div>
-          <div class="modal-body">
-
-            <?php
-      				echo form_open('fatncurious/register');
-      			?>
-                    <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-      				<?php
-      				  $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister'];
-      				  echo form_input($array);
-      				  //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-      				?>
-
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-      				<?php
-      				  $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister'];
-      				  echo form_input($array);
-      				  //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputNama"> Nama</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputDTPicker">Tanggal Lahir</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputNoTelp"> No Telp</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
-      				?>
-                    </div>
-      			  <?php
-                        $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register'];
-                        echo form_submit($array);
-      				  //<button type="submit" class="btn btn-info">Register</button>
-                      ?>
-      			  <?php
-      				echo form_close();
-      			  ?>
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
+            <?php echo form_open('fatncurious/register');?>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <?php
+                $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <?php
+                $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNama"> Nama</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputDTPicker">Tanggal Lahir</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNoTelp"> No Telp</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+                ?>
+              </div>
+              <?php
+                $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register','style'=>'color:white'];
+                echo form_submit($array);
+                //<button type="submit" class="btn btn-info">Register</button>
+                ?>
+                <?php
+                echo form_close();
+              ?>
           </div>
       </div>
     </div>
+  </div>
 
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/moment.js');?>"></script>
@@ -270,11 +267,5 @@
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-    <script>
-      $('.loginRegister').find('form').click(function (e) {
-        e.stopPropagation();
-      });
-    </script>
-
 </body>
 </html>
