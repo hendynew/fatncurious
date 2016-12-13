@@ -107,6 +107,26 @@ class Model_menu extends CI_Model {
 		$this->db->query($data);
 	}
 
+	public function updateMenu($kode,$nama,$deskripsi){
+		$where = 'KODE_MENU="' . $kode .'"';
+		$menu = array(
+			'NAMA_MENU' => $nama,
+			'DESKRIPSI_MENU' => $deskripsi,
+		);
+		$data = $this->db->update_string('menu',$menu,$where);
+		$this->db->query($data);
+	}
+
+	public function updateFotoPromo($kode,$foto){
+		$where = 'KODE_MENU="' . $kode .'"';
+		$menu = array(
+				'URL_FOTO' => $foto
+		);
+		$data = $this->db->update_string('menu',$menu,$where);
+		$this->db->query($data);
+	}
+
+
 	public function SELECT_ALL_REVIEW_MENU(){
 		//$temp = $this->db->where('STATUS','1')->get('review_menu')->result();
 		$temp = $this->db->query("SELECT rm.KODE_REVIEW as KODE_REVIEW, m.KODE_MENU as KODE_MENU, m.NAMA_MENU as NAMA_MENU, u.KODE_USER as KODE_USER, u.NAMA_USER as NAMA_USER, rm.DESKRIPSI_REVIEW as DESKRIPSI, rm.TANGGAL_REVIEW as TANGGAL, rm.JUMLAH_LIKE_REVIEW as JUMLAH_LIKE, rm.KETERANGAN_REVIEW as KETERANGAN from restoran as r, user as u, review_menu as rm, menu as m where rm.STATUS='1' and rm.KODE_MENU=m.KODE_MENU AND rm.KODE_USER=u.KODE_USER GROUP BY rm.KODE_REVIEW")->result();

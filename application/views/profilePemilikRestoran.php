@@ -80,7 +80,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;">3</sup></sup></span>
           </a>
-          <ul class="dropdown-menu" style="max-height: calc(50vh - 210px);overflow-y: auto;>
+          <ul class="dropdown-menu" style="max-height: calc(50vh - 210px);overflow-y: auto;">
             <li class="media">
               <div class="media-left">
               <a href="#"  style="padding:0px;">
@@ -135,46 +135,105 @@
         <li role="presentation" class="active toogleNavBar"><a href="#">Recent Comment</a></li>
         <li role="presentation" style="float:right" class="toogleNavBar"><a href="#" data-toggle="modal" data-target="#modalLihatRestoran">Lihat Restoran</a></li>
     </ul>
-    <div class="media-list">
-      <div class="media">
-        <a class="media-left" href="#">
-          <img class="media-object img-rounded gambarRestoran" src="<?php echo base_url('vendors/images/restoran/RS002.jpg') ?>" alt="Generic placeholder image">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading">Nama Restoran + Alamat</h4>
-          <div class="media">
-            <a class="media-left" href="#">
-              <img class="media-object displayPictureComment img-circle" src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
-            </a>
-            <div class="media-body">
-              <h4 class="media-heading">Username <span style="float:right"><h6>tanggal</h6></span></h4>
-              <p>Comment</p>
-              <div class="row" style="margin-left:5px;">
-                <span class="glyphicon glyphicon-thumbs-up likeButton" style="margin-left:5px;"></span>
-                <span class="glyphicon glyphicon-thumbs-down dislikeButton" style="margin-left:5px;"></span>
-                <span class="glyphicon glyphicon-send sendButton" style="margin-left:5px;"></span>
-                <span class="glyphicon glyphicon-flag reportButton" style="margin-left:5px;"></span>
-              </div>
-              <?php
-                echo form_open('fatncurious/sortByMenuRestoran');
-                echo "<div class='input-group customInputGroup img-rounded'>";
-                echo "<input type='text' class='form-control' placeholder='Tuliskan Komen disini..' name='txtReview'>";
-                echo "<span class='input-group-btn'>";
-                //echo form_hidden('menu',$m->KODE_MENU);
-                //echo form_hidden('resto',$m->KODE_RESTORAN);
-                $arr = ['class'=>'btn btn-default img-rounded','name'=>'btnGo','value'=>'Go!'];
-                echo form_submit($arr);
-                echo "</span>";
-                echo "</div>";
-                echo form_close();
-              ?>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br>
+  <?php
+    if(isset($review)){
+      $restoSebelumnya='';
+      foreach ($restoran as $r) {
+  ?>
+          <div class="media-list">
+            <div class="media">
+              <a class="media-left" href="<?php echo site_url('/fatncurious/profilRestoran/'.$r->KODE_RESTORAN) ;?>">
+                <?php
+                  if($r->URL_FOTO_RESTORAN == ''){
+                    $url = 'default.jpg';
+                  }else $url = $r->URL_FOTO_RESTORAN;
+                  $url_full = base_url('/vendors/images/restoran/' . $url);
+                ?>
+                <img class="media-object img-rounded gambarRestoran" src="<?php echo $url_full ?>" alt="Generic placeholder image">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><?php echo $r->NAMA_RESTORAN .'-'.$r->ALAMAT_RESTORAN ;?></h4>
 
+                <?php
+                $ctrRow = 0;
+
+                $ctrReview=0;
+                foreach($menu as $m){
+                  if($m->KODE_RESTORAN == $r->KODE_RESTORAN){
+
+
+                  echo "<div class='media' id=".$m->KODE_MENU." style='margin-bottom:30px;'>";
+                    echo "<div class='media-left'>";
+                    $url = base_url('/vendors/images/menu/default.jpg');
+                    if($m->URL_FOTO != ''){
+                      $url = base_url('/vendors/images/menu/'.$m->KODE_RESTORAN.'/'.$m->KODE_MENU . '/' . $m->URL_FOTO);
+                    }
+            ?>
+                    <img class="media-object displayPicture displayPictureMenu img-rounded"  src="<?php echo $url;?>" alt="..." row-id="<?php echo $ctrRow; ?>">
+            <?php
+                    echo "</div>";
+                    echo "<div class='media-body'>";
+                  echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$m->KODE_MENU."' data-url='".site_url('/fatncurious/deleteMenu/'.$m->KODE_MENU.'')."' data-koderestoran='".$m->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$m->NAMA_MENU."' data-kode='".$m->KODE_MENU."' data-fotoMenu='".$m->URL_FOTO."' data-kodeResto='".$m->KODE_RESTORAN."' data-deskripsi='".$m->DESKRIPSI_MENU."'>Update</a></h4>";
+                  echo $m->DESKRIPSI_MENU;
+
+
+                  echo "<div class='media m-t-2'>";
+                  $adaComment=false;
+                  //print_r($review);
+                  $ctrRow = 0;
+                  $ctrReview=0;
+                    foreach($review as $rr){
+                      if($rr->NAMA_RESTORAN == $m->NAMA_RESTORAN){
+                        if($rr->NAMA_MENU == $m->NAMA_MENU){
+
+
+                        $adaComment=true;
+                  ?>
+                        <div class="media">
+                          <a class="media-left" href="<?php echo site_url('fatncurious/profilUserKlik/'.$rr->KODE_USER.'');?>">
+                            <?php
+
+                              if($rr->URL_FOTO_USER == ''){
+                                $url = 'default.jpg';
+                              }else $url = $rr->URL_FOTO_USER;
+                              $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                            ?>
+                            <img class="media-object displayPictureComment img-circle" src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                          </a>
+
+                            <div class="media-body">
+                              <h4 class="media-heading"><?php echo $rr->NAMA_USER ;?> <span style="float:right"><h6><?php echo $rr->TANGGAL_REVIEW ;?></h6></span></h4>
+                              <p><?php echo $rr->DESKRIPSI_REVIEW ;?></p>
+                            </div>
+                            </div>
+                    <?php
+                            }
+                          }
+                        }
+                        echo "<br>";
+                        if($adaComment==false){
+                          echo "<h4>Tidak ada Comment</h4>";
+                        }
+                  echo "</div>";
+                  echo "</div>";
+                  echo "</div>";
+
+                  $ctrRow++;
+                }
+              }
+                ?>
+                </div>
+                </div>
+                </div>
+  <?php
+
+      }
+    }
+    echo $links;
+  ?>
   </div>
+
   <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
@@ -244,7 +303,7 @@
                     <div class="media-left">
                       <?php
                         if($resto->URL_FOTO_RESTORAN == ''){
-                          $foto = 'RS002.jpg';
+                          $foto = 'default.jpg';
                         }
                         else{$foto = $resto->URL_FOTO_RESTORAN ;}
 
