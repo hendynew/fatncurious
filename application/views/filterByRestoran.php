@@ -71,6 +71,71 @@
 			<?php
 				if(isset($kodeUser)){
 			?>
+
+              <li class="scroll">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;">3</sup></sup></span>
+          </a>
+          <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
+            <div>
+              <li class="media" style="height:70px;">
+                <div class="media-left" style="padding:5px;">
+                <a href="#"  style="padding:0px;">
+                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+                </a>
+                </div>
+                <div class="media-body">
+                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
+                  <h6 style="color:white;">26-5-2012</h6>
+                </div>
+              </li>
+            </div>
+            <hr/>
+            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
+              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
+                <div class="media-left" style="padding:5px;">
+                <a href="#"  style="padding:0px;">
+                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+                </a>
+                </div>
+                <div class="media-body">
+                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
+                  <h6 style="color:white;">26-5-2012</h6>
+                </div>
+              </li>
+            </div>
+            <hr/>
+            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
+              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
+                <div class="media-left" style="padding:5px;">
+                <a href="#"  style="padding:0px;">
+                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+                </a>
+                </div>
+                <div class="media-body">
+                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
+                  <h6 style="color:white;">26-5-2012</h6>
+                </div>
+              </li>
+            </div>
+            <hr/>
+            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
+              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
+                <div class="media-left" style="padding:5px;">
+                <a href="#"  style="padding:0px;">
+                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+                </a>
+                </div>
+                <div class="media-body">
+                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
+                  <h6 style="color:white;">26-5-2012</h6>
+                </div>
+              </li>
+            </div>
+            <hr/>
+          </ul>
+
+        </li>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
