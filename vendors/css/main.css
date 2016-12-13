@@ -132,6 +132,8 @@ section {
 
 .navbar-brand h1 {
   margin-top: 5px;
+  max-width: 100px;
+  overflow:hidden;
 }
 
 /*************************
@@ -170,7 +172,6 @@ section {
 }
 
 #contact-us {
-  background-image:url(../images/contact-bg.jpg);
   padding-bottom: 90px;
 }
 
@@ -468,4 +469,15 @@ ul.address {
 {
   width:30px;
   height:30px;
+}
+.logo{
+  width: 50%;
+  min-width: 300px;
+}
+
+.logo-nav{
+  width: 25%;
+  min-width: 25%;
+  max-width: 25%;
+  overlay: hidden;
 }

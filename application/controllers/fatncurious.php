@@ -422,9 +422,14 @@ class Fatncurious extends CI_Controller {
 		$kodeUser = $_POST['user'];
 		$kodeReview = $_POST['review'];
 		$this->load->model('model_menu');
+		$this->load->model('model_restaurant');
+		$this->load->model('model_notifikasi');
 		$this->model_menu->like_review($kodeReview,$kodeUser,1);
 		$arr[0] = $this->model_menu->count_like($kodeReview,1);
 		$arr[1] = $this->model_menu->count_like($kodeReview,-1);
+		$pemilik = $this->model_restaurant->select_pemilik_review($kodeReview);
+		$user = $this->session->userdata('userYangLogin')->NAMA_USER;
+		$this->model_notifikasi->INSERT($pemilik, $user." likes your review.", base_url("fatncurious/sortByMenuRestoran/". $kodeRestoran ."/"."like".$kodeReview));
 		echo json_encode($arr);
 	}
 
@@ -1094,7 +1099,7 @@ class Fatncurious extends CI_Controller {
 		$config = array(
 			'upload_path' => './vendors/images/menu/' . $kodeRestoran .'/' . $kodeMenu . '/',
 			'allowed_types' => 'jpg|png|jpeg|JPG|PNG|JPEG',
-			'overwrite' => FALSE,
+			'overwrite' => TRUE,
 			'max_size' => "1000KB",
 			'file_name' => $this->Model_menu->count_foto_menu($kodeMenu)
 		);
