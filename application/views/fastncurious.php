@@ -13,11 +13,6 @@
     <link href="<?php echo base_url('/vendors/css/main.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('/vendors/css/responsive.css');?>" rel="stylesheet">
 
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="<?php echo base_url('/vendors/images/favicon.ico');?>">
     <link href="<?php echo base_url('/vendors/css/bootstrap-datetimepicker.min.css');?>" rel="stylesheet">
@@ -49,97 +44,6 @@
           </div>
         </div>
       </div>
-      <?php if(!isset($kodeUser)){?>
-      <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-      <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
-        <div id="menuKiri">
-            <div class= "container-fluid palingDepan backgroundMenuTambahan">
-			<?php
-				echo form_open('fatncurious/register');
-			?>
-              <div class="form-group">
-				<?php
-				  $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister'];
-				  echo form_input($array);
-				  //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-				?>
-                <label for="exampleInputEmail1">Email address</label>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-				<?php
-				  $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister'];
-				  echo form_input($array);
-				  //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				?>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputNama"> Nama</label>
-				<?php
-				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister'];
-				  echo form_input($array);
-				  //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
-				?>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputDTPicker">Tanggal Lahir</label>
-				<?php
-				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'YYYY-MM-DD','name'=>'txtTglRegister'];
-				  echo form_input($array);
-				  //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
-				?>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputNoTelp"> No Telp</label>
-				<?php
-				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister'];
-				  echo form_input($array);
-				  //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
-				?>
-              </div>
-			  <?php
-                  $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register'];
-                  echo form_submit($array);
-				  //<button type="submit" class="btn btn-info">Register</button>
-                ?>
-			  <?php
-				echo form_close();
-			  ?>
-            </div>
-
-        </div>
-        <div id="menuKanan">
-            <div class= "container-fluid palingDepan">
-			<?php echo form_open('fatncurious/login')?>
-              <div class="form-group">
-                <label for="exampleInputEmail2">Email address</label>
-				<?php
-                  $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailLogin'];
-                  echo form_input($array);
-				  //<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email"/>
-                ?>
-
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword2">Password</label>
-				<?php
-                  $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordLogin'];
-                  echo form_input($array);
-				  //<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password"/>
-                ?>
-
-              </div>
-			  <?php
-                  $array=['class'=>'btn btn-info','name'=>'btnLogin','value'=>'Login'];
-                  echo form_submit($array);
-				  //<button type="submit" class="btn btn-info">Login</button>
-
-                ?>
-
-			  <?php echo form_close()?>
-            </div>
-        </div><?php }?>
-
     </div><!--/#home-slider-->
 
     <div class="main-nav">
@@ -241,8 +145,13 @@
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+<<<<<<< HEAD
             <h2>Contact Us</h2>
 
+=======
+            <h2 style="color:#fff;">Contact Us</h2>
+            <p>Get support by phone or chat, set up a repair, or make a Genius Bar </p>
+>>>>>>> refs/remotes/origin/develop2
           </div>
         </div>
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">

@@ -69,7 +69,30 @@ class Model_promo extends CI_Model {
 		$promoResto = array(
 			'KODE_PROMO' => $kode,
 			'KODE_RESTORAN' =>'RS001',
+			'STATUS' => '1'
+		);
 
+		$this->db->insert('promo', $promo);
+		$this->db->insert('promo_restoran', $promoResto);
+  	return $this->db->insert_id();
+	}
+
+	public function INSERT_PROMO($nama,$promo,$masaBerlaku,$foto,$persentase,$ket,$kodeResto){
+		$kode = $this->generateKode();
+		$promo = array(
+			'KODE_PROMO' => $kode,
+			'NAMA_PROMO' => $nama,
+			'DESKRIPSI_PROMO' => $promo,
+			'MASABERLAKU_PROMO' => $masaBerlaku,
+			'FOTO_PROMO' => $foto,
+			'PERSENTASE_PROMO' => $persentase,
+			'KETERANGAN_PROMO' => $ket,
+			'STATUS' => '1'
+		);
+		$promoResto = array(
+			'KODE_PROMO' => $kode,
+			'KODE_RESTORAN' =>$kodeResto,
+			'STATUS' => '1'
 		);
 
 		$this->db->insert('promo', $promo);

@@ -127,6 +127,15 @@ class Model_restaurant extends CI_Model {
 		$this->db->query($data);
 	}
 
+	public function updateFotoRestoran($kode,$foto){
+		$where = 'KODE_RESTORAN="' . $kode .'"';
+		$restoran = array(
+				'URL_FOTO_RESTORAN' => $foto
+		);
+		$data = $this->db->update_string('restoran',$restoran,$where);
+		$this->db->query($data);
+	}
+
 
 	public function AUTO_MODERATE_REVIEW(){
 			$array_string = "fuck,FUCK,bitch,BITCH,ass,ASS,asshole,ASSHOLE";
@@ -165,7 +174,7 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_REPORT($kode){
-		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', user.URL_FOTO as 'URL_FOTO', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT report_restoran.KODE_REPORT_RESTORAN as 'KODE',report_restoran.TANGGAL_REPORT as 'TANGGAL', report_restoran.WAKTU_REPORT as 'WAKTU', user.NAMA_USER as 'NAMA', user.URL_FOTO as 'URL_FOTO', report_restoran.KODE_USER as 'KODE_USER', report_restoran.ALASAN as 'ALASAN', report_restoran.KETERANGAN as 'KETERANGAN' from report_restoran,user where report_restoran.KODE_RESTORAN='$kode' AND report_restoran.STATUS='1' and user.KODE_USER=report_restoran.KODE_USER ORDER BY report_restoran.TANGGAL_REPORT desc ")->result();
 		return $hasil;
 	}
 
@@ -176,9 +185,10 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_REVIEW($kode){
-		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER")->result();
+		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER',user.URL_FOTO as 'URL_FOTO', user.NAMA_USER as 'NAMA',rr.KODE_RESTORAN as KODE_RESTORAN,rr.JUDUL as 'JUDUL', rr.DESKRIPSI as 'DESKRIPSI', rr.JUMLAH_RATING as 'RATING', rr.TANGGAL as 'TANGGAL', rr.JUMLAH_LIKE as 'LIKE' from rating_restoran as rr,user where rr.KODE_RESTORAN='$kode' AND rr.STATUS='1' and user.KODE_USER=rr.KODE_USER ORDER BY rr.TANGGAL desc")->result();
 		return $hasil;
 	}
+
 
 	public function SELECT_RATING($kode){
 		$hasil = $this->db->query("SELECT user.KODE_USER as 'KODE_USER', user.NAMA_USER as 'NAMA', rating.JUMLAH_RATING as 'RATING' from rating_restoran as rating,user where rating.KODE_RESTORAN='$kode' AND rating.STATUS='1' and user.KODE_USER=rating.KODE_USER")->result();

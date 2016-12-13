@@ -86,6 +86,23 @@ class Model_menu extends CI_Model {
   	return $this->db->insert_id();
 	}
 
+	public function INSERT_MENU($kode2,$kode3,$nama,$menu,$harga,$fotoMenu,$ket){
+		$kode = $this->generateKode();
+		$menu = array(
+			'KODE_MENU' => $kode,
+			'KODE_JENIS_MENU' => $kode2,
+			'KODE_RESTORAN' => $kode3,
+			'NAMA_MENU' => $nama,
+			'DESKRIPSI_MENU' => $menu,
+			'HARGA_MENU' => $harga,
+			'URL_FOTO' => $fotoMenu,
+			'KETERANGAN_MENU' => $ket,
+			'STATUS' => '1'
+		);
+		$this->db->insert('menu', $menu);
+  	return $this->db->insert_id();
+	}
+
 	public function DELETE($kode){
 		//$data = $this->db->query("DELETE FROM rating_menu WHERE KODE_MENU='$kode'");
 		//$data = $this->db->query("DELETE FROM menu WHERE KODE_MENU='$kode'");
@@ -176,7 +193,7 @@ class Model_menu extends CI_Model {
 	}
 
 	public function SELECT_REVIEW($kode){
-		return $this->db->query("SELECT rm.KODE_REVIEW as KODE_REVIEW,u.URL_FOTO as URL_FOTO, u.KODE_USER as KODE, u.NAMA_USER as NAMA, rm.TANGGAL_REVIEW as TANGGAL, rm.DESKRIPSI_REVIEW as DESKRIPSI_REVIEW, rm.KETERANGAN_REVIEW as KETERANGAN from review_menu as rm, user as u WHERE rm.KODE_MENU='$kode' and rm.KODE_USER=u.KODE_USER and rm.STATUS='1'")->result();
+		return $this->db->query("SELECT rm.KODE_REVIEW as KODE_REVIEW,u.URL_FOTO as URL_FOTO, u.KODE_USER as KODE, u.NAMA_USER as NAMA, rm.TANGGAL_REVIEW as TANGGAL, rm.DESKRIPSI_REVIEW as DESKRIPSI_REVIEW, rm.KETERANGAN_REVIEW as KETERANGAN from review_menu as rm, user as u WHERE rm.KODE_MENU='$kode' and rm.KODE_USER=u.KODE_USER and rm.STATUS='1' ORDER BY rm.TANGGAL_REVIEW desc")->result();
 	}
 
 	public function SELECT_ALL_REVIEW(){
