@@ -174,7 +174,7 @@
             <?php
                     echo "</div>";
                     echo "<div class='media-body'>";
-                  echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='confirmation' class='btn btn-danger confirmationMenu' style='float:right;' data-kodemenu='".$m->KODE_MENU."' data-url='".site_url('/fatncurious/deleteMenu/'.$m->KODE_MENU.'')."' data-koderestoran='".$m->KODE_RESTORAN."'>Delete</a><a href='#' class='btn btn-primary' style='float:right;margin-right:10px;' data-toggle='modal' data-target='#modalUpdate' data-menu='".$m->NAMA_MENU."' data-kode='".$m->KODE_MENU."' data-fotoMenu='".$m->URL_FOTO."' data-kodeResto='".$m->KODE_RESTORAN."' data-deskripsi='".$m->DESKRIPSI_MENU."'>Update</a></h4>";
+                  echo "<h4 class='media-heading'>".$m->NAMA_MENU."</h4>";
                   echo $m->DESKRIPSI_MENU;
 
 
