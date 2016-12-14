@@ -447,7 +447,7 @@
                 <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
               </a>
               <div class="media-body">
-                <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL ;?></h6></span></h4>
+                <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6 style="color:white;"><?php echo $rr->TANGGAL ;?></h6></span></h4>
                 <h4>
                   <?php
                     $counter = 0;
