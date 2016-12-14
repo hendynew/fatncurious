@@ -116,8 +116,8 @@
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;"> <?php echo $this->session->userdata('userYangLogin')->NAMA_USER; ?> </li></a>
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
             <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
@@ -312,7 +312,7 @@
 				<?php echo $this->table->generate(); ?>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="submit btn-default" >Submit</button>
+            <button type="submit" class="submit btn-primary" >Submit</button>
             <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
 		<?php echo form_close(); ?>

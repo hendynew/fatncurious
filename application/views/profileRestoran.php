@@ -133,8 +133,8 @@
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;"> <?php echo $this->session->userdata('userYangLogin')->NAMA_USER; ?> </li></a>
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
             <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
@@ -447,7 +447,7 @@
                 <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
               </a>
               <div class="media-body">
-                <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL ;?></h6></span></h4>
+                <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6 style="color:white;"><?php echo $rr->TANGGAL ;?></h6></span></h4>
                 <h4>
                   <?php
                     $counter = 0;
