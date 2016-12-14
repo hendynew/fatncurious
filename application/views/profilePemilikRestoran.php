@@ -312,7 +312,7 @@
 				<?php echo $this->table->generate(); ?>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="submit btn-default" >Submit</button>
+            <button type="submit" class="submit btn-primary" >Submit</button>
             <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
 		<?php echo form_close(); ?>
