@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2016 at 07:15 PM
+-- Generation Time: Dec 14, 2016 at 10:52 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -243,11 +243,22 @@ INSERT INTO `menu` (`KODE_MENU`, `KODE_JENIS_MENU`, `KODE_RESTORAN`, `NAMA_MENU`
 CREATE TABLE IF NOT EXISTS `notifikasi` (
   `KODE_NOTIFIKASI` varchar(5) NOT NULL,
   `KODE_USER` varchar(5) NOT NULL,
+  `WAKTU` datetime NOT NULL,
   `ISI` varchar(255) NOT NULL,
   `URL` varchar(255) NOT NULL,
   `STATUS` varchar(1) NOT NULL,
   PRIMARY KEY (`KODE_NOTIFIKASI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`KODE_NOTIFIKASI`, `KODE_USER`, `WAKTU`, `ISI`, `URL`, `STATUS`) VALUES
+('NO001', 'US003', '2016-12-14 07:00:00', 'Hendy Lukas mentioned you in a comment ''@JASONELIAN testing bossss''', 'RS009', '1'),
+('NO002', 'US001', '2016-12-14 00:24:47', 'Hendy Lukas mentioned you in a comment ''@ARDIUNTUNG ASDASD''', 'RS009', '0'),
+('NO003', 'US001', '2016-12-14 12:32:46', 'Hendy Lukas mentioned you in a comment ''@ARDIUNTUNG MANTAP JIWA''', 'RS009', '1'),
+('NO004', 'US001', '2016-12-14 06:37:17', 'Hendy Lukas mentioned you in a comment ''@ARDIUNTUNG tes''', 'RS009', '1');
 
 -- --------------------------------------------------------
 
@@ -578,7 +589,11 @@ INSERT INTO `review_menu` (`KODE_REVIEW`, `KODE_USER`, `KODE_MENU`, `DESKRIPSI_R
 ('RE019', 'US003', 'ME001', 'testing bro', '2016-12-13', 0, '', '0'),
 ('RE020', 'US003', 'ME001', 'testes', '2016-12-13', 0, '', '0'),
 ('RE021', 'US003', 'ME001', 'testes', '2016-12-13', 0, '', '0'),
-('RE022', 'US003', 'ME001', 'haha', '2016-12-13', 0, '', '0');
+('RE022', 'US003', 'ME001', 'haha', '2016-12-13', 0, '', '0'),
+('RE023', 'US012', 'ME018', '@JASONELIAN testing bossss', '2016-12-14', 0, '', '1'),
+('RE024', 'US012', 'ME018', '@ARDIUNTUNG ASDASD', '2016-12-14', 0, '', '1'),
+('RE025', 'US012', 'ME018', '@ARDIUNTUNG MANTAP JIWA', '2016-12-14', 0, '', '1'),
+('RE026', 'US012', 'ME018', '@ARDIUNTUNG tes', '2016-12-14', 0, '', '1');
 
 -- --------------------------------------------------------
 
