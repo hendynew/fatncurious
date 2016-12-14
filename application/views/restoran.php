@@ -259,9 +259,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                    <center><h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
                 </div>
-                <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+                <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;background-image: url('<?php echo base_url('/vendors/images/Background/chocolate food design candy powder paint brushes black background 1920x1200 wallpaper_www.wall321.com_13.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
                   <?php if(isset($review_restoran)){foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
@@ -309,14 +309,11 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                  <center><h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
               </div>
               <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
                 <center>
                   <div class="media">
-                    <a class="media" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
                     <div class="media-body">
                       <?php echo form_open_multipart('fatncurious/uploadFoto').form_upload('foto'); ?>
                     </div>
@@ -661,7 +658,7 @@
      <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+          <center><h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
         </div>
         <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;background-image: url(<?php echo base_url('/vendors/images/Background/Wallpapers-fruit-flowers-black-background-hd-desktop-wallpapers.jpg');?>) ;background-size: cover;filter:grayscale(.7);color:#fff;"">
           <h2 style="margin-top:0px;">
