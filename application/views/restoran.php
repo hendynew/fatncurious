@@ -522,14 +522,14 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Report Review</h4>
+                  <center><h4 class="modal-title">Report Review</h4></center>
               </div>
-              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
                 <center>
                   <div class="media">
                     <div class="media-body">
                       <?php echo 'Deskripsi Report : ' . '<br>';
-                      $arr = ['id'=>'txtDeskripsi'];
+                      $arr = ['id'=>'txtDeskripsi','class'=>'form-control','style'=>'color:white;'];
                       echo form_textarea($arr);
                       ?>
                     </div>
