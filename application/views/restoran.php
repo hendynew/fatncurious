@@ -776,7 +776,7 @@
       {
         if(status !== google.maps.GeocoderStatus.OK)
         {
-          alert("Error was : "+status);
+          //alert("Error was : "+status);
         }
         else
         {
