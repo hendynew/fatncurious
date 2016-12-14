@@ -481,3 +481,11 @@ ul.address {
   max-width: 25%;
   overlay: hidden;
 }
+
+.notif{
+  background-color: inherit;
+}
+
+.notif div:hover{
+  background-color: gray;
+}

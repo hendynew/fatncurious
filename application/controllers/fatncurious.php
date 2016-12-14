@@ -192,6 +192,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 		if($adaError == null){
 			if(isset($_SESSION['nama'])){
@@ -216,6 +218,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 		if($this->session->userdata('userYangLogin')){
 			$pemilik = false;
@@ -299,6 +303,8 @@ class Fatncurious extends CI_Controller {
 				$data['resto']->STATUS = 'Buka';
 			}
 			//echo 'masuk 3';
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 			$this->load->view('restoran',$data);
 		}
 	}
@@ -309,6 +315,8 @@ class Fatncurious extends CI_Controller {
 			$this->load->model('model_user');
 			$this->load->model('fatncurious_model_user');
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 			$data['kodeUser'] = $this->session->userdata('userYangLogin');
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
@@ -380,6 +388,8 @@ class Fatncurious extends CI_Controller {
 					'file_name' => $this->session->userdata('userYangLogin')->KODE_USER
 				);
 				$this->upload->initialize($config);
+				$this->load->model("model_notifikasi");
+				$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 				$this->load->view('profileUser',$data);
 			}
 		}
@@ -418,6 +428,8 @@ class Fatncurious extends CI_Controller {
 				redirect('fatncurious/profilPemilikRestoran');
 			}
 			else{
+				$this->load->model("model_notifikasi");
+				$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 				$this->load->view('lihatProfilUserLain',$data);
 			}
 	}
@@ -611,6 +623,8 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 			$this->model_promo->updatePromo($kodePromo,$namaPromo,$deskripsiPromo,$masaBerlakuPromo,$persentasePromo,$keteranganPromo);
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 			redirect("fatncurious/sortByPromoProfilRestoran/$kodeResto");
 		}
 	}
@@ -695,6 +709,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 		$config = array();
 		$config['base_url'] = site_url('fatncurious/filterByPromo');
@@ -717,7 +733,6 @@ class Fatncurious extends CI_Controller {
 		$data['promo'] = $this->fatncurious_model_promo->selectSemuaPromo(5,$page);
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-
 		$this->load->view('filterByPromo',$data);
 	}
 	public function filterByRestoran(){
@@ -727,6 +742,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 		$this->load->model('Model_restaurant');
 		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
@@ -751,7 +768,6 @@ class Fatncurious extends CI_Controller {
 		$data['resto'] = $this->fatncurious_model_restaurant->selectSemuaResto(5,$page);
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
-
 		$this->load->view('filterByRestoran',$data);
 	}
 	public function filterByKartu(){
@@ -761,6 +777,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 
 		$config = array();
@@ -794,6 +812,8 @@ class Fatncurious extends CI_Controller {
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
 			$fotoUser= $this->model_user->SEARCH($kodeUser);
 			$data['fotoUser'] = $fotoUser;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		}
 
 		$this->load->model('model_menu');
@@ -856,6 +876,8 @@ class Fatncurious extends CI_Controller {
 		$data['kodeuser'] = $kodeUser;
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['report_restoran'] = $this->Model_restaurant->SELECT_REPORT($kode);
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('profileRestoran',$data);
 	}
 	public function sortByMenuProfilRestoran($kode)	{
@@ -899,7 +921,8 @@ class Fatncurious extends CI_Controller {
 		$data['kodeuser'] = $kodeUser;
 		$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['report_restoran'] = $this->Model_restaurant->SELECT_REPORT($kode);
-		//$data['review_restoran'] = $this->Model_restaurant->SELECT_REVIEW($kode);
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('profileRestoran',$data);
 	}
 	public function sortByMenuRestoran($kode)	{
@@ -983,6 +1006,8 @@ class Fatncurious extends CI_Controller {
 		$data['active2'] = '';
 		$data['active3'] = 'active';
 		$data['active4'] = '';
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('restoran',$data);
 	}
 	public function sortByPromoRestoran($kode)	{
@@ -1027,6 +1052,8 @@ class Fatncurious extends CI_Controller {
 				}
 			}
 		}
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('restoran',$data);
 	}
 	public function sortByKreditRestoran($kode)	{
@@ -1079,7 +1106,8 @@ class Fatncurious extends CI_Controller {
 		$data['kodeRestoran'] = $kode;
 		$data['rating'] = $this->Model_restaurant->COUNT_RATING($kode);
 		$data['report'] = $this->Model_restaurant->COUNT_REPORT($kode);
-
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('restoran',$data);
 	}
 	public function rate_restoran(){
@@ -1220,6 +1248,8 @@ class Fatncurious extends CI_Controller {
 		$data['menu'] = $this->fatncurious_model_menu->searchMenu(5,$page,$kataSearch,$makanan,$minuman,$snack,$dessert);
 		$this->load->model('Model_menu');
 		$data['rating'] = $this->Model_menu->COUNT_ALL_LIKE();
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('filterByMenu',$data);
 	}
 
@@ -1293,6 +1323,8 @@ class Fatncurious extends CI_Controller {
 		$data['resto'] = $this->fatncurious_model_restaurant->searchRestoran(5,$page,$kataSearch,$namaResto,$alamatResto);
 		$this->load->model('Model_restaurant');
 		$data['rating'] = $this->Model_restaurant->COUNT_ALL_RATING();
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('filterByRestoran',$data);
 	}
 
@@ -1349,6 +1381,8 @@ class Fatncurious extends CI_Controller {
 		$data['links'] = $this->pagination->create_links();
 		$data['kartu'] = $this->fatncurious_model_kartu_kredit->searchKredit(5,$page,$namaKartu);
 		$data['semuaKartu'] = $this->fatncurious_model_kartu_kredit->selectSemuaKredit();
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('filterByKredit',$data);
 	}
 
@@ -1453,6 +1487,8 @@ class Fatncurious extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['links'] = $this->pagination->create_links();
 		$data['promo'] = $this->fatncurious_model_promo->searchPromo(5,$page,$kataSearch,$namaResto,$alamatResto,$namaPromo,$deskripsiPromo,$persentasePromo);
+		$this->load->model("model_notifikasi");
+		$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 		$this->load->view('filterByPromo',$data);
 	}
 
@@ -1565,5 +1601,10 @@ class Fatncurious extends CI_Controller {
 		else{
 			show_error($this->email->print_debugger());
 		}
+	}
+
+	public function delete_notif($kode){
+		$this->load->model("model_notifikasi");
+		$this->model_notifikasi->DELETE($kode);
 	}
 }

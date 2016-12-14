@@ -4,7 +4,7 @@ jQuery(function($) {
         	$('main-nav').addClass('berubah');
 
 	});
-	
+
 	//#main-slider
 	var slideHeight = $(window).height();
 	$('#home-slider .item').css('height',slideHeight);
@@ -331,6 +331,17 @@ $('#modalUpdate').on('show.bs.modal', function (event) {
 	modal.find('#deskripsiMenu').val( deskripsiMenu );
 	//$("#hidKodeMenu").attr("value",kodeMenu);
 	//$("#hidKodeRestoran").attr("value",kodeRestoran);
+});
+
+$(".del_notif").on("click",function()
+{
+	var kodenotif = $(this).attr("data-kode");
+	var url = $(this).attr("data-url");
+
+	$.post(url,{ kode: kodenotif},
+	function(result){
+		
+	});
 });
 
 $('#modalUpdatePromo').on('show.bs.modal', function (event) {

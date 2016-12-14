@@ -8,8 +8,7 @@ class Model_notifikasi extends CI_Model {
 	}
 
 	public function SELECT($user){
-		$this->db->where("KODE_USER",$user);
-		return $this->db->get("notifikasi")->result();
+		return $this->db->query("SELECT KODE_NOTIFIKASI, n.KODE_USER as KODE_USER, u.URL_FOTO as URL_FOTO, ISI, WAKTU,URL FROM USER as u, NOTIFIKASI as n WHERE n.KODE_USER='$user' AND n.KODE_USER=u.KODE_USER AND n.STATUS='1' GROUP BY KODE_NOTIFIKASI")->result();
 	}
 
 	public function generateKode(){
@@ -61,6 +60,7 @@ class Model_notifikasi extends CI_Model {
 				$array = array(
 					'KODE_NOTIFIKASI'=>$kode,
 					'KODE_USER' => $kodeUser,
+					'WAKTU' => date("Y-m-d h:i:s"),
 					'ISI' => $nama . " mentioned you in a comment '" . $isi . "'",
 					'URL' => $url,
 					'STATUS' => '1'
