@@ -224,6 +224,8 @@ class Fatncurious extends CI_Controller {
 		if($this->session->userdata('userYangLogin')){
 			$pemilik = false;
 			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			$this->load->model("model_notifikasi");
+			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
 			$data['kodeResto'] = $this->fatncurious_model_restaurant->selectRestoByUser($kodeUser);
 			foreach($data['kodeResto'] as $resto){
 				if($resto->KODE_RESTORAN == $kode){
@@ -302,9 +304,9 @@ class Fatncurious extends CI_Controller {
 			else if($data['resto']->STATUS_RESTORAN == 1){
 				$data['resto']->STATUS = 'Buka';
 			}
+
 			//echo 'masuk 3';
-			$this->load->model("model_notifikasi");
-			$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
+			
 			$this->load->view('restoran',$data);
 		}
 	}
