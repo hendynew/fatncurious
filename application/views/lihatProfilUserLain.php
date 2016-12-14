@@ -64,73 +64,45 @@
             ?>
 
             <li class="scroll"><a href="<?php echo site_url('fatncurious/index#contact') ?>">Contact Us</a></li>
-      <?php
-        if(isset($kodeUser)){
-      ?>
-        <li class="scroll">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;">3</sup></sup></span>
-          </a>
-          <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
-            <div>
-              <li class="media" style="height:70px;">
-                <div class="media-left" style="padding:5px;">
-                <a href="#"  style="padding:0px;">
-                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
+            <?php
+              if(isset($kodeUser)){
+                if(isset($notifikasi)){
+            ?>
+              <li class="scroll">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;"><?php echo count($notifikasi)?></sup></sup></span>
                 </a>
-                </div>
-                <div class="media-body">
-                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
-                  <h6 style="color:white;">26-5-2012</h6>
-                </div>
+                <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
+                  <?php
+                    $isiClass ="";
+                    foreach($notifikasi as $n){
+                      if($n->URL_FOTO == ''){
+                        $url = 'default.jpg';
+                      }else $url = $n->URL_FOTO;
+                      $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                  ?>
+                  <a href="<?= base_url() . 'index.php/fatncurious/sortByMenuRestoran/' . $n->URL?>"  style="padding:0px;">
+                    <div class="notif" style="<?= $isiClass?>">
+                      <li class="media" style="height:70px;">
+                          <div class="media-left" style="padding:5px;background-color: inherit">
+                            <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                          </div>
+                          <div class="media-body" style="background-color: inherit">
+                            <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;background-color:inherit"><?php echo $n->ISI?></div>
+                            <h6 style="color:white;"><?= $n->WAKTU ?></h6>
+                          </div>
+                      </li>
+                    </div>
+                  </a>
+                  <hr/>
+                  <?php $isiClass = "background-color:gray;margin-top:-20px;margin-bottom: -20px;";
+                }
+                  ?>
+                </ul>
               </li>
-            </div>
-            <hr/>
-            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
-              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
-                <div class="media-left" style="padding:5px;">
-                <a href="#"  style="padding:0px;">
-                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
-                </a>
-                </div>
-                <div class="media-body">
-                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
-                  <h6 style="color:white;">26-5-2012</h6>
-                </div>
-              </li>
-            </div>
-            <hr/>
-            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
-              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
-                <div class="media-left" style="padding:5px;">
-                <a href="#"  style="padding:0px;">
-                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
-                </a>
-                </div>
-                <div class="media-body">
-                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
-                  <h6 style="color:white;">26-5-2012</h6>
-                </div>
-              </li>
-            </div>
-            <hr/>
-            <div style="background-color:gray;margin-top:-20px;margin-bottom: -20px;">
-              <li class="media" style="height:70px;background-color:gray;padding-top:10px;padding-bottom: 85px;">
-                <div class="media-left" style="padding:5px;">
-                <a href="#"  style="padding:0px;">
-                  <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo base_url('vendors/images/1.jpg'); ?>" alt = "generic placeholder image"></img>
-                </a>
-                </div>
-                <div class="media-body">
-                  <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;"><strong>Jason Elian</strong> mention you on <strong>"@Hendy Lukas asdasd"</strong></div>
-                  <h6 style="color:white;">26-5-2012</h6>
-                </div>
-              </li>
-            </div>
-            <hr/>
-          </ul>
-
-        </li>
+              <?php
+            }
+              ?>
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
