@@ -74,13 +74,12 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               FilterBy <span class="caret"></span>
@@ -92,10 +91,47 @@
               <li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
               </ul>
           </li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
+            <li class="scroll"><a href="<?php echo site_url('fatncurious/index#contact') ?>">Contact Us</a></li>
       <?php
         if(isset($kodeUser)){
+          if(isset($notifikasi)){
       ?>
+        <li class="scroll">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;"><?php echo count($notifikasi)?></sup></sup></span>
+          </a>
+          <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
+            <?php
+              $isiClass ="";
+              foreach($notifikasi as $n){
+                if($n->URL_FOTO == ''){
+                  $url = 'default.jpg';
+                }else $url = $n->URL_FOTO;
+                $url_full = base_url('/vendors/images/profilepicture/' . $url);
+            ?>
+            <a class="del_notif" href="<?= base_url() . 'index.php/fatncurious/sortByMenuRestoran/' . $n->URL?>"  style="padding:0px;" data-kode="<?= $n->KODE_NOTIFIKASI?>" data-url="<?= base_url() . 'index.php/fatncurious/delete_notif/' . $n->KODE_NOTIFIKASI?>">
+              <div class="notif" style="<?= $isiClass?>">
+                <li class="media" style="height:70px;">
+                    <div class="media-left" style="padding:5px;background-color: inherit">
+                      <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                    </div>
+                    <div class="media-body" style="background-color: inherit">
+                      <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;background-color:inherit"><?php echo $n->ISI?></div>
+                      <h6 style="color:white;"><?= $n->WAKTU ?></h6>
+                    </div>
+                </li>
+              </div>
+            </a>
+            <hr/>
+            <?php $isiClass = "background-color:gray;margin-top:-20px;margin-bottom: -20px;";
+          }
+            ?>
+          </ul>
+        </li>
+        <?php
+      }
+        ?>
+
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
@@ -108,14 +144,47 @@
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;"> <?php echo $this->session->userdata('userYangLogin')->NAMA_USER; ?> </li></a>
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
             <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
       <?php
         }
+        else{
       ?>
+        <li class="scroll">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Register/Login
+            </a>
+            <ul class="dropdown-menu loginRegister">
+              <?php echo form_open('fatncurious/login');?>
+            <!--<form accept-charset="UTF-8" action="fatncurious/login" method="post"> -->
+              <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" >
+                <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
+              </div>
+                <fieldset class='textbox'>
+                  <label id='js-username' style="padding:5px;">
+                    <span>Username</span>
+                    <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
+                  </label>
+                  <label id='password' style="padding:5px;">
+                    <span>Passwort</span>
+                    <input id="userpassword" name="txtPasswordLogin" type="password" />
+                  </label>
+                </fieldset>
+                <fieldset class='subchk' style="padding:5px;">
+                  <?php
+                    $array=['name'=>'btnLogin','value'=>'Login'];
+                    echo form_submit($array);
+                  ?>
+                </fieldset>
+                <?php echo form_close();?>
+              <!-- </form> -->
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 5px;">Register</a>
+            <ul>
+          </li>
+      <?php } ?>
           </ul>
         </div>
       </div>
@@ -170,61 +239,7 @@
                 ?>
               </center>
               <?php } ?>
-              <!--Modal -->
-              <div id="modalRating" class="modal fade">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
-                      </div>
-                      <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                        <h2 style="margin-top:0px;">
-                          <center>
-                            <?php
-                              $counter = 0;
-                              for($i = 0; $i < 5; $i++){
-                                if($counter < $userRating){
-                                  echo '<span class="glyphicon glyphicon-star bintang" data-val='. ($i + 1) .'></span>';
-                                }
-                                else{
-                                  echo '<span class="glyphicon glyphicon-star-empty bintang" data-val='. ($i + 1) .'></span>';
-                                }
-                                $counter++;
-                              }
-                             ?>
-                          </center>
-                        </h2>
-                        <?php echo form_open("fatncurious/rate_restoran/");?>
-                        <div class="form-group">
-                          <label for="recipient-name" class="form-control-label">Title:</label>
-                          <input type="text" class="form-control" id="recipient-name"name="txtTitle">
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="form-control-label">Comment:</label>
-                          <textarea class="form-control" id="message-text" name="txtComment"></textarea>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                          <?php
 
-                            $arr = ['name'=>'valueBintang','id'=>"hidBintang",'value'=>"",'type'=>'hidden'];
-                            echo form_input($arr);
-                            $arr2 = ['name'=>'kodeRestoran','value'=>$kode,'type'=>'hidden'];
-                            echo form_input($arr2);
-                          ?>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <?php
-                            $arr = ['class'=>'btn btn-primary','name'=>'btnSubmit','value'=>'Submit'];
-                            echo form_submit($arr);
-                            echo form_close();
-                          ?>
-                      </div>
-                  </div>
-                  <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-          </div>
 
               <?php
           }?>
@@ -244,10 +259,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                    <center><h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
                 </div>
-                <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
-                  <?php foreach($review_restoran as $rr){ ?>
+                <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;background-image: url('<?php echo base_url('/vendors/images/Background/chocolate food design candy powder paint brushes black background 1920x1200 wallpaper_www.wall321.com_13.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
+                  <?php if(isset($review_restoran)){foreach($review_restoran as $rr){ ?>
                   <div class="media">
                     <a class="media-left" href="#">
                       <?php
@@ -259,16 +274,16 @@
                       <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
-                      <h4 class="media-heading"><?php echo $rr->NAMA ?></h4>
+                      <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?></h4>
                       <h4>
                         <?php
                           $counter = 0;
                           for($i = 0; $i < 5; $i++){
                             if($counter < $rr->RATING){
-                              echo '<span class="glyphicon glyphicon-star"></span>';
+                              echo '<span style="color:white;" class="glyphicon glyphicon-star"></span>';
                             }
                             else{
-                              echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                              echo '<span style="color:white;" class="glyphicon glyphicon-star-empty"></span>';
                             }
                             $counter++;
                           }
@@ -279,7 +294,7 @@
                     </div>
                   </div>
                   <hr>
-                  <?php } ?>
+                  <?php }}else echo "Tidak ada review." ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -294,14 +309,11 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4>
+                  <center><h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
               </div>
               <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
                 <center>
                   <div class="media">
-                    <a class="media" href="#">
-                      <img class="media-object" src="..." alt="Generic placeholder image">
-                    </a>
                     <div class="media-body">
                       <?php echo form_open_multipart('fatncurious/uploadFoto').form_upload('foto'); ?>
                     </div>
@@ -367,6 +379,7 @@
     <?php
             echo "</div>";
             echo "<div class='media-body'>";
+            if($kodeuser != '')
             echo "<h4 class='media-heading'>".$m->NAMA_MENU."<a href='#' data-toggle='modal' data-target='#modalUpload' class='btn btn-primary' style='float:right;' data-menu='".$m->NAMA_MENU."' data-restoran = '".$resto->NAMA_RESTORAN."' data-kodemenu = '".$m->KODE_MENU."' data-koderestoran = '".$resto->KODE_RESTORAN."'>Upload Foto</a></h4>";
             echo $m->DESKRIPSI_MENU;
 
@@ -509,14 +522,14 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Report Review</h4>
+                  <center><h4 class="modal-title">Report Review</h4></center>
               </div>
-              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
                 <center>
                   <div class="media">
                     <div class="media-body">
                       <?php echo 'Deskripsi Report : ' . '<br>';
-                      $arr = ['id'=>'txtDeskripsi'];
+                      $arr = ['id'=>'txtDeskripsi','class'=>'form-control','style'=>'color:white;'];
                       echo form_textarea($arr);
                       ?>
                     </div>
@@ -563,7 +576,7 @@
                     <input id="address" type="text" value="SURABAYA" style="width: 225px;">
                     <input id="submit" type="button" value="Reverse Geocode">
                   </div>-->
-                  <div id="map" style="height: 500px;width:500px;background-color:red"></div>
+                  <center><div id="map" style="height: 500px;width:500px;background-color:red;"></div></center>
                 </div>
                 <div class="modal-footer">
 
@@ -574,6 +587,125 @@
         <!-- /.modal-dialog -->
     </div>
     </div>
+
+<div id="modalRegister" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <?php echo form_open_multipart('fatncurious/register'); ?>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><center>Register</center></h4>
+          </div>
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
+            <?php echo form_open('fatncurious/register');?>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <?php
+                $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <?php
+                $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNama"> Nama</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputDTPicker">Tanggal Lahir</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNoTelp"> No Telp</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+                ?>
+              </div>
+              <?php
+                $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register','style'=>'color:white'];
+                echo form_submit($array);
+                //<button type="submit" class="btn btn-info">Register</button>
+                ?>
+                <?php
+                echo form_close();
+              ?>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal -->
+  <div id="modalRating" class="modal fade">
+    <div class="modal-dialog">
+     <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <center><h4 class="modal-title">Rating Restoran <?php echo $resto->NAMA_RESTORAN; ?></h4></center>
+        </div>
+        <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;background-image: url(<?php echo base_url('/vendors/images/Background/Wallpapers-fruit-flowers-black-background-hd-desktop-wallpapers.jpg');?>) ;background-size: cover;filter:grayscale(.7);color:#fff;"">
+          <h2 style="margin-top:0px;">
+            <center>
+              <?php
+                $counter = 0;
+                for($i = 0; $i < 5; $i++){
+                  if($counter < $userRating){
+                    echo '<span style="color:white;" class="glyphicon glyphicon-star bintang" data-val='. ($i + 1) .'></span>';
+                  }
+                  else{
+                    echo '<span style="color:white;" class="glyphicon glyphicon-star-empty bintang" data-val='. ($i + 1) .'></span>';
+                  }
+                  $counter++;
+                }
+               ?>
+              </center>
+           </h2>
+            <?php echo form_open("fatncurious/rate_restoran/");?>
+              <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Title:</label>
+              <input type="text" class="form-control" id="recipient-name" name="txtTitle" style="color:white;">
+              </div>
+              <div class="form-group">
+              <label for="message-text" class="form-control-label">Comment:</label>
+              <textarea class="form-control" id="message-text" name="txtComment" style="color:white;"></textarea>
+              </div>
+              <?php
+                $arr = ['name'=>'valueBintang','id'=>"hidBintang",'value'=>"",'type'=>'hidden'];
+                echo form_input($arr);
+                $arr2 = ['name'=>'kodeRestoran','value'=>$kode,'type'=>'hidden'];
+                echo form_input($arr2);
+              ?>
+              <?php
+                $arr = ['class'=>'btn btn-primary','name'=>'btnSubmit','value'=>'Submit'];
+                echo form_submit($arr);
+                echo form_close();
+              ?>
+          </div>
+          <div class="modal-footer">
+          </div>
+      </div>
+      <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+      </div>
+
     <!--<script>
     function initMap() {
     /*var map = new google.maps.Map(document.getElementById('map'), {
@@ -641,11 +773,10 @@
       {
         if(status !== google.maps.GeocoderStatus.OK)
         {
-          alert("Error was : "+status);
+          //alert("Error was : "+status);
         }
         else
         {
-
           console.log(response[0].geometry.location.lat());
           console.log(response[0].geometry.location.lng());
           var marker = new google.maps.Marker(

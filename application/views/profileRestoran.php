@@ -74,18 +74,54 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+          <a class="navbar-brand" href="<?php echo site_url('fatncurious/profilPemilikRestoran');?>">
+            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious/profilUser') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
-			<?php
-				if(isset($kodeUser)){
-			?>
+            <li class="scroll"><a href="<?php echo site_url('fatncurious/index#contact') ?>">Contact Us</a></li>
+            <?php
+              if(isset($kodeUser)){
+                if(isset($notifikasi)){
+            ?>
+              <li class="scroll">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;"><?php echo count($notifikasi)?></sup></sup></span>
+                </a>
+                <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
+                  <?php
+                    $isiClass ="";
+                    foreach($notifikasi as $n){
+                      if($n->URL_FOTO == ''){
+                        $url = 'default.jpg';
+                      }else $url = $n->URL_FOTO;
+                      $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                  ?>
+                  <a href="<?= base_url() . 'index.php/fatncurious/sortByMenuRestoran/' . $n->URL?>"  style="padding:0px;">
+                    <div class="notif" style="<?= $isiClass?>">
+                      <li class="media" style="height:70px;">
+                          <div class="media-left" style="padding:5px;background-color: inherit">
+                            <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                          </div>
+                          <div class="media-body" style="background-color: inherit">
+                            <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;background-color:inherit"><?php echo $n->ISI?></div>
+                            <h6 style="color:white;"><?= $n->WAKTU ?></h6>
+                          </div>
+                      </li>
+                    </div>
+                  </a>
+                  <hr/>
+                  <?php $isiClass = "background-color:gray;margin-top:-20px;margin-bottom: -20px;";
+                }
+                  ?>
+                </ul>
+              </li>
+              <?php
+            }
+              ?>
+
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
@@ -97,14 +133,47 @@
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;"> <?php echo $this->session->userdata('userYangLogin')->NAMA_USER; ?> </li></a>
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
             <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
 			<?php
 				}
+                    else{
 			?>
+                  <li class="scroll">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Register/Login
+            </a>
+            <ul class="dropdown-menu loginRegister">
+              <?php echo form_open('fatncurious/login');?>
+            <!--<form accept-charset="UTF-8" action="fatncurious/login" method="post"> -->
+              <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" >
+                <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
+              </div>
+                <fieldset class='textbox'>
+                  <label id='js-username' style="padding:5px;">
+                    <span>Username</span>
+                    <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
+                  </label>
+                  <label id='password' style="padding:5px;">
+                    <span>Passwort</span>
+                    <input id="userpassword" name="txtPasswordLogin" type="password" />
+                  </label>
+                </fieldset>
+                <fieldset class='subchk' style="padding:5px;">
+                  <?php
+                    $array=['name'=>'btnLogin','value'=>'Login'];
+                    echo form_submit($array);
+                  ?>
+                </fieldset>
+                <?php echo form_close();?>
+              <!-- </form> -->
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 5px;">Register</a>
+            <ul>
+          </li>
+                <?php } ?>
           </ul>
         </div>
       </div>
@@ -122,7 +191,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Profile Restoran</center></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/original.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
             <?php
               if($resto->URL_FOTO_RESTORAN == ''){
                 $url = 'default.jpg';
@@ -130,19 +199,19 @@
               $url_full = base_url('/vendors/images/restoran/' . $url);
             ?>
         <center><img id='fotoMenu' src=<?php echo $url_full;?> style="height:100px;height:100px;" class="img-rounded"></center>
-        <?php $this->table->add_row('Upload Foto Restoran',form_upload(array("name"=>"foto"))); ?>
-        <?php $this->table->add_row('Nama Restoran',form_input('txtRestoran',$resto->NAMA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Alamat Restoran',form_input('txtAlamat',$resto->ALAMAT_RESTORAN,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Telepon',form_input('txtTelepon',$resto->NO_TELEPON_RESTORAN,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Jam Buka',form_input('txtJam',$resto->JAM_BUKA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Hari Buka',form_input('txtHari',$resto->HARI_BUKA_RESTORAN,['style'=>'margin-left:20px;'])); ?>
-        <?php $this->table->add_row('Deskripsi Restoran',form_input('txtDeskripsi',$resto->DESKRIPSI_RESTORAN,['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Upload Foto Restoran',form_upload(array("name"=>"foto"),'',['style'=>'margin-left:20px;'])); ?>
+        <?php $this->table->add_row('Nama Restoran',form_input('txtRestoran',$resto->NAMA_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+        <?php $this->table->add_row('Alamat Restoran',form_input('txtAlamat',$resto->ALAMAT_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+        <?php $this->table->add_row('Telepon',form_input('txtTelepon',$resto->NO_TELEPON_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+        <?php $this->table->add_row('Jam Buka',form_input('txtJam',$resto->JAM_BUKA_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+        <?php $this->table->add_row('Hari Buka',form_input('txtHari',$resto->HARI_BUKA_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+        <?php $this->table->add_row('Deskripsi Restoran',form_input('txtDeskripsi',$resto->DESKRIPSI_RESTORAN,['style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
         <?php echo $this->table->generate(); ?>
           </div>
           <div class="modal-footer">
             <?php
               //echo "<button type='submit' class='submit btn-default' >Submit</button>";
-              $arr = ['name'=>'btnSubmit','class'=>'submit btn-default','value'=>'Submit'];
+              $arr = ['name'=>'btnSubmit','class'=>'submit btn-primary','value'=>'Submit'];
               echo form_submit($arr);
             ?>
             <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -329,14 +398,14 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Update </h4>
+                  <center><h4 class="modal-title">Update </h4></center>
               </div>
               <?php echo form_open_multipart('fatncurious/updateMenu')?>
-              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+              <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto; background-image: url('<?php echo base_url('/vendors/images/Background/fino-cocktail-bar-restaurant.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
                 <center><img id='fotoMenu' src="..." style="height:100px;height:100px;" class="img-rounded"></center>
-                <?php $this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;'])); ?>
-                <?php $this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;'])); ?>
-                <?php $this->table->add_row('Upload Foto Menu',form_upload(array("name"=>"foto"))); ?>
+                <?php $this->table->add_row('Nama Menu',form_input('txtMenu',"",['id'=>'txtMenu','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+                <?php $this->table->add_row('Deskripsi Menu',form_input('txtDeskripsiMenu',"",['id'=>'deskripsiMenu','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+                <?php $this->table->add_row('Upload Foto Menu',form_upload(array("name"=>"foto"),'',['style'=>'margin-left:20px;'])); ?>
                 <?php echo $this->table->generate(); ?>
               </div>
               <div class="modal-footer">
@@ -363,9 +432,9 @@
       <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN;?></h4>
+              <center><h4 class="modal-title">Review Restoran <?php echo $resto->NAMA_RESTORAN;?></h4></center>
           </div>
-          <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+          <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto; background-image: url('<?php echo base_url('/vendors/images/Background/3865555484_d512b4f0c4_z.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
             <?php foreach($review_restoran as $rr){ ?>
             <div class="media">
               <a class="media-left" href="#">
@@ -378,26 +447,23 @@
                 <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
               </a>
               <div class="media-body">
-                <h4 class="media-heading"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL ;?></h6></span></h4>
+                <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6 style="color:white;"><?php echo $rr->TANGGAL ;?></h6></span></h4>
                 <h4>
                   <?php
                     $counter = 0;
                     for($i = 0; $i < 5; $i++){
                       if($counter < $rr->RATING){
-                        echo '<span class="glyphicon glyphicon-star"></span>';
+                        echo '<span style="color:white;" class="glyphicon glyphicon-star"></span>';
                       }
                       else{
-                        echo '<span class="glyphicon glyphicon-star-empty"></span>';
+                        echo '<span style="color:white;" class="glyphicon glyphicon-star-empty"></span>';
                       }
                       $counter++;
                     }
                    ?>
                 </h4>
-                <strong><?php echo $rr->JUDUL ?> </strong><br/>
-                <?php echo $rr->DESKRIPSI ?>
-                <h4>
-                <span class="glyphicon glyphicon-thumbs-up"><?php echo $rr->LIKE ; ?></span>
-              </h4>
+                <strong style="color:white;"><?php echo $rr->JUDUL ?> </strong><br/>
+                <p style="color:white;"><?php echo $rr->DESKRIPSI ?></p>
               </div>
             </div>
             <hr>
@@ -417,9 +483,9 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Report Restoran <?php echo $resto->NAMA_RESTORAN;?></h4>
+            <center><h4 class="modal-title">Report Restoran <?php echo $resto->NAMA_RESTORAN;?></h4></center>
         </div>
-        <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+        <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto; background-image: url('<?php echo base_url('/vendors/images/Background/55afa22ff1c80bb4097cb1349324a8fc1320719438_gallery_gallery.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
           <?php// echo print_r($report_restoran);?>
           <?php foreach($report_restoran as $rr){ ?>
           <div class="media">
@@ -433,8 +499,8 @@
               <img class="media-object displayPictureComment img-circle" src="<?php echo $url?>" alt="Generic placeholder image">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><?php echo $rr->NAMA ?><span style="float:right"><h6><?php echo $rr->TANGGAL.','. $rr->WAKTU ;?></h6></span></h4>
-              <strong><?php echo $rr->ALASAN ?> </strong><br/>
+              <h4 class="media-heading" style="color:white;"><?php echo $rr->NAMA ?><span style="float:right"><h6 style="color:white;"><?php echo $rr->TANGGAL.','. $rr->WAKTU ;?></h6></span></h4>
+              <strong style="color:white;"><?php echo $rr->ALASAN ?> </strong><br/>
             </div>
           </div>
           <hr>
@@ -455,17 +521,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Update </h4>
+                <center><h4 class="modal-title">Update </h4></center>
             </div>
             <?php echo form_open_multipart('fatncurious/updatePromo')?>
-            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto; background-image: url('<?php echo base_url('/vendors/images/Background/aktivitaeten_header_restaurant,method=scale,prop=data,id=1200-510.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
               <center><img id='fotoPromo' src="..." style="height:100px;height:100px;" class="img-rounded"></center>
-              <?php $this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;'])); ?>
-              <?php $this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;'])); ?>
-              <?php $this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;'])); ?>
-              <?php $this->table->add_row('Persentase Promo',form_input('txtPersentasePromo',"",['id'=>'persentasePromo','style'=>'margin-left:20px;'])); ?>
-              <?php $this->table->add_row('Keterangan Promo',form_input('txtKeteranganPromo',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;'])); ?>
-              <?php $this->table->add_row('Upload Foto Promo',form_upload(array("name"=>"foto"))); ?>
+              <?php $this->table->add_row('Nama Promo',form_input('txtPromo',"",['id'=>'txtPromo','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+              <?php $this->table->add_row('Deskripsi Promo',form_input('txtDeskripsiPromo',"",['id'=>'deskripsiPromo','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+              <?php $this->table->add_row('Masa Berlaku',form_input('txtMasaBerlaku',"",['id'=>'masaBerlaku','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+              <?php $this->table->add_row('Persentase Promo',form_input('txtPersentasePromo',"",['id'=>'persentasePromo','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+              <?php $this->table->add_row('Keterangan Promo',form_input('txtKeteranganPromo',"",['id'=>'keteranganPromo','style'=>'margin-left:20px;color:white;','class'=>'form-control'])); ?>
+              <?php $this->table->add_row('Upload Foto Promo',form_upload(array("name"=>"foto"),'',['style'=>'margin-left:20px;'])); ?>
               <?php echo $this->table->generate(); ?>
             </div>
             <div class="modal-footer">
@@ -493,9 +559,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Insert</h4>
+                <center><h4 class="modal-title">Insert</h4></center>
             </div>
-            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;">
+            <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;background-image: url('<?php echo base_url('/vendors/images/Background/bg-restaurant_r369.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;">
               <center>
                 <!--<img src="..." style="height:100px;height:100px;" class="img-rounded"><br/>-->
                 <form action="<?php echo site_url('fatncurious/insert'); ?>" method="post" enctype="multipart/form-data">
@@ -507,23 +573,23 @@
                 <table>
                   <tr>
                     <td>Nama Promo:</td>
-                    <td><input type="text" name="txtPromo" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtPromo" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Deskripsi Promo:</td>
-                    <td><input type="text" name="txtDeskripsiPromo" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtDeskripsiPromo" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Masa Berlaku:</td>
-                    <td><input type="text" name="txtMasaBerlaku" value="YYYY-MM-DD" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtMasaBerlaku" value="YYYY-MM-DD" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Persentase Promo:</td>
-                    <td><input type="text" name="txtPersentasePromo" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtPersentasePromo" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Keterangan Promo:</td>
-                    <td><input type="text" name="txtKeteranganPromo" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtKeteranganPromo" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                 </table>
               </div>
@@ -531,12 +597,12 @@
                 <table>
                   <tr>
                     <td>Nama Menu:</td>
-                    <td><input type="text" name="txtMenu" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtMenu" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Jenis Menu:</td>
                     <td>
-                      <select name='ddJenisMenu' style="margin-left:20px;">
+                      <select name='ddJenisMenu' style=" margin-left:20px" class="form-control">
                         <option value='JM001' selected>MAKANAN</option>
                         <option value='JM002'>MINUMAN</option>
                         <option value='JM003'>SNACK</option>
@@ -546,15 +612,15 @@
                   </tr>
                   <tr>
                     <td>Deskripsi Menu:</td>
-                    <td><input type="text" name="txtDeskripsiMenu" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtDeskripsiMenu" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Harga Menu:</td>
-                    <td><input type="text" name="txtHargaMenu" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtHargaMenu" value="" style="color:white; margin-left:20px" class="form-control"style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Keterangan Menu:</td>
-                    <td><input type="text" name="txtKeteranganMenu" value="" style="margin-left:20px;"></td>
+                    <td><input type="text" name="txtKeteranganMenu" value="" style="color:white; margin-left:20px" class="form-control"></td>
                   </tr>
                 </table>
               </div>
@@ -576,6 +642,70 @@
                 </form>
             </div>
         </div>
+    </div>
+  </div>
+
+  <div id="modalRegister" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <?php echo form_open_multipart('fatncurious/register'); ?>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><center>Register</center></h4>
+          </div>
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
+            <?php echo form_open('fatncurious/register');?>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <?php
+                $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <?php
+                $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNama"> Nama</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputDTPicker">Tanggal Lahir</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNoTelp"> No Telp</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+                ?>
+              </div>
+              <?php
+                $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register','style'=>'color:white'];
+                echo form_submit($array);
+                //<button type="submit" class="btn btn-info">Register</button>
+                ?>
+                <?php
+                echo form_close();
+              ?>
+          </div>
+      </div>
     </div>
   </div>
 

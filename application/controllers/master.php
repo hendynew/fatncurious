@@ -15,9 +15,9 @@ class Master extends CI_Controller {
 		$data = [];
 		$data['error'] = '';
 		$data['nama'] = $this->session->userdata('active');
-		if($this->input->get('btnSubmit') == true){
-			$username = $this->input->get('txtUsername');
-			$password = $this->input->get('txtPassword');
+		if($this->input->post('btnSubmit') == true){
+			$username = $this->input->post('txtUsername');
+			$password = $this->input->post('txtPassword');
 			$hasil = $this->Model_user->master_login($username,$password);
 			if($hasil == true){
 				$this->session->set_userdata('active',$username);
@@ -27,6 +27,7 @@ class Master extends CI_Controller {
 			}
 		}
 		$this->load->view('view_master_login',$data);
+		//$this->load->view('view_master_login2',$data);
 	}
 
 	public function index(){
@@ -44,6 +45,8 @@ class Master extends CI_Controller {
 			$data['last_register'] = $this->Model_user->last_register();
 			$data['last_login'] = $this->Model_user->last_login();
 			$this->load->view('view_master2',$data);
+			//$this->load->view('tables',$data);
+			//redirect("master/user");
 		}else{
 			redirect('master/login');
 		}
@@ -150,6 +153,7 @@ class Master extends CI_Controller {
 
 
 		$this->load->view('view_user2',$data);
+		//$this->load->view('tables',$data);
 	}
 
 	public function user_detail($kode){

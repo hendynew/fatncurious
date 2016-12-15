@@ -16,6 +16,10 @@ class Model_user extends CI_Model {
 		return $data->result();
 	}
 
+	public function NAME($kode){
+		return $this->db->query("SELECT NAMA_USER FROM user where KODE_USER='$kode' AND STATUS='1'")->row();
+	}
+
 	public function SEARCH($kode){
 		$data = $this->db->query("SELECT * FROM user where KODE_USER='$kode' AND STATUS='1'");
 		return $data->result();
@@ -181,11 +185,18 @@ class Model_user extends CI_Model {
 		$this->db->update('review_restoran',array("STATUS"=>'0'));
 	}
 	public function last_register(){
-		$hariIni = date("Y-m-d");
-		$date = strtotime($hariIni  . ' -5 day');
-		$data = $this->db->query("SELECT TANGGAL_REGISTER_USER, count( * ) as 'jumlah' FROM `user` WHERE TANGGAL_REGISTER_USER BETWEEN '$date' AND '$hariIni' GROUP BY TANGGAL_REGISTER_USER");
+		$hariIni = date("Y-m-d",strtotime(date("Y-m-d")));
+		$date = date("Y-m-d",strtotime(date("Y-m-d")  . ' -4 day'));
+		$data = $this->db->query("SELECT TANGGAL_REGISTER_USER, IFNULL(count( * ),0) as 'jumlah' FROM `user` WHERE TANGGAL_REGISTER_USER BETWEEN '$date' AND '$hariIni' GROUP BY TANGGAL_REGISTER_USER");
 		$data2 = $data->result();
 		$hasil  = [];
+
+		$start_day = (int)date("d",strtotime($date));
+		$stop_day = (int)date("d",strtotime($hariIni));
+		for($i = $start_day; $i < $stop_day; $i++){
+			$tempDate = date("Y-m-d",strtotime($date  . ' +' . $i .' day'));
+			$hasil[$tempDate] = 0;
+		}
 		foreach($data2 as $d){
 			$hasil[$d->TANGGAL_REGISTER_USER] = $d->jumlah;
 		}
@@ -194,12 +205,17 @@ class Model_user extends CI_Model {
 
 	public function last_login(){
 		$hariIni = date("Y-m-d");
-		$date = strtotime($hariIni  . ' -5 day');
-		$data = $this->db->query("SELECT TANGGAL_LOGIN_USER, IFNULL(count( * ),0) as 'jumlah' FROM `user` WHERE TANGGAL_LOGIN_USER BETWEEN '$date' AND '$hariIni' GROUP BY TANGGAL_LOGIN_USER");
+		$date = date("Y-m-d",strtotime(date("Y-m-d")  . ' -4 day'));
+		//$dates = date("Y-m-d",$date);
+		$data = $this->db->query("SELECT TANGGAL_LOGIN_USER, IFNULL(count( * ),0) as 'jumlah' FROM `user` WHERE TANGGAL_LOGIN_USER >= '$date' AND TANGGAL_LOGIN_USER <= '$hariIni' GROUP BY TANGGAL_LOGIN_USER");
 		$data2 = $data->result();
 		$hasil  = [];
 
 
 		return $hasil;
+	}
+
+	public function cek($user){
+		return $this->db->query("SELECT KODE_USER FROM USER WHERE REPLACE(NAMA_USER,' ','') LIKE ('%" . $user . "%')")->result();
 	}
 }

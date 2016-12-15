@@ -32,15 +32,15 @@
 
     <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
-        <div class="item active" style="background-image: url('<?php echo base_url('/vendors/images/slider/1.jpg');?>')">
+        <div class="item active" style="background-image: url('<?php echo base_url('/vendors/images/restoran/resto2.jpg');?>')">
           <div class="caption">
-            <h1>Fat 'N<span> Curious </span>  </h1>
-            <p>Promotion  And Restaurant Search Engine Only.</p>
-            <p class = "textFilterBy"> Filter By : </p>
-            <a data-scroll class="btn btn-start" href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>">Biggest Promo</a>
-            <a data-scroll class="btn btn-start" href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>">Restaurant Names</a>
-            <a data-scroll class="btn btn-start" href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>">Menu</a>
-            <a data-scroll class="btn btn-start" href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>">Credit Cards</a>
+            <img class="logo" src="<?php echo base_url('/vendors/images/logo(putih).png');?>">
+            <p class="animated fadeInRightBig">Promotion  And Restaurant Search Engine Only.
+            <p class = "animated fadeInRightBig textFilterBy"> Filter By : </p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="<?php echo base_url('/index.php/fatncurious/filterByPromo');?>">Biggest Promo</a>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="<?php echo base_url('/index.php/fatncurious/filterByRestoran');?>">Restaurant Names</a>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="<?php echo base_url('/index.php/fatncurious/filterByMenu');?>">Menu</a>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>">Credit Cards</a>
           </div>
         </div>
       </div>
@@ -56,13 +56,12 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url('fatncurious');?>">
-            <img class="img-responsive" src="<?php echo base_url('vendors/images/logo.png'); ?>" alt="logo">
+              <img class="img-responsive" src="<?php echo base_url('vendors/images/logo-putih-.png'); ?>" alt="logo">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll"><a href="<?php echo site_url('fatncurious') ?>">Home</a></li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/aboutUs') ?>">About Us</a></li>
             <li class="scroll">
     				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					FilterBy <span class="caret"></span>
@@ -74,10 +73,47 @@
     					<li><a href="<?php echo base_url('/index.php/fatncurious/filterByKartu');?>" style="padding-top:10px;padding-bottom:10px;">Credit Cards</a></li>
     				  </ul>
     			</li>
-            <li class="scroll"><a href="<?php echo site_url('fatncurious/contactUs') ?>">Contact Us</a></li>
-			<?php
-				if(isset($kodeUser)){
-			?>
+            <li class="scroll"><a href="#contact">Contact Us</a></li>
+            <?php
+              if(isset($kodeUser)){
+                if(isset($notifikasi)){
+            ?>
+              <li class="scroll">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-bell"><sup><sup class="label label-danger" style="font-size:12px;"><?php echo count($notifikasi)?></sup></sup></span>
+                </a>
+                <ul class="dropdown-menu" style="max-height: calc(80vh - 210px);overflow-y: auto;">
+                  <?php
+                    $isiClass ="";
+                    foreach($notifikasi as $n){
+                      if($n->URL_FOTO == ''){
+                        $url = 'default.jpg';
+                      }else $url = $n->URL_FOTO;
+                      $url_full = base_url('/vendors/images/profilepicture/' . $url);
+                  ?>
+                  <a href="<?= base_url() . 'index.php/fatncurious/sortByMenuRestoran/' . $n->URL?>"  style="padding:0px;">
+                    <div class="notif" style="<?= $isiClass?>">
+                      <li class="media" style="height:70px;">
+                          <div class="media-left" style="padding:5px;background-color: inherit">
+                            <img class="media-object displayPictureNotifikasi img-circle"  src="<?php echo $url_full ?>" alt = "generic placeholder image"></img>
+                          </div>
+                          <div class="media-body" style="background-color: inherit">
+                            <div class="media-heading" style="color:white;max-width: 500px; min-width:300px;background-color:inherit"><?php echo $n->ISI?></div>
+                            <h6 style="color:white;"><?= $n->WAKTU ?></h6>
+                          </div>
+                      </li>
+                    </div>
+                  </a>
+                  <hr/>
+                  <?php $isiClass = "background-color:gray;margin-top:-20px;margin-bottom: -20px;";
+                }
+                  ?>
+                </ul>
+              </li>
+              <?php
+            }
+              ?>
+
         <li class="scroll">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php
@@ -89,8 +125,8 @@
             <img src="<?php echo $url_full ?>" class="img-circle displayPictureNavBar"> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+            <li><a href="#" style="padding-top:10px;padding-bottom:10px;"> <?php echo $this->session->userdata('userYangLogin')->NAMA_USER; ?> </li></a>
             <li><a href="<?php echo site_url('fatncurious/profilUser');?>" style="padding-top:10px;padding-bottom:10px;">Profile</a></li>
-            <li><a href="<?php echo site_url('fatncurious/notification');?>" style="padding-top:10px;padding-bottom:10px;">Notification  <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin-left:10px;"></span></a></li>
             <li><a href="<?php echo site_url('fatncurious/LogOut');?>" style="padding-top:10px;padding-bottom:10px;">Logout</a></li>
             </ul>
         </li>
@@ -109,16 +145,16 @@
                 <input name="authenticity_token" type="hidden" value="4L/A2ZMYkhTD3IiNDMTuB/fhPRvyCNGEsaZocUUpw40=" />
               </div>
                 <fieldset class='textbox'>
-                  <label id='js-username'>
+                  <label id='js-username' style="padding:5px;">
                     <span>Username</span>
                     <input autocomplete="on" id="username" name="txtEmailLogin" type="text" />
                   </label>
-                  <label id='password'>
+                  <label id='password' style="padding:5px;">
                     <span>Passwort</span>
                     <input id="userpassword" name="txtPasswordLogin" type="password" />
                   </label>
                 </fieldset>
-                <fieldset class='subchk'>
+                <fieldset class='subchk' style="padding:5px;">
                   <?php
                     $array=['name'=>'btnLogin','value'=>'Login'];
                     echo form_submit($array);
@@ -126,7 +162,7 @@
                 </fieldset>
                 <?php echo form_close();?>
               <!-- </form> -->
-              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 0;">Register</a>
+              <a href="#" data-toggle="modal" data-target="#modalRegister" style="padding : 5px;">Register</a>
             <ul>
           </li>
         <?php }
@@ -137,9 +173,9 @@
     </div><!--/#main-nav-->
     </header><!--/#home-->
 
+    <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms" style="margin-top:40px;"></div>
     <section id="contact">
-    <div id="google-map" class="wow fadeIn" data-latitude="-7.235306" data-longitude="112.789612" data-wow-duration="500ms" data-wow-delay="200ms"></div>
-    <div id="contact-us" class="parallax">
+    <div id="contact-us" class="parallax" style="background-image:url(<?php echo base_url('vendors/images/restoran/resto3.jpg')?>);" >
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -150,24 +186,24 @@
         <div class="contact-form wow fadeIn" data-wow-duration="200ms" data-wow-delay="100ms">
           <div class="row">
             <div class="col-sm-6">
-              <form id="main-contact-form" name="contact-form" method="post" action="#">
+              <form id="main-contact-form" name="contact-form" method="post" action="<?php echo site_url('fatncurious/sendEmail') ?>">
                 <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" name="name" class="form-control" placeholder="Name" required="required">
+                      <input type="text" name="name" class="form-control" placeholder="Name" required="required" id="tbName" style="color:#fff;">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required">
+                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required" id="tbEmail" style="color:#fff;">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required" id="tbSubject" style="color:#fff;">
                 </div>
                 <div class="form-group">
-                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
+                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required" style="color:#fff;"></textarea>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn-submit">Send Now</button>
@@ -191,71 +227,68 @@
     </div>
   </section><!--/#contact-->
   <div id="modalRegister" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-		<?php echo form_open_multipart('fatncurious/register'); ?>
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <?php echo form_open_multipart('fatncurious/register'); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><center>Register</center></h4>
           </div>
-          <div class="modal-body">
-
-            <?php
-      				echo form_open('fatncurious/register');
-      			?>
-                    <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-      				<?php
-      				  $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister'];
-      				  echo form_input($array);
-      				  //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-      				?>
-
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-      				<?php
-      				  $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister'];
-      				  echo form_input($array);
-      				  //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputNama"> Nama</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputDTPicker">Tanggal Lahir</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'YYYY-MM-DD','name'=>'txtTglRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
-      				?>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputNoTelp"> No Telp</label>
-      				<?php
-      				  $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister'];
-      				  echo form_input($array);
-      				  //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
-      				?>
-                    </div>
-      			  <?php
-                        $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register'];
-                        echo form_submit($array);
-      				  //<button type="submit" class="btn btn-info">Register</button>
-                      ?>
-      			  <?php
-      				echo form_close();
-      			  ?>
+          <div class="modal-body" style="background-image: url('<?php echo base_url('/vendors/images/Background/thanksgiving_09_213.jpg');?>'); background-size: cover;filter:grayscale(.7);color:#fff;" >
+            <?php echo form_open('fatncurious/register');?>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <?php
+                $array=['type'=>'email','class'=>'form-control','placeholder'=>'Email','name'=>'txtEmailRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <?php
+                $array=['type'=>'password','class'=>'form-control','placeholder'=>'Password','name'=>'txtPasswordRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNama"> Nama</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'Nama','name'=>'txtNamaRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputDTPicker">Tanggal Lahir</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','id'=>'exampleInputDTPicker1','placeholder'=>'DD/MM/YYYY','name'=>'txtTglRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputDTPicker1" placeholder="DD/MM/YYYY">
+                ?>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputNoTelp"> No Telp</label>
+                <?php
+                $array=['type'=>'text','class'=>'form-control','placeholder'=>'No Telp','name'=>'txtNoTelpRegister','style'=>'color:white'];
+                echo form_input($array);
+                //<input type="text" class="form-control" id="exampleInputNoTelp1" placeholder="No Telp">
+                ?>
+              </div>
+              <?php
+                $array=['class'=>'btn btn-info','name'=>'btnRegister','value'=>'Register','style'=>'color:white'];
+                echo form_submit($array);
+                //<button type="submit" class="btn btn-info">Register</button>
+                ?>
+                <?php
+                echo form_close();
+              ?>
           </div>
       </div>
     </div>
+  </div>
 
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/moment.js');?>"></script>
@@ -271,11 +304,5 @@
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/jquery.countTo.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/lightbox.min.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('/vendors/js/main.js');?>"></script>
-    <script>
-      $('.loginRegister').find('form').click(function (e) {
-        e.stopPropagation();
-      });
-    </script>
-
 </body>
 </html>

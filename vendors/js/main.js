@@ -2,6 +2,7 @@ jQuery(function($) {
 
 	$(window).load(function(){
         	$('main-nav').addClass('berubah');
+
 	});
 
 	//#main-slider
@@ -14,33 +15,41 @@ jQuery(function($) {
 
 	//Scroll Menu
 	$(window).on('scroll', function(){
-        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()!="FilterBy")
-        {
-            if( $(window).scrollTop()>slideHeight ){
-            $('.img-responsive').addClass('perubahanUkuran');
-						$('.main-nav').addClass('navbar-fixed-top berubah');
-            $('.navbar-right > li').addClass('berubah');
+	        if($('#asd').html()=="home" || $('#asd').html()==" Index " || $('#asd').html()=="Restoran")
+	        {
+	            if( $(window).scrollTop()>slideHeight ){
+	            $('.img-responsive').addClass('perubahanUkuran');
+		  $('.main-nav').addClass('navbar-fixed-top');
+		  if($("#asd").html()!="Restoran") $('.main-nav').addClass('berubah');
+		   $('.navbar-right > li').addClass('berubah');
 
-            } else {
+	            } else {
 
-                $('.img-responsive').removeClass('perubahanUkuran');
-                $('.main-nav').removeClass('navbar-fixed-top berubah');
-                $('.navbar-right > li').removeClass('berubah');
-            }
-        }
+	                $('.img-responsive').removeClass('perubahanUkuran');
+	                $('.main-nav').removeClass('navbar-fixed-top berubah');
+	                $('.navbar-right > li').removeClass('berubah');
+	            }
+	        }
 	});
+
 
 	// Contact form
 	var form = $('#main-contact-form');
 	form.submit(function(event){
 		event.preventDefault();
 		var form_status = $('<div class="form_status"></div>');
-		$.ajax({
-			url: $(this).attr('action'),
+		$.post($("#main-contact-form").attr('action'),
+		{
+			name : $("#tbName").val(),
+			email : $("#tbEmail").val(),
+			subject : $("#tbSubject").val(),
+			message : $("#message").val(),
 			beforeSend: function(){
 				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
 			}
-		}).done(function(data){
+		},function(result)
+		{
+			//alert(result);
 			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
 		});
 	});
@@ -198,6 +207,7 @@ $('#reportReview').on('click', function () {
 });
 
 $(".likeReview").on("click",function(){
+
 	var kodeReview = $(this).attr("data-review");
 	var kodeUser = $(this).attr("data-user");
 	var kodeRestoran = $(this).attr("data-restoran");
@@ -213,7 +223,7 @@ $(".likeReview").on("click",function(){
 					success: function(response) {
 						document.getElementById("like"+kodeReview).innerHTML=response[0];
 						document.getElementById("dislike"+kodeReview).innerHTML=response[1];
-					}
+					},
 		});
 	}
 });
@@ -323,6 +333,17 @@ $('#modalUpdate').on('show.bs.modal', function (event) {
 	//$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
 
+$(".del_notif").on("click",function()
+{
+	var kodenotif = $(this).attr("data-kode");
+	var url = $(this).attr("data-url");
+
+	$.post(url,{ kode: kodenotif},
+	function(result){
+		
+	});
+});
+
 $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	var button = $(event.relatedTarget);
 	var promo = button.data('namapromo');
@@ -355,3 +376,7 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 	//$("#hidKodeMenu").attr("value",kodeMenu);
 	//$("#hidKodeRestoran").attr("value",kodeRestoran);
 });
+
+$('.loginRegister').find('form').click(function (e) {
+        e.stopPropagation();
+      });
