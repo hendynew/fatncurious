@@ -26,8 +26,8 @@ class Master extends CI_Controller {
 				$data['error'] = "Username atau Password salah!";
 			}
 		}
-		$this->load->view('view_master_login',$data);
-		//$this->load->view('view_master_login2',$data);
+		//$this->load->view('view_master_login',$data);
+		$this->load->view('view_master_login2',$data);
 	}
 
 	public function index(){
@@ -44,9 +44,9 @@ class Master extends CI_Controller {
 			$data['active'] = $this->session->userdata('active');
 			$data['last_register'] = $this->Model_user->last_register();
 			$data['last_login'] = $this->Model_user->last_login();
-			$this->load->view('view_master2',$data);
+			//$this->load->view('view_master2',$data);
 			//$this->load->view('tables',$data);
-			//redirect("master/user");
+			redirect("master/user");
 		}else{
 			redirect('master/login');
 		}
@@ -152,8 +152,8 @@ class Master extends CI_Controller {
 		}
 
 
-		$this->load->view('view_user2',$data);
-		//$this->load->view('tables',$data);
+		//$this->load->view('view_user2',$data);
+		$this->load->view('tables_user',$data);
 	}
 
 	public function user_detail($kode){
@@ -286,7 +286,8 @@ class Master extends CI_Controller {
 			redirect('master_restaurant');
 		}
 
-		$this->load->view('view_restaurant2',$data);
+		//$this->load->view('view_restaurant2',$data);
+		$this->load->view('tables_restaurant',$data);
 	}
 
 	public function kartu_kredit(){
@@ -359,7 +360,8 @@ class Master extends CI_Controller {
 			redirect('master_kartu_kredit');
 		}
 
-		$this->load->view('view_kartu_kredit2',$data);
+		//$this->load->view('view_kartu_kredit2',$data);
+		$this->load->view('tables_kartu_kredit',$data);
 	}
 
 	public function promo(){
@@ -437,7 +439,8 @@ class Master extends CI_Controller {
 			redirect('master_promo');
 		}
 
-		$this->load->view('view_promo2',$data);
+		//$this->load->view('view_promo2',$data);
+		$this->load->view('tables_promo',$data);
 	}
 
 	public function menu(){
@@ -515,7 +518,8 @@ class Master extends CI_Controller {
 			redirect('master_menu');
 		}
 
-		$this->load->view('view_menu2',$data);
+		//$this->load->view('view_menu2',$data);
+		$this->load->view('tables_menu',$data);
 	}
 
 	public function master_detail_user($kode){

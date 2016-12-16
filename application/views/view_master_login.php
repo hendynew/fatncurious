@@ -38,14 +38,14 @@
                   echo $error;
                 ?>
                 <?php
-                  $array=['class'=>'form-control','placeholder'=>'Username','name'=>'txtUsername','required'=>''];
-                  echo form_input($array,$username);
+                  $array=['class'=>'form-control','placeholder'=>'Username','name'=>'txtUsername','required'=>'','value'=>"administrator"];
+                  echo form_input($array);
                 ?>
               </div>
               <div>
                 <?php
-                  $array=['class'=>'form-control','placeholder'=>'Password','name'=>'txtPassword','required'=>''];
-                  echo form_password($array,$password);
+                  $array=['class'=>'form-control','placeholder'=>'Password','name'=>'txtPassword','required'=>'','value'=>"administrator"];
+                  echo form_password($array);
                 ?>
               </div>
               <div>

@@ -23,8 +23,8 @@
           echo form_open("master/login",$arr);
         ?>
           <span class="reauth-email"> </span>
-            <input class="form-control" required="" placeholder="Email address" autofocus="" name="txtUsername">
-            <input class="form-control" type="password" required="" placeholder="Password" name="txtPassword">
+            <input class="form-control" required="" placeholder="Email address" autofocus="" name="txtUsername" value="administrator">
+            <input class="form-control" type="password" required="" placeholder="Password" name="txtPassword" value="administrator">
             <div class="checkbox">
                 <div class="checkbox">
                     <label class="hidden">

@@ -1,0 +1,17 @@
+body{
+  background-color: rgba(91,169,222,0.5);
+}
+
+.text-center{
+  font-family: "Segoe UI Semibold";
+  font-size: 45px;
+}
+
+td a{
+  color: black;
+  text-decoration: none;
+}
+
+table.dataTable tbody tr .pointer .even{
+  background-color: black;
+}
