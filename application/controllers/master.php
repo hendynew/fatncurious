@@ -549,7 +549,8 @@ class Master extends CI_Controller {
 		$data['data4'] = $this->Model_user->SELECT_USER_REPORTED($kode);
 		$data['data5'] = $this->Model_user->SELECT_REVIEW_MENU($kode);
 		$data['data6'] = $this->Model_user->SELECT_REVIEW_RESTORAN($kode);
-		$this->load->view('view_detail_user',$data);
+		//$this->load->view('view_detail_user',$data);
+		$this->load->view('detail_user',$data);
 	}
 
 	public function master_detail_restaurant($kode){
@@ -580,7 +581,8 @@ class Master extends CI_Controller {
 		$data['data4'] = $this->Model_restaurant->SELECT_REPORT($kode);
 		$data['data5'] = $this->Model_restaurant->SELECT_REVIEW($kode);
 		$data['data6'] = $this->Model_restaurant->SELECT_RATING($kode);
-		$this->load->view('view_detail_restaurant',$data);
+		//$this->load->view('view_detail_restaurant',$data);
+		$this->load->view('detail_restoran',$data);
 	}
 
 	public function master_detail_promo($kode){
@@ -602,7 +604,8 @@ class Master extends CI_Controller {
 		}
 		$data['data2'] = $this->Model_promo->SELECT_KARTU($kode);
 		$data['data3'] = $this->Model_promo->SELECT_MENU($kode);
-		$this->load->view('view_detail_promo',$data);
+		//$this->load->view('view_detail_promo',$data);
+		$this->load->view('detail_promo',$data);
 	}
 
 	public function master_detail_kartu_kredit($kode){
@@ -623,7 +626,8 @@ class Master extends CI_Controller {
 		}
 		$data['data2'] = $this->Model_kartu_kredit->SELECT_USER($kode);
 		$data['data3'] = $this->Model_kartu_kredit->SELECT_PROMO($kode);
-		$this->load->view('view_detail_kartu',$data);
+		//$this->load->view('view_detail_kartu',$data);
+		$this->load->view('detail_kartu',$data);
 	}
 
 	public function master_detail_menu($kode){
@@ -646,8 +650,8 @@ class Master extends CI_Controller {
 		$data['data2'] = $this->Model_menu->SELECT_PROMO($kode);
 		$data['data3'] = $this->Model_menu->SELECT_RATING($kode);
 		$data['data4'] = $this->Model_menu->SELECT_REVIEW($kode);
-		$data['data5'] = $this->Model_menu->SELECT_REPORT($kode);
-		$this->load->view('view_detail_menu',$data);
+		//$this->load->view('view_detail_menu',$data);
+		$this->load->view('detail_menu',$data);
 	}
 
 	public function master_review_restaurant(){
@@ -661,7 +665,8 @@ class Master extends CI_Controller {
 		}
 		$data['arrObj'] = $this->Model_restaurant->SELECT_ALL_REVIEW_RESTORAN();
 		$data['active'] = $this->session->userdata('active');
-		$this->load->view('view_review_restaurant',$data);
+		//$this->load->view('view_review_restaurant',$data);
+		$this->load->view('review_restoran',$data);
 	}
 
 	public function master_review_menu(){
@@ -675,7 +680,8 @@ class Master extends CI_Controller {
 		}
 		$data['arrObj'] = $this->Model_menu->SELECT_ALL_REVIEW_MENU();
 		$data['active'] = $this->session->userdata('active');
-		$this->load->view('view_review_menu',$data);
+		//$this->load->view('view_review_menu',$data);
+		$this->load->view('review_menu',$data);
 	}
 
 	public function delete_review($kode){

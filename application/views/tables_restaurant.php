@@ -7,12 +7,12 @@
     <title>Master Restaurant</title>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/Google-Style-Login.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/Hero-Technology.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/Pretty-Header.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/Pretty-Footer.css">
     <link href="<?php echo base_url();?>/build/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/styles.css">
 </head>
 
 <body>
@@ -59,7 +59,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 ">
           <div class="table-responsive" style="color:white">
-              
+
               <?php
               $this->table->set_heading('Nama', 'Pemilik','Alamat','Telepon','Jam Buka','Hari Buka','Deskripsi','Jumlah Peringatan','Keterangan','Action');
               $tmp = array('table_open'=>'<table class="table table-striped jambo_table" id="example" style="color:black">','heading_row_start'=>'<th class="column-title">','row_start'=>'<tr class="odd pointer"><td></td>','row_alt_start'=> '<tr class="even pointer" style="color:black"><td></td>');

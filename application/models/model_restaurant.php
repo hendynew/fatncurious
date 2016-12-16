@@ -169,7 +169,7 @@ class Model_restaurant extends CI_Model {
 	}
 
 	public function SELECT_MENU($kode){
-		$hasil = $this->db->query("SELECT menu.KODE_MENU as 'KODE_MENU', jenis_menu.NAMA_JENISMENU as 'JENIS_MENU', menu.NAMA_MENU as 'NAMA_MENU', menu.DESKRIPSI_MENU as 'DESKRIPSI_MENU', menu.HARGA_MENU as 'HARGA_MENU', menu.KETERANGAN_MENU as 'KETERANGAN_MENU' from menu,review_menu, jenis_menu where menu.KODE_RESTORAN='$kode'  AND menu.STATUS='1' AND jenis_menu.KODE_JENISMENU=menu.KODE_JENIS_MENU")->result();
+		$hasil = $this->db->query("SELECT menu.KODE_MENU as 'KODE_MENU', jenis_menu.NAMA_JENISMENU as 'JENIS_MENU', menu.NAMA_MENU as 'NAMA_MENU', menu.DESKRIPSI_MENU as 'DESKRIPSI_MENU', menu.HARGA_MENU as 'HARGA_MENU', menu.KETERANGAN_MENU as 'KETERANGAN_MENU' from menu,review_menu, jenis_menu where menu.KODE_RESTORAN='$kode'  AND menu.STATUS='1' AND jenis_menu.KODE_JENISMENU=menu.KODE_JENIS_MENU GROUP BY menu.KODE_MENU")->result();
 		return $hasil;
 	}
 

@@ -3,7 +3,6 @@ body{
 }
 
 .text-center{
-  font-family: "Segoe UI Semibold";
   font-size: 45px;
 }
 
@@ -12,6 +11,11 @@ td a{
   text-decoration: none;
 }
 
-table.dataTable tbody tr .pointer .even{
-  background-color: black;
+table a:not(.btn), .table a:not(.btn){
+  color: black;
+}
+
+.text-center{
+  color: black;
+  font-weight: bold;
 }

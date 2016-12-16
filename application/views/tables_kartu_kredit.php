@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master User</title>
+    <title>Master Kartu Kredit</title>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/Google-Style-Login.css">
@@ -55,26 +55,19 @@
     </nav>
     <div class="container">
       <div class="row">
-        <h2 class="text-center">Table User</h2>
+        <h2 class="text-center">Table Kartu Kredit</h2>
         <div class="col-md-1"></div>
         <div class="col-md-10 ">
           <div class="table-responsive" style="color:white">
-              <?php
-              $this->table->set_heading('Kode Jenis User', 'Nama','Alamat','Telepon','Tanggal Lahir','Kode Pos','Email','Jumlah Report','Keterangan','Action');
+            <?php
+              $this->table->set_heading('Kode Kartu Kredit', 'Nama Kartu Kredit','Alamat Bank','Telepon Bank','Website Bank','Keterangan','Action');
               $tmp = array('table_open'=>'<table class="table table-striped jambo_table" id="example" style="color:black">','heading_row_start'=>'<th class="column-title">','row_start'=>'<tr class="odd pointer"><td></td>','row_alt_start'=> '<tr class="even pointer" style="color:black"><td></td>');
               $this->table->set_template($tmp);
-              if(sizeof($filter) == 0){
-                foreach($arrObj as $r){
-                  $this->table->add_row($r->KODE_JENISUSER, $r->NAMA_USER,$r->ALAMAT_USER,$r->NOR_TELEPON_USER,$r->TANGGAL_LAHIR_USER,$r->KODE_POS_USER,$r->EMAIL_USER,$r->JUMLAH_REPORT_USER,$r->KETERANGAN_USER, anchor('master_user/detail/user/'.$r->KODE_USER,'Detail'));
-                }
-              }else{
-                foreach($filter as $r){
-                  $this->table->add_row($r->KODE_JENISUSER, $r->NAMA_USER,$r->ALAMAT_USER,$r->NOR_TELEPON_USER,$r->TANGGAL_LAHIR_USER,$r->KODE_POS_USER,$r->EMAIL_USER,$r->JUMLAH_REPORT_USER,$r->KETERANGAN_USER, anchor('master_user/detail/user/'.$r->KODE_USER,'Detail'));
-                }
+              foreach($arrObj as $r){
+                $this->table->add_row($r->KODE_KARTU_KREDIT, $r->NAMA_KARTU_KREDIT,$r->ALAMAT_KARTU_KREDIT,$r->NOMOR_TELEPON_KARTU_KREDIT,$r->WEBSITE_KARTU_KREDIT,$r->KETERANGAN_KARTU_KREDIT,anchor('master_user/detail/kartu_kredit/'.$r->KODE_KARTU_KREDIT,'Detail'));
               }
-
               echo $this->table->generate();
-              ?>
+            ?>
           </div>
         </div>
       </div>

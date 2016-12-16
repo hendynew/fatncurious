@@ -352,21 +352,6 @@
                         echo '</div><br><br>';
                         ?>
 
-                        <h2>Report <?php echo $nama?></h2>
-                        <?php
-
-                        echo '<div class="table-responsive">';
-                        $this->table->set_heading('Nama User','Alasan','Tanggal','Waktu','Keterangan');
-                        $tmp = array('table_open'=>'<table class="example table table-striped jambo_table">','heading_row_start'=>'<th class="column-title">','row_start'=>'<tr class="odd pointer"><td></td>','row_alt_start'=> '<tr class="even pointer"><td></td>');
-                        $this->table->set_template($tmp);
-
-                        foreach($data5 as $d){
-                          $this->table->add_row(anchor('master_user/detail/user/'.$d->KODE,$d->NAMA),$d->ALASAN,$d->TANGGAL,$d->WAKTU,$d->KETERANGAN);
-                        }
-                        echo $this->table->generate();
-                        echo '</div><br><br>';
-                        ?>
-
                   </div>
                 </div>
               </div>
