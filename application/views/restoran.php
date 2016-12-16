@@ -344,8 +344,12 @@
 					echo "<div class='media'>";
 						echo "<div class='media-left'>";
 						echo "<a href='#'>";
+            if($p->FOTO_PROMO == ''){
+              $url = 'default.jpg';
+            }else $url = $p->FOTO_PROMO;
+            $url_full = base_url("/vendors/images/promo/" . $url);
 		?>
-							<img class="media-object img-rounded img-responsive fotoPromo"  src="<?php echo base_url('/vendors/images/promo/'.$p->FOTO_PROMO);?>" alt="...">
+							<img class="media-object img-rounded img-responsive fotoPromo"  src="<?php echo $url_full;?>" alt="...">
 		<?php
 						echo "</a>";
 						echo "</div>";

@@ -26,6 +26,65 @@ class Fatncurious_model_user extends CI_Model {
 		return $data->row();
 	}
 
+	public function sudahPernahReport($userReporting,$userReported){
+		$data = $this->db->query("SELECT count(*) as 'jumlah', STATUS FROM report_user where KODE_USER_REPORTING='$userReporting' and KODE_USER_REPORTED='$userReported'");
+		if($data->row()->jumlah!=0){
+			return $data->row()->STATUS;
+		}
+		else{
+			return -1;
+		}
+	}
+
+	public function generateKodeReport(){
+		$count = $this->db->count_all('report_user') + 1;
+		return 'TU' . str_pad($count, 3, "0", STR_PAD_LEFT);
+	}
+
+	public function jumlahReport($userReported){
+		$data = $this->db->query("SELECT JUMLAH_REPORT_USER as 'jumlah' FROM user where KODE_USER='$userReported'");
+		return $data->row();
+	}
+
+	public function reportUser($userReporting,$userReported){
+		$kode = $this->generateKodeReport();
+		$report = array(
+			'KODE_REPORT_USER' => $kode,
+			'KODE_USER_REPORTING' => $userReporting,
+			'KODE_USER_REPORTED' => $userReported,
+			'ALASAN' => '',
+			'KETERANGAN' => '',
+			'STATUS' => '1'
+		);
+		$this->db->insert('report_user', $report);
+
+		$jumlahSekarang = $this->jumlahReport($userReported);
+		$this->db->where('KODE_USER',$userReported);
+		$this->db->update('user',array('JUMLAH_REPORT_USER'=>($jumlahSekarang->jumlah+1)));
+	}
+
+
+	public function updateReport($userReporting,$userReported,$status){
+		$statusAngka = 999;
+		if($status==1){
+			$statusAngka=0;
+			$jumlahSekarang = $this->jumlahReport($userReported);
+			$this->db->where('KODE_USER',$userReported);
+			$this->db->update('user',array('JUMLAH_REPORT_USER'=>($jumlahSekarang->jumlah-1)));
+		}
+		else if($status==0){
+			$statusAngka=1;
+			$jumlahSekarang = $this->jumlahReport($userReported);
+			$this->db->where('KODE_USER',$userReported);
+			$this->db->update('user',array('JUMLAH_REPORT_USER'=>($jumlahSekarang->jumlah+1)));
+		}
+		$this->db->where('KODE_USER_REPORTING',$userReporting);
+		$this->db->where('KODE_USER_REPORTED',$userReported);
+		$this->db->update('report_user',array('STATUS'=>$statusAngka));
+
+	}
+
+
 	public function SELECT($var)
 	{
 		$data = $this->db->query("SELECT * FROM " . $var . " WHERE STATUS='1'");

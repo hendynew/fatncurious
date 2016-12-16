@@ -432,8 +432,37 @@ class Fatncurious extends CI_Controller {
 			else{
 				$this->load->model("model_notifikasi");
 				$data['notifikasi'] = $this->model_notifikasi->SELECT($kodeUser);
+				$this->load->model("fatncurious_model_user");
+				$data['pernahReport'] = $this->fatncurious_model_user->sudahPernahReport($kodeuser,$kode);
+				$data['jumlahReport'] = $this->fatncurious_model_user->jumlahReport($kode);
 				$this->load->view('lihatProfilUserLain',$data);
 			}
+	}
+
+	public function reportUser(){
+		$this->load->model('fatncurious_model_user');
+		$status='';
+		//echo "<script>alert($.session.get('deskripsiReview'));</script>";
+		if($this->session->userdata('userYangLogin')){
+			$kodeUser = $this->session->userdata('userYangLogin')->KODE_USER;
+			if($this->fatncurious_model_user->sudahPernahReport($kodeUser,$_POST['kode']) != -1){
+				if($this->fatncurious_model_user->sudahPernahReport($kodeUser,$_POST['kode'])!= -1){
+					$status=$this->fatncurious_model_user->sudahPernahReport($kodeUser,$_POST['kode']);
+				}
+				$this->fatncurious_model_user->updateReport($kodeUser,$_POST['kode'],$status);
+				$jumlahReport = $this->fatncurious_model_user->jumlahReport($_POST['kode']);
+				echo 'Berhasil Update'.$jumlahReport->jumlah;
+			}
+			else{
+				$this->fatncurious_model_user->reportUser($kodeUser,$_POST['kode']);
+				$jumlahReport = $this->fatncurious_model_user->jumlahReport($_POST['kode']);
+				echo 'Berhasil Report'.$jumlahReport->jumlah;
+			}
+
+		}
+		else{
+			echo "Login Dahulu";
+		}
 	}
 
 	public function likeComment(){

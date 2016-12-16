@@ -233,8 +233,13 @@
 						echo "<li class='media'>";
 							echo "<div class='media-right'>";
 								echo "<a href='#'>";
+
+                if($r->FOTO_PROMO == ''){
+                  $url = 'default.jpg';
+                }else $url = $r->FOTO_PROMO;
+                $url_full = base_url("/vendors/images/promo/" . $url);
 	?>
-									<img class='media-object img-rounded gambarPromo' src='<?php echo base_url("/vendors/images/promo/".$r->FOTO_PROMO);?>' alt='...'>
+									<img class='media-object img-rounded gambarPromo' src='<?php echo $url_full;?>' alt='...'>
 	<?php
 								echo "</a>";
 							echo "</div>";

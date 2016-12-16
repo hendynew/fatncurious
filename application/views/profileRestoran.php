@@ -242,7 +242,7 @@
         echo "<div class='media' id=".$p->KODE_PROMO." style='margin-bottom:30px;'>";
 				echo "<div class='media-left'>";
         $url = base_url('/vendors/images/promo/default.jpg');
-        if($p->FOTO_PROMO != ''){
+        if($p->FOTO_PROMO != '' || $p->FOTO_PROMO != null){
           $url = base_url('/vendors/images/promo/'.$p->FOTO_PROMO);
         }
 		?>
