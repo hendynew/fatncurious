@@ -340,7 +340,7 @@ $(".del_notif").on("click",function()
 
 	$.post(url,{ kode: kodenotif},
 	function(result){
-		
+
 	});
 });
 
@@ -380,3 +380,30 @@ $('#modalUpdatePromo').on('show.bs.modal', function (event) {
 $('.loginRegister').find('form').click(function (e) {
         e.stopPropagation();
       });
+
+$(".reporting").on("click",function()
+{
+	//var statusRestoran = $(this).attr("value");
+	var url = $(this).attr("data-url");
+	var kodeUser = $(this).attr("data-kodeuser1");
+	var id = $(this).attr("id");
+	var id2 = id+'r';
+	//alert(id2);
+	$.post(url,{ kode: kodeUser},
+	function(result){
+		alert(result.substr(0,15));
+		//alert(document.getElementById(id2).innerHTML);
+			if(result!="Login Dahulu"){
+				if(document.getElementById(id).innerHTML=="Report This User"){
+					document.getElementById(id).innerHTML="Delete Report From This User";
+					var jumlah = result.substr(15,1);
+					document.getElementById(id2).innerHTML = "<span  class='glyphicon glyphicon-flag' aria-hidden='true'></span>"+jumlah;
+				}
+				else if(document.getElementById(id).innerHTML=="Delete Report From This User"){
+					document.getElementById(id).innerHTML="Report This User";
+					var jumlah = result.substr(15,1);
+					document.getElementById(id2).innerHTML = "<span  class='glyphicon glyphicon-flag' aria-hidden='true'></span>"+jumlah;
+				}
+			}
+	});
+});

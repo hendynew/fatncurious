@@ -181,10 +181,20 @@
             </div>
               <h1> <?php echo $user->NAMA_USER;?>
               </h1>
+              <?php  //print_r($pernahReport);?>
               <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span><?php echo $user->ALAMAT_USER;?></p>
               <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><?php echo $user->NOR_TELEPON_USER ;?> </p>
               <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><?php echo $user->EMAIL_USER ;?>  </p>
-              <p><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo $user->JUMLAH_REPORT_USER ;?></p>
+              <p id="<?php echo $user->KODE_USER.'r';?>"><span  class="glyphicon glyphicon-flag" aria-hidden="true"></span><?php echo $user->JUMLAH_REPORT_USER ;?></p>
+              <?php
+                if($pernahReport== 1){
+                  $isi="Delete Report From This User";
+                }
+                else if($pernahReport== 0 ||$pernahReport== -1){
+                  $isi = "Report This User";
+                }
+              ?>
+              <p><button id="<?php echo $user->KODE_USER;?>" class="btn btn-danger reporting" data-kodeuser1="<?php echo $user->KODE_USER;?>" data-url="<?php echo site_url('fatncurious/reportUser') ?>" style="border-radius:8px;"><?php echo $isi;?></button></p>
           </div>
         </div>
       </div>
